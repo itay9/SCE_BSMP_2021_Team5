@@ -17,6 +17,14 @@ def login(user,password):
             print("wrong password!")
             return False
 
+def register():
+    user = input("enter user name: ")
+    cursor.execute("SELECT * FROM users WHERE userName = '" + user + "'")
+    fet = cursor.fetchone()
+    if fet is None:
+        print("register")
+        #TODO register new user
+    else:
+        print("user already exist!, select diffrent user name!")
 
-
-
+register()

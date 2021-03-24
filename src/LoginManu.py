@@ -17,8 +17,5 @@ else:
         print("login succss!")
     else:
         print("wrong password!")
-#teasdasd
-#aasd
-#test
 
 

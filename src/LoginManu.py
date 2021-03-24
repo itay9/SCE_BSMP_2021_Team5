@@ -24,7 +24,7 @@ def register_parent():
     if fet is None:
         password = input("enter password: ")
         cursor.execute("INSERT INTO users VALUES ('"+user+"','"+password+"','parent')")
-        print("register complete!")
+        print("register parent complete!")
         #TODO register new user
     else:
         print("user already exist!, select diffrent user name!")
@@ -36,8 +36,7 @@ def register_kid():
     if fet is None:
         password = input("enter password: ")
         cursor.execute("INSERT INTO users VALUES ('"+user+"','"+password+"','kid')")
-        print("register complete!")
-        #TODO register new user
+        print("register kid complete!")
     else:
         print("user already exist!, select diffrent user name!")
 register_parent()

@@ -3,7 +3,21 @@ import sqlite3
 conn = sqlite3.connect("usersDB.db")
 cursor = conn.cursor()
 
-def login(user,password):
+#DB init table
+def db_init():
+    cursor.execute("""CREATE TABLE users
+                (userName text,
+                pass text,
+                type text,
+                parent)""")  # type is admin , parent or kid
+    #db insert rows
+    cursor.execute("INSERT INTO users VALUES ('itay','123','admin','')")
+    cursor.execute("INSERT INTO users VALUES ('yaron','123','parent','')")
+    cursor.execute("INSERT INTO users VALUES ('chen','123','kid','yaron')")
+    cursor.execute("INSERT INTO users VALUES ('yaniv','123','kid','yaron')")
+    conn.commit()
+
+def login(user, password):
     """
     Args:
         user: string
@@ -13,7 +27,7 @@ def login(user,password):
             error message user or pass
 
     """
-    cursor.execute("SELECT * FROM users WHERE userName = '"+user+"'")
+    cursor.execute("SELECT * FROM users WHERE userName = '" + user + "'")
     fet = cursor.fetchone()
     if fet is None:
         print("user does not exist!")
@@ -21,12 +35,13 @@ def login(user,password):
     else:
         if fet[1] == password:
             print("login succss!")
-            return fet[0] #return user name
+            return fet[0]  # return user name
         else:
             print("wrong password!")
             return "Wrong password"
 
-def register_parent(user,password):
+
+def register_parent(user, password):
     """
 
     Args:
@@ -39,14 +54,16 @@ def register_parent(user,password):
     cursor.execute("SELECT * FROM users WHERE userName = '" + user + "'")
     fet = cursor.fetchone()
     if fet is None:
-        cursor.execute("INSERT INTO users VALUES ('"+user+"','"+password+"','parent','None')")
+        cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','parent','None')")
+        conn.commit()
         print("register parent complete!")
         return True
     else:
         print("user already exist!, select different user name!")
         return False
 
-def register_kid(user,password,parent):
+
+def register_kid(user, password, parent):
     """
 
     Args:
@@ -62,14 +79,16 @@ def register_kid(user,password,parent):
     cursor.execute("SELECT * FROM users WHERE userName = '" + user + "'")
     fet = cursor.fetchone()
     if fet is None:
-        cursor.execute("INSERT INTO users VALUES ('"+user+"','"+password+"','kid','"+parent+"')")
+        cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','kid','" + parent + "')")
+        conn.commit()
         print("register kid complete!")
         return True
     else:
         print("user already exist!, select different user name!")
         return False
 
-def register_admin(user,password):
+
+def register_admin(user, password):
     """
 
     Args:
@@ -84,27 +103,76 @@ def register_admin(user,password):
     cursor.execute("SELECT * FROM users WHERE userName = '" + user + "'")
     fet = cursor.fetchone()
     if fet is None:
-        cursor.execute("INSERT INTO users VALUES ('"+user+"','"+password+"','admin','None')")
+        cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','admin','None')")
+        conn.commit()
         print("register admin complete!")
         return True
     else:
         print("user already exist!, select different user name!")
         return False
 
+
 def get_kids(parent):
-    cursor.execute("SELECT * FROM users WHERE parent = '" + parent + "'")
+    """
+
+    Args:
+        parent:
+
+    Returns: list of parent kids
+
+    """
+    cursor.execute("SELECT * FROM users WHERE parent='" + parent + "'")
     fet = cursor.fetchall()
-    if len(fet)==0:
-        print(parent,"has no kids in the system!")
+    if len(fet) == 0:
+        print(parent, "has no kids in the system!")
     else:
+        kids_list = []
         for kid in fet:
-            print(kid[0])
+            kids_list.append(kid[0])
+        print(kids_list)
+        return kids_list
 
 
-#test
+def remove_user(user):
+    """
+    func to remove user from DB
+    if have kids remove the kids
+    Args:
+        user: user to remove
+
+    Returns:
+        false if user not exsist
+        True if exist
+
+    """
+    cursor.execute("SELECT * FROM users WHERE userName ='" + user + "'")
+    fet = cursor.fetchone()
+    if fet is None:
+        print("user no exist")
+        return False
+    if fet[2] == "parent":
+        for kid in get_kids(user):
+            cursor.execute("DELETE FROM users WHERE userName= '" + kid + "'")
+    cursor.execute("DELETE FROM users WHERE userName= '" + user + "'")
+    conn.commit()
+    print("remove complete")
+
+
+# test
 """
 login("itay","123") #ok
 login("yaron","11234") #wrong pass
 login("aa","aaa") #wrong user
-"""
 get_kids("yaron")
+"""
+register_parent("a", "123")
+register_kid("b", "123", "a")
+register_kid("c", "123", "a")
+get_kids("a")
+login("a", "123")
+login("b", "123")
+login("c", "123")
+remove_user("a")
+login("a", "123")
+login("b", "123")
+login("c", "123")

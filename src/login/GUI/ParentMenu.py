@@ -1,7 +1,14 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from MainMenu import Ui_mainMenu
 
 class Ui_parentMenu(object):
+
+    def mainMenu_UI(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = Ui_mainMenu()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
     def setupUi(self, parentMenu):
         parentMenu.setObjectName("parentMenu")
         parentMenu.resize(795, 577)
@@ -45,6 +52,8 @@ class Ui_parentMenu(object):
         self.DeleteParentUser.setObjectName("DeleteParentUser")
         self.LogOut = QtWidgets.QPushButton(self.centralwidget)
         self.LogOut.setGeometry(QtCore.QRect(320, 480, 141, 51))
+        self.LogOut.clicked.connect(self.mainMenu_UI)
+        self.LogOut.clicked.connect(parentMenu.close)
         font = QtGui.QFont()
         font.setFamily("Arial Black")
         font.setPointSize(12)

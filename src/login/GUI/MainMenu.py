@@ -1,4 +1,3 @@
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 from ParentRegister import Ui_parentRegister
 
@@ -8,7 +7,6 @@ class Ui_mainMenu(object):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_parentRegister()
         self.ui.setupUi(self.window)
-        mainMenu.hide()
         self.window.show()
 
     def setupUi(self, mainMenu):
@@ -35,6 +33,7 @@ class Ui_mainMenu(object):
         self.parentRegisterButton.setFont(font)
         self.parentRegisterButton.setObjectName("parentRegisterButton")
         self.parentRegisterButton.clicked.connect(self.openParentRegister)
+        self.parentRegisterButton.clicked.connect(mainMenu.close)
         self.title = QtWidgets.QLabel(self.centralwidget)
         self.title.setGeometry(QtCore.QRect(90, 20, 481, 121))
         font = QtGui.QFont()

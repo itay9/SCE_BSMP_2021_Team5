@@ -1,7 +1,14 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from Success_POP import Ui_Parent_Registered
 
 class Ui_parentRegister(object):
+
+    def Success_UI(self):
+        self.window = QtWidgets.QWidget()
+        self.ui = Ui_Parent_Registered()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
     def setupUi(self, parentRegister):
         parentRegister.setObjectName("parentRegister")
         parentRegister.resize(795, 506)
@@ -43,6 +50,10 @@ class Ui_parentRegister(object):
         self.userLabel.setObjectName("userLabel")
         self.registerButton = QtWidgets.QPushButton(self.centralwidget)
         self.registerButton.setGeometry(QtCore.QRect(480, 340, 131, 41))
+
+        self.registerButton.clicked.connect(self.Success_UI)
+
+
         font = QtGui.QFont()
         font.setFamily("Arial Black")
         font.setPointSize(12)
@@ -52,6 +63,8 @@ class Ui_parentRegister(object):
         self.registerButton.setObjectName("registerButton")
         self.exitButton = QtWidgets.QPushButton(self.centralwidget)
         self.exitButton.setGeometry(QtCore.QRect(630, 340, 131, 41))
+
+        #self.exitButton.clicked.connect(""" Make Function for returing to main""")
         font = QtGui.QFont()
         font.setFamily("Arial Black")
         font.setPointSize(12)

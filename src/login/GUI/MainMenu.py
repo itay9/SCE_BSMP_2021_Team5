@@ -79,12 +79,14 @@ class Ui_mainMenu(object):
         self.statusbar = QtWidgets.QStatusBar(mainMenu)
         self.statusbar.setObjectName("statusbar")
         mainMenu.setStatusBar(self.statusbar)
+        #bttn func
         self.loginButton.clicked.connect(self.onClick)
         self.retranslateUi(mainMenu)
         QtCore.QMetaObject.connectSlotsByName(mainMenu)
 
     def onClick(self):
         DB.login(self.userNameInput.text(),self.pwInput.text())
+        nextWindow =
 
     def retranslateUi(self, mainMenu):
         _translate = QtCore.QCoreApplication.translate

@@ -173,6 +173,12 @@ def remove_user(user):
     print("remove complete")
     return True
 
+def get_type(user):
+    cursor.execute("SELECT * FROM users WHERE userName ='" + user + "'")
+    fet = cursor.fetchone()
+    if fet is not None:
+        return fet[2]
+
 # test
 """
 login("itay","123") #ok

@@ -150,6 +150,9 @@ def remove_user(user):
     if fet is None:
         print("user no exist")
         return False
+    if fet[2] == "admin":
+        print("cannot delete ADMIN user !")
+        return False
     if fet[2] == "parent":
         for kid in get_kids(user):
             cursor.execute("DELETE FROM users WHERE userName= '" + kid + "'")

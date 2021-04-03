@@ -5,19 +5,22 @@ cursor = conn.cursor()
 
 currentUser = ""
 sassionFlag = False
-#DB init table
+
+
+# DB init table
 def db_init():
     cursor.execute("""CREATE TABLE users
                 (userName text,
                 pass text,
                 type text, 
-                parent text)""")   # type is admin , parent or kid
-    #db insert rows
+                parent text)""")  # type is admin , parent or kid
+    # db insert rows
     cursor.execute("INSERT INTO users VALUES ('itay','123','admin','')")
     cursor.execute("INSERT INTO users VALUES ('yaron','123','parent','')")
     cursor.execute("INSERT INTO users VALUES ('chen','123','kid','yaron')")
     cursor.execute("INSERT INTO users VALUES ('yaniv','123','kid','yaron')")
     conn.commit()
+
 
 def changeSassion(user):
     global currentUser
@@ -25,11 +28,13 @@ def changeSassion(user):
     currentUser = user
     sassionFlag = True
 
+
 def logOut():
     global currentUser
     global sassionFlag
     currentUser = ""
     sassionFlag = False
+
 
 def login(user, password):
     """
@@ -50,6 +55,7 @@ def login(user, password):
         if fet[1] == password:
 
             print("login succss!")
+            changeSassion(fet[0])
             return fet[0]  # return user name
         else:
             print("wrong password!")
@@ -173,11 +179,12 @@ def remove_user(user):
     print("remove complete")
     return True
 
+
 def get_type(user):
     cursor.execute("SELECT * FROM users WHERE userName ='" + user + "'")
     fet = cursor.fetchone()
-    if fet is not None:
-        return fet[2]
+    return fet[2]
+
 
 # test
 """

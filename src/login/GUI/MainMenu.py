@@ -2,7 +2,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from ParentRegister import Ui_parentRegister
 
-from src.login import DB
+from src.login.GUI import DB
 class Ui_mainMenu(object):
 
     def openParentRegister(self):

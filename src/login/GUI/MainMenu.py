@@ -86,7 +86,13 @@ class Ui_mainMenu(object):
 
     def onClick(self):
         DB.login(self.userNameInput.text(),self.pwInput.text())
-        nextWindow =
+        nextWindow = DB.get_type(DB.currentUser)
+        if nextWindow == "admin":
+            #TODO open admin window
+        elif nextWindow == "parent":
+            #TODO open parent window
+        elif nextWindow == "kid":
+            #TODO open kid window
 
     def retranslateUi(self, mainMenu):
         _translate = QtCore.QCoreApplication.translate

@@ -1,11 +1,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from Success_POP import Ui_Parent_Registered
+import Success_POP
 
 class Ui_parentRegister(object):
 
     def Success_UI(self):
         self.window = QtWidgets.QWidget()
-        self.ui = Ui_Parent_Registered()
+        self.ui = Success_POP.Ui_Parent_Registered()
         self.ui.setupUi(self.window)
         self.window.show()
 
@@ -52,7 +52,7 @@ class Ui_parentRegister(object):
         self.registerButton.setGeometry(QtCore.QRect(480, 340, 131, 41))
 
         self.registerButton.clicked.connect(self.Success_UI)
-
+        self.registerButton.clicked.connect(parentRegister.close)
 
         font = QtGui.QFont()
         font.setFamily("Arial Black")

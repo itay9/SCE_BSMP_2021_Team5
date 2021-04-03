@@ -1,14 +1,15 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-import ParentRegister
+import MainMenu
 
 
 class Ui_Parent_Registered(object):
 
-    # def rtrn_mainMenu(self):
-    #     self.window = QtWidgets.QMainWindow()
-    #     self.ui = MainMenu.Ui_mainMenu()
-    #     self.ui.setupUi(self.window)
-    #     self.window.show()
+    def rtrn_mainMenu(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = MainMenu.Ui_mainMenu()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
     def setupUi(self, Parent_Registered):
         Parent_Registered.setObjectName("Parent_Registered")
         Parent_Registered.resize(301, 123)
@@ -25,7 +26,8 @@ class Ui_Parent_Registered(object):
         self.Close_bttn.setGeometry(QtCore.QRect(100, 80, 93, 28))
         self.Close_bttn.setObjectName("Close_bttn")
 
-        #self.Close_bttn.clicked.connect(self.rtrn_mainMenu)
+        self.Close_bttn.clicked.connect(Parent_Registered.close)
+        self.Close_bttn.clicked.connect(self.rtrn_mainMenu)
 
         self.retranslateUi(Parent_Registered)
         QtCore.QMetaObject.connectSlotsByName(Parent_Registered)

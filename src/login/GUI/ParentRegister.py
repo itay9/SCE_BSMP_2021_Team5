@@ -1,11 +1,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from src.login.GUI import DB
+import Success_POP
 
 class Ui_parentRegister(object):
 
     def Success_UI(self):
         self.window = QtWidgets.QWidget()
-        self.ui = Ui_Parent_Registered()
+        self.ui = Success_POP.Ui_Parent_Registered()
         self.ui.setupUi(self.window)
         self.window.show()
 
@@ -52,7 +52,7 @@ class Ui_parentRegister(object):
         self.registerButton.setGeometry(QtCore.QRect(480, 340, 131, 41))
 
         self.registerButton.clicked.connect(self.Success_UI)
-
+        self.registerButton.clicked.connect(parentRegister.close)
 
         font = QtGui.QFont()
         font.setFamily("Arial Black")
@@ -77,17 +77,8 @@ class Ui_parentRegister(object):
         self.statusbar.setObjectName("statusbar")
         parentRegister.setStatusBar(self.statusbar)
 
-        #bttn func
-        self.registerButton.clicked.connect(self.regClick)
-        #self.exitButton.clicked.connect() #TODO exit
         self.retranslateUi(parentRegister)
         QtCore.QMetaObject.connectSlotsByName(parentRegister)
-
-    def regClick(self):
-        user = self.userNameInput.text()
-        pw = self.pwInput.text()
-        DB.register_parent(user,pw)
-
 
     def retranslateUi(self, parentRegister):
         _translate = QtCore.QCoreApplication.translate

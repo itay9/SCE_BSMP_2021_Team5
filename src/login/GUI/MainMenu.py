@@ -1,12 +1,12 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from ParentRegister import Ui_parentRegister
+import ParentRegister
 
 from src.login.GUI import DB
 class Ui_mainMenu(object):
 
     def openParentRegister(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_parentRegister()
+        self.ui = ParentRegister.Ui_parentRegister()
         self.ui.setupUi(self.window)
         self.window.show()
 

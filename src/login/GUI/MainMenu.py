@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from ParentRegister import Ui_parentRegister
 
+from src.login.GUI import DB
 class Ui_mainMenu(object):
 
     def openParentRegister(self):
@@ -8,6 +9,7 @@ class Ui_mainMenu(object):
         self.ui = Ui_parentRegister()
         self.ui.setupUi(self.window)
         self.window.show()
+
 
     def setupUi(self, mainMenu):
         mainMenu.setObjectName("mainMenu")
@@ -76,9 +78,23 @@ class Ui_mainMenu(object):
         self.statusbar = QtWidgets.QStatusBar(mainMenu)
         self.statusbar.setObjectName("statusbar")
         mainMenu.setStatusBar(self.statusbar)
-
+        #bttn func
+        self.loginButton.clicked.connect(self.onClick)
         self.retranslateUi(mainMenu)
         QtCore.QMetaObject.connectSlotsByName(mainMenu)
+
+    def onClick(self):
+        DB.login(self.userNameInput.text(),self.pwInput.text())
+        nextWindow = DB.get_type(DB.currentUser)
+        if nextWindow == "admin":
+            pass
+            #TODO open admin window
+        elif nextWindow == "parent":
+            pass
+            #TODO open parent window
+        elif nextWindow == "kid":
+            pass
+            #TODO open kid window
 
     def retranslateUi(self, mainMenu):
         _translate = QtCore.QCoreApplication.translate
@@ -88,6 +104,7 @@ class Ui_mainMenu(object):
         self.title.setText(_translate("mainMenu", "Welcome!"))
         self.userLabel.setText(_translate("mainMenu", "User Name:"))
         self.passLabel.setText(_translate("mainMenu", "Password:"))
+
 
 
 if __name__ == "__main__":

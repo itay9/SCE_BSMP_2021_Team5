@@ -1,7 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import ParentRegister
 import ParentMenu
-from src.login.GUI import DB
+import DB
+import KidMenu
 
 
 class Ui_mainMenu(object):
@@ -15,6 +16,12 @@ class Ui_mainMenu(object):
     def openParentMenu(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = ParentMenu.Ui_parentMenu()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
+    def openKidMenu(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = KidMenu.Ui_kidMenu()
         self.ui.setupUi(self.window)
         self.window.show()
 
@@ -101,7 +108,7 @@ class Ui_mainMenu(object):
             self.openParentMenu()
             #TODO open parent window
         elif nextWindow == "kid":
-            pass
+            self.openKidMenu()
             #TODO open kid window
 
     def retranslateUi(self, mainMenu):

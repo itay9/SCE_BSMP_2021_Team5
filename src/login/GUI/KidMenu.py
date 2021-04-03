@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+import DB
+import MainMenu
 
 class Ui_kidMenu(object):
     def setupUi(self, kidMenu):
@@ -39,8 +40,18 @@ class Ui_kidMenu(object):
         self.statusbar.setObjectName("statusbar")
         kidMenu.setStatusBar(self.statusbar)
 
+        self.logoutButton.clicked.connect(DB.logOut)
+        self.logoutButton.clicked.connect(self.mainMenu_UI)
+        self.logoutButton.clicked.connect(kidMenu.close)
+
         self.retranslateUi(kidMenu)
         QtCore.QMetaObject.connectSlotsByName(kidMenu)
+
+    def mainMenu_UI(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = MainMenu.Ui_mainMenu()
+        self.ui.setupUi(self.window)
+        self.window.show()
 
     def retranslateUi(self, kidMenu):
         _translate = QtCore.QCoreApplication.translate

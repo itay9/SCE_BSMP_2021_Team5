@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import MainMenu
+import DB
 
 class Ui_parentMenu(object):
 
@@ -55,7 +56,7 @@ class Ui_parentMenu(object):
 
         self.LogOut.clicked.connect(self.mainMenu_UI)
         self.LogOut.clicked.connect(parentMenu.close)
-
+        self.LogOut.clicked.connect(DB.logOut)
 
         font = QtGui.QFont()
         font.setFamily("Arial Black")

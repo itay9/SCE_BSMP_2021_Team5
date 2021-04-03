@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from src.login.GUI import DB
 
 class Ui_parentRegister(object):
     def setupUi(self, parentRegister):
@@ -64,8 +64,17 @@ class Ui_parentRegister(object):
         self.statusbar.setObjectName("statusbar")
         parentRegister.setStatusBar(self.statusbar)
 
+        #bttn func
+        self.registerButton.clicked.connect(self.regClick)
+        self.exitButton.clicked.connect() #TODO exit
         self.retranslateUi(parentRegister)
         QtCore.QMetaObject.connectSlotsByName(parentRegister)
+
+    def regClick(self):
+        user = self.userNameInput.text()
+        pw = self.pwInput.text()
+        DB.register_parent(user,pw)
+
 
     def retranslateUi(self, parentRegister):
         _translate = QtCore.QCoreApplication.translate

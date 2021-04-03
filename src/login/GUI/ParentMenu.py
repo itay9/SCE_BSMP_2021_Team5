@@ -52,8 +52,11 @@ class Ui_parentMenu(object):
         self.DeleteParentUser.setObjectName("DeleteParentUser")
         self.LogOut = QtWidgets.QPushButton(self.centralwidget)
         self.LogOut.setGeometry(QtCore.QRect(320, 480, 141, 51))
+
         self.LogOut.clicked.connect(self.mainMenu_UI)
         self.LogOut.clicked.connect(parentMenu.close)
+
+
         font = QtGui.QFont()
         font.setFamily("Arial Black")
         font.setPointSize(12)

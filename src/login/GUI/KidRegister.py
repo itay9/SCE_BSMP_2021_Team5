@@ -70,7 +70,7 @@ class Ui_kidRegister(object):
         font.setBold(True)
         font.setWeight(75)
         self.registerButton_2.setFont(font)
-        self.registerButton_2.setObjectName("registerButton_2")
+        self.registerButton_2.setObjectName("exitButton")
         kidRegister.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(kidRegister)

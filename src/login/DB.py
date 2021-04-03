@@ -8,8 +8,8 @@ def db_init():
     cursor.execute("""CREATE TABLE users
                 (userName text,
                 pass text,
-                type text,
-                parent)""")  # type is admin , parent or kid
+                type text, 
+                parent text)""")   # type is admin , parent or kid
     #db insert rows
     cursor.execute("INSERT INTO users VALUES ('itay','123','admin','')")
     cursor.execute("INSERT INTO users VALUES ('yaron','123','parent','')")
@@ -164,7 +164,7 @@ login("itay","123") #ok
 login("yaron","11234") #wrong pass
 login("aa","aaa") #wrong user
 get_kids("yaron")
-
+"""
 register_parent("a", "123")
 register_kid("b", "123", "a")
 register_kid("c", "123", "a")
@@ -176,4 +176,3 @@ remove_user("a")
 login("a", "123")
 login("b", "123")
 login("c", "123")
-"""

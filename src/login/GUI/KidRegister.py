@@ -62,15 +62,15 @@ class Ui_kidRegister(object):
         font.setWeight(75)
         self.registerButton.setFont(font)
         self.registerButton.setObjectName("registerButton")
-        self.registerButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.registerButton_2.setGeometry(QtCore.QRect(500, 310, 151, 51))
+        self.exit_Bttn = QtWidgets.QPushButton(self.centralwidget)
+        self.exit_Bttn.setGeometry(QtCore.QRect(500, 310, 151, 51))
         font = QtGui.QFont()
         font.setFamily("Arial Black")
         font.setPointSize(12)
         font.setBold(True)
         font.setWeight(75)
-        self.registerButton_2.setFont(font)
-        self.registerButton_2.setObjectName("exitButton")
+        self.exit_Bttn.setFont(font)
+        self.exit_Bttn.setObjectName("exit_Bttn")
         kidRegister.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(kidRegister)
@@ -83,7 +83,7 @@ class Ui_kidRegister(object):
         self.PW_label.setText(_translate("kidRegister", "Password:"))
         self.UName_label.setText(_translate("kidRegister", "Username:"))
         self.registerButton.setText(_translate("kidRegister", "Register"))
-        self.registerButton_2.setText(_translate("kidRegister", "Exit"))
+        self.exit_Bttn.setText(_translate("kidRegister", "Exit"))
 
 
 if __name__ == "__main__":

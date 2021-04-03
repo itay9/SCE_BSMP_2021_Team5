@@ -127,7 +127,7 @@
      <string>Register</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="registerButton_2">
+   <widget class="QPushButton" name="exit_Bttn">
     <property name="geometry">
      <rect>
       <x>500</x>

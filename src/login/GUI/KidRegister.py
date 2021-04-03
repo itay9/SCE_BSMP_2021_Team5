@@ -85,7 +85,7 @@ class Ui_kidRegister(object):
         self.registerButton.setText(_translate("kidRegister", "Register"))
         self.exit_Bttn.setText(_translate("kidRegister", "Exit"))
 
-
+#test
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)

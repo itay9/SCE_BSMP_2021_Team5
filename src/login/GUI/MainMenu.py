@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import ParentRegister
+import ParentMenu
 from src.login.GUI import DB
 
 
@@ -7,13 +8,13 @@ class Ui_mainMenu(object):
 
     def openParentRegister(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_parentRegister()
+        self.ui = ParentRegister.Ui_parentRegister()
         self.ui.setupUi(self.window)
         self.window.show()
 
     def openParentMenu(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_parentMenu()
+        self.ui = ParentMenu.Ui_parentMenu()
         self.ui.setupUi(self.window)
         self.window.show()
 
@@ -97,7 +98,7 @@ class Ui_mainMenu(object):
             pass
             #TODO open admin window
         elif nextWindow == "parent":
-            pass
+            self.openParentMenu()
             #TODO open parent window
         elif nextWindow == "kid":
             pass

@@ -56,6 +56,7 @@ def login(user, password):
 
             print("login succss!")
             changeSassion(fet[0])
+            print(currentUser)
             return fet[0]  # return user name
         else:
             print("wrong password!")

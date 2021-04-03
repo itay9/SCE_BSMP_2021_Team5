@@ -65,6 +65,7 @@ class Ui_kidRegister(object):
 
         self.retranslateUi(kidRegister)
         QtCore.QMetaObject.connectSlotsByName(kidRegister)
+    def onClick(self):
 
     def retranslateUi(self, kidRegister):
         _translate = QtCore.QCoreApplication.translate

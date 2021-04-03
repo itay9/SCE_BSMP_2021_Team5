@@ -3,6 +3,8 @@ import sqlite3
 conn = sqlite3.connect("usersDB.db")
 cursor = conn.cursor()
 
+currentUser = ""
+sassionFlag = False
 #DB init table
 def db_init():
     cursor.execute("""CREATE TABLE users
@@ -16,6 +18,18 @@ def db_init():
     cursor.execute("INSERT INTO users VALUES ('chen','123','kid','yaron')")
     cursor.execute("INSERT INTO users VALUES ('yaniv','123','kid','yaron')")
     conn.commit()
+
+def changeSassion(user):
+    global currentUser
+    global sassionFlag
+    currentUser = user
+    sassionFlag = True
+
+def logOut():
+    global currentUser
+    global sassionFlag
+    currentUser = ""
+    sassionFlag = False
 
 def login(user, password):
     """
@@ -34,6 +48,7 @@ def login(user, password):
         return "wrong user"
     else:
         if fet[1] == password:
+
             print("login succss!")
             return fet[0]  # return user name
         else:
@@ -158,13 +173,19 @@ def remove_user(user):
     print("remove complete")
     return True
 
+def get_type(user):
+    cursor.execute("SELECT * FROM users WHERE userName ='" + user + "'")
+    fet = cursor.fetchone()
+    if fet is not None:
+        return fet[2]
+
 # test
 """
 login("itay","123") #ok
 login("yaron","11234") #wrong pass
 login("aa","aaa") #wrong user
 get_kids("yaron")
-"""
+
 register_parent("a", "123")
 register_kid("b", "123", "a")
 register_kid("c", "123", "a")
@@ -176,3 +197,4 @@ remove_user("a")
 login("a", "123")
 login("b", "123")
 login("c", "123")
+"""

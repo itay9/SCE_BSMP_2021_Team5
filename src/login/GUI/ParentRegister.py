@@ -66,7 +66,7 @@ class Ui_parentRegister(object):
 
         #bttn func
         self.registerButton.clicked.connect(self.regClick)
-        self.exitButton.clicked.connect() #TODO exit
+        #self.exitButton.clicked.connect() #TODO exit
         self.retranslateUi(parentRegister)
         QtCore.QMetaObject.connectSlotsByName(parentRegister)
 

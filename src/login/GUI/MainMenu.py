@@ -88,10 +88,13 @@ class Ui_mainMenu(object):
         DB.login(self.userNameInput.text(),self.pwInput.text())
         nextWindow = DB.get_type(DB.currentUser)
         if nextWindow == "admin":
+            pass
             #TODO open admin window
         elif nextWindow == "parent":
+            pass
             #TODO open parent window
         elif nextWindow == "kid":
+            pass
             #TODO open kid window
 
     def retranslateUi(self, mainMenu):

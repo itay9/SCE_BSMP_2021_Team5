@@ -3,6 +3,8 @@ import sqlite3
 conn = sqlite3.connect("usersDB.db")
 cursor = conn.cursor()
 
+currentUser = ""
+sassionFlag = False
 #DB init table
 def db_init():
     cursor.execute("""CREATE TABLE users
@@ -16,6 +18,18 @@ def db_init():
     cursor.execute("INSERT INTO users VALUES ('chen','123','kid','yaron')")
     cursor.execute("INSERT INTO users VALUES ('yaniv','123','kid','yaron')")
     conn.commit()
+
+def changeSassion(user):
+    global currentUser
+    global sassionFlag
+    currentUser = user
+    sassionFlag = True
+
+def logOut():
+    global currentUser
+    global sassionFlag
+    currentUser = ""
+    sassionFlag = False
 
 def login(user, password):
     """
@@ -34,6 +48,7 @@ def login(user, password):
         return "wrong user"
     else:
         if fet[1] == password:
+
             print("login succss!")
             return fet[0]  # return user name
         else:

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'KidManu.ui'
+# Form implementation generated from reading ui file 'KidMenu.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -11,50 +11,60 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 600)
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+class Ui_kidMenu(object):
+    def setupUi(self, kidMenu):
+        kidMenu.setObjectName("kidMenu")
+        kidMenu.resize(800, 600)
+        self.centralwidget = QtWidgets.QWidget(kidMenu)
         self.centralwidget.setObjectName("centralwidget")
-        self.textBrowser = QtWidgets.QTextBrowser(self.centralwidget)
-        self.textBrowser.setGeometry(QtCore.QRect(30, 10, 721, 192))
-        self.textBrowser.setObjectName("textBrowser")
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(70, 270, 251, 81))
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton_5 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_5.setGeometry(QtCore.QRect(580, 480, 141, 51))
-        self.pushButton_5.setObjectName("pushButton_5")
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
-        self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.StartNewGameButton = QtWidgets.QPushButton(self.centralwidget)
+        self.StartNewGameButton.setGeometry(QtCore.QRect(260, 260, 261, 81))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(16)
+        font.setBold(True)
+        font.setWeight(75)
+        self.StartNewGameButton.setFont(font)
+        self.StartNewGameButton.setObjectName("StartNewGameButton")
+        self.logoutButton = QtWidgets.QPushButton(self.centralwidget)
+        self.logoutButton.setGeometry(QtCore.QRect(580, 480, 141, 51))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.logoutButton.setFont(font)
+        self.logoutButton.setObjectName("logoutButton")
+        self.title = QtWidgets.QLabel(self.centralwidget)
+        self.title.setGeometry(QtCore.QRect(160, 70, 481, 111))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(48)
+        font.setBold(True)
+        font.setWeight(75)
+        self.title.setFont(font)
+        self.title.setObjectName("title")
+        kidMenu.setCentralWidget(self.centralwidget)
+        self.statusbar = QtWidgets.QStatusBar(kidMenu)
         self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        kidMenu.setStatusBar(self.statusbar)
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi(kidMenu)
+        QtCore.QMetaObject.connectSlotsByName(kidMenu)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, kidMenu):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.textBrowser.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:28pt; font-weight:600; text-decoration: underline;\">Kid Manu</span></p></body></html>"))
-        self.pushButton.setText(_translate("MainWindow", "Start New Game"))
-        self.pushButton_5.setText(_translate("MainWindow", "Log Out"))
+        kidMenu.setWindowTitle(_translate("kidMenu", "MainWindow"))
+        self.StartNewGameButton.setText(_translate("kidMenu", "Start New Game"))
+        self.logoutButton.setText(_translate("kidMenu", "Log Out"))
+        self.title.setText(_translate("kidMenu", "Kids Menu"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    kidMenu = QtWidgets.QMainWindow()
+    ui = Ui_kidMenu()
+    ui.setupUi(kidMenu)
+    kidMenu.show()
     sys.exit(app.exec_())

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'MainManu.ui'
+# Form implementation generated from reading ui file 'MainMenu.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -11,61 +11,91 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(756, 580)
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+class Ui_mainMenu(object):
+    def setupUi(self, mainMenu):
+        mainMenu.setObjectName("mainMenu")
+        mainMenu.resize(684, 463)
+        self.centralwidget = QtWidgets.QWidget(mainMenu)
         self.centralwidget.setObjectName("centralwidget")
-        self.plainTextEdit = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.plainTextEdit.setGeometry(QtCore.QRect(140, 210, 311, 31))
-        self.plainTextEdit.setObjectName("plainTextEdit")
-        self.plainTextEdit_2 = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.plainTextEdit_2.setGeometry(QtCore.QRect(140, 260, 311, 31))
-        self.plainTextEdit_2.setObjectName("plainTextEdit_2")
-        self.textBrowser = QtWidgets.QTextBrowser(self.centralwidget)
-        self.textBrowser.setGeometry(QtCore.QRect(190, 40, 381, 131))
-        self.textBrowser.setObjectName("textBrowser")
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(200, 340, 141, 41))
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_2.setGeometry(QtCore.QRect(470, 340, 151, 41))
-        self.pushButton_2.setObjectName("pushButton_2")
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 756, 21))
+        self.loginButton = QtWidgets.QPushButton(self.centralwidget)
+        self.loginButton.setGeometry(QtCore.QRect(100, 340, 141, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.loginButton.setFont(font)
+        self.loginButton.setObjectName("loginButton")
+        self.parentRegisterButton = QtWidgets.QPushButton(self.centralwidget)
+        self.parentRegisterButton.setGeometry(QtCore.QRect(420, 340, 171, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.parentRegisterButton.setFont(font)
+        self.parentRegisterButton.setObjectName("parentRegisterButton")
+        self.title = QtWidgets.QLabel(self.centralwidget)
+        self.title.setGeometry(QtCore.QRect(90, 20, 351, 121))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(48)
+        font.setBold(True)
+        font.setWeight(75)
+        self.title.setFont(font)
+        self.title.setObjectName("title")
+        self.userLabel = QtWidgets.QLabel(self.centralwidget)
+        self.userLabel.setGeometry(QtCore.QRect(30, 200, 111, 21))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.userLabel.setFont(font)
+        self.userLabel.setObjectName("userLabel")
+        self.passLabel = QtWidgets.QLabel(self.centralwidget)
+        self.passLabel.setGeometry(QtCore.QRect(30, 260, 111, 21))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.passLabel.setFont(font)
+        self.passLabel.setObjectName("passLabel")
+        self.userNameInput = QtWidgets.QLineEdit(self.centralwidget)
+        self.userNameInput.setGeometry(QtCore.QRect(150, 200, 271, 31))
+        self.userNameInput.setObjectName("userNameInput")
+        self.pwInput = QtWidgets.QLineEdit(self.centralwidget)
+        self.pwInput.setGeometry(QtCore.QRect(150, 260, 271, 31))
+        self.pwInput.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.pwInput.setObjectName("pwInput")
+        mainMenu.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(mainMenu)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 684, 21))
         self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        mainMenu.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(mainMenu)
         self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        mainMenu.setStatusBar(self.statusbar)
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi(mainMenu)
+        QtCore.QMetaObject.connectSlotsByName(mainMenu)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, mainMenu):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.plainTextEdit.setPlainText(_translate("MainWindow", "User Name: "))
-        self.plainTextEdit_2.setPlainText(_translate("MainWindow", "Password:"))
-        self.textBrowser.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:18pt; font-weight:600; text-decoration: underline;\">Welcome to *NAME*!</span></p>\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:18pt; font-weight:600; text-decoration: underline;\"><br /></p>\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:18pt; font-weight:600; text-decoration: underline;\"><br /></p>\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:18pt; font-weight:600; text-decoration: underline;\"><br /></p></body></html>"))
-        self.pushButton.setText(_translate("MainWindow", "Log In"))
-        self.pushButton_2.setText(_translate("MainWindow", "Parent Register"))
+        mainMenu.setWindowTitle(_translate("mainMenu", "MainWindow"))
+        self.loginButton.setText(_translate("mainMenu", "Log In"))
+        self.parentRegisterButton.setText(_translate("mainMenu", "Parent Register"))
+        self.title.setText(_translate("mainMenu", "Welcome!"))
+        self.userLabel.setText(_translate("mainMenu", "User Name:"))
+        self.passLabel.setText(_translate("mainMenu", "Password:"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    mainMenu = QtWidgets.QMainWindow()
+    ui = Ui_mainMenu()
+    ui.setupUi(mainMenu)
+    mainMenu.show()
     sys.exit(app.exec_())

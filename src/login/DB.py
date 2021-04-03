@@ -164,7 +164,7 @@ login("itay","123") #ok
 login("yaron","11234") #wrong pass
 login("aa","aaa") #wrong user
 get_kids("yaron")
-
+"""
 register_parent("a", "123")
 register_kid("b", "123", "a")
 register_kid("c", "123", "a")
@@ -176,4 +176,3 @@ remove_user("a")
 login("a", "123")
 login("b", "123")
 login("c", "123")
-"""

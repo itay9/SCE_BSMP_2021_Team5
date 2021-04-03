@@ -11,66 +11,86 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 600)
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+class Ui_kidRegister(object):
+    def setupUi(self, kidRegister):
+        kidRegister.setObjectName("kidRegister")
+        kidRegister.resize(659, 400)
+        kidRegister.setMouseTracking(False)
+        self.centralwidget = QtWidgets.QWidget(kidRegister)
         self.centralwidget.setObjectName("centralwidget")
-        self.textBrowser = QtWidgets.QTextBrowser(self.centralwidget)
-        self.textBrowser.setGeometry(QtCore.QRect(20, 10, 771, 171))
-        self.textBrowser.setObjectName("textBrowser")
-        self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit.setGeometry(QtCore.QRect(50, 250, 311, 51))
-        self.textEdit.setObjectName("textEdit")
-        self.textEdit_2 = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit_2.setGeometry(QtCore.QRect(450, 250, 311, 51))
-        self.textEdit_2.setObjectName("textEdit_2")
-        self.buttonBox = QtWidgets.QDialogButtonBox(self.centralwidget)
-        self.buttonBox.setGeometry(QtCore.QRect(320, 390, 156, 23))
-        self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
-        self.buttonBox.setObjectName("buttonBox")
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
-        self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
-        self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        self.ChildRegister = QtWidgets.QLabel(self.centralwidget)
+        self.ChildRegister.setGeometry(QtCore.QRect(20, -70, 661, 271))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(48)
+        font.setBold(True)
+        font.setWeight(75)
+        self.ChildRegister.setFont(font)
+        self.ChildRegister.setObjectName("ChildRegister")
+        self.userName_input = QtWidgets.QLineEdit(self.centralwidget)
+        self.userName_input.setGeometry(QtCore.QRect(70, 160, 201, 41))
+        self.userName_input.setObjectName("userName_input")
+        self.PW_input = QtWidgets.QLineEdit(self.centralwidget)
+        self.PW_input.setGeometry(QtCore.QRect(70, 240, 201, 41))
+        self.PW_input.setInputMask("")
+        self.PW_input.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.PW_input.setObjectName("PW_input")
+        self.PW_label = QtWidgets.QLabel(self.centralwidget)
+        self.PW_label.setGeometry(QtCore.QRect(70, 220, 121, 16))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.PW_label.setFont(font)
+        self.PW_label.setObjectName("PW_label")
+        self.UName_label = QtWidgets.QLabel(self.centralwidget)
+        self.UName_label.setGeometry(QtCore.QRect(70, 140, 121, 16))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.UName_label.setFont(font)
+        self.UName_label.setObjectName("UName_label")
+        self.registerButton = QtWidgets.QPushButton(self.centralwidget)
+        self.registerButton.setGeometry(QtCore.QRect(340, 310, 151, 51))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.registerButton.setFont(font)
+        self.registerButton.setObjectName("registerButton")
+        self.registerButton_2 = QtWidgets.QPushButton(self.centralwidget)
+        self.registerButton_2.setGeometry(QtCore.QRect(500, 310, 151, 51))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.registerButton_2.setFont(font)
+        self.registerButton_2.setObjectName("registerButton_2")
+        kidRegister.setCentralWidget(self.centralwidget)
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi(kidRegister)
+        QtCore.QMetaObject.connectSlotsByName(kidRegister)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, kidRegister):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.textBrowser.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:20pt; font-weight:600; text-decoration: underline;\">Child Register Manu</span></p>\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:20pt; font-weight:600; text-decoration: underline;\"><br /></p>\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:20pt; font-weight:600; text-decoration: underline;\"><br /></p>\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:20pt; font-weight:600; text-decoration: underline;\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt; font-weight:600;\">for parent: *Parent name*</span></p></body></html>"))
-        self.textEdit.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14pt; font-weight:600; text-decoration: underline;\">User Name:</span></p></body></html>"))
-        self.textEdit_2.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14pt; font-weight:600; text-decoration: underline;\">Password:</span></p></body></html>"))
+        kidRegister.setWindowTitle(_translate("kidRegister", "MainWindow"))
+        self.ChildRegister.setText(_translate("kidRegister", "Child Register"))
+        self.PW_label.setText(_translate("kidRegister", "Password:"))
+        self.UName_label.setText(_translate("kidRegister", "Username:"))
+        self.registerButton.setText(_translate("kidRegister", "Register"))
+        self.registerButton_2.setText(_translate("kidRegister", "Exit"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    kidRegister = QtWidgets.QMainWindow()
+    ui = Ui_kidRegister()
+    ui.setupUi(kidRegister)
+    kidRegister.show()
     sys.exit(app.exec_())

@@ -1,11 +1,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from MainMenu import Ui_mainMenu
+import MainMenu
 
 class Ui_parentMenu(object):
 
     def mainMenu_UI(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_mainMenu()
+        self.ui = MainMenu.Ui_mainMenu()
         self.ui.setupUi(self.window)
         self.window.show()
 

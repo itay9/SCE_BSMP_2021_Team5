@@ -13,7 +13,7 @@ def db_init():
                 (userName text,
                 pass text,
                 type text, 
-                parent text
+                parent text,
                 canReg integer)""")  # type is admin , parent or kid
     # db insert rows #new !
     cursor.execute("INSERT INTO users VALUES ('itay','123','admin','',1)")

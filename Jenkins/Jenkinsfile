@@ -10,10 +10,10 @@ pipeline {
             }
             steps {
                 sh 'python --version'
-                sh 'python -m py_compile src/LoginManu.py'
+                sh 'python -m py_compile src/login/GUI/*.py'
             }
         }
-        stage('Test') {
+        """stage('Test') {
             agent {
                 docker {
                     image 'qnib/pytest'
@@ -22,6 +22,6 @@ pipeline {
             steps {
                 sh 'py.test --verbose --junit-xml test-reports/results.xml src/test_integration.py'
             }            
-        }
+        }"""
     }
 }

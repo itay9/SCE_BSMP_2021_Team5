@@ -94,7 +94,7 @@ class Ui_parentMenu(object):
 
     def retranslateUi(self, parentMenu):
         _translate = QtCore.QCoreApplication.translate
-        parentMenu.setWindowTitle(_translate("parentMenu", "MainWindow"))
+        parentMenu.setWindowTitle(_translate("parentMenu", "Parent Menu")) #new
         self.ViewChildData.setText(_translate("parentMenu", "View Child Data"))
         self.registerChild.setText(_translate("parentMenu", "Register Child "))
         self.DeleteChild.setText(_translate("parentMenu", "Delete Child"))

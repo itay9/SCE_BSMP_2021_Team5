@@ -1,10 +1,15 @@
 pipeline {
     agent { docker { image 'python:3.7' } }
     stages {
-        stage('build') {
+        stage('Build') {
             steps {
                 sh 'python --version'
                 sh 'python -m py_compile src/LoginManu.py'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'py.test --verbose --junit-xml test-reports/results.xml src/test_integration.py'
             }
         }
     }

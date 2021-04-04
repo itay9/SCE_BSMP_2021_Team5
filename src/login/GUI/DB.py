@@ -13,12 +13,13 @@ def db_init():
                 (userName text,
                 pass text,
                 type text, 
-                parent text)""")  # type is admin , parent or kid
-    # db insert rows
-    cursor.execute("INSERT INTO users VALUES ('itay','123','admin','')")
-    cursor.execute("INSERT INTO users VALUES ('yaron','123','parent','')")
-    cursor.execute("INSERT INTO users VALUES ('chen','123','kid','yaron')")
-    cursor.execute("INSERT INTO users VALUES ('yaniv','123','kid','yaron')")
+                parent text
+                canReg integer)""")  # type is admin , parent or kid
+    # db insert rows #new !
+    cursor.execute("INSERT INTO users VALUES ('itay','123','admin','',1)")
+    cursor.execute("INSERT INTO users VALUES ('yaron','123','parent','',1)")
+    cursor.execute("INSERT INTO users VALUES ('chen','123','kid','yaron',0)")
+    cursor.execute("INSERT INTO users VALUES ('yaniv','123','kid','yaron',0)")
     conn.commit()
 
 
@@ -27,6 +28,7 @@ def changeSassion(user):
     global sassionFlag
     currentUser = user
     sassionFlag = True
+    print(currentUser) #new
 
 
 def logOut():
@@ -34,6 +36,7 @@ def logOut():
     global sassionFlag
     currentUser = ""
     sassionFlag = False
+    print("session clear") #new
 
 
 def login(user, password):
@@ -53,10 +56,8 @@ def login(user, password):
         return "wrong user"
     else:
         if fet[1] == password:
-
             print("login succss!")
             changeSassion(fet[0])
-            print(currentUser)
             return fet[0]  # return user name
         else:
             print("wrong password!")
@@ -76,7 +77,7 @@ def register_parent(user, password):
     cursor.execute("SELECT * FROM users WHERE userName = '" + user + "'")
     fet = cursor.fetchone()
     if fet is None:
-        cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','parent','None')")
+        cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','parent','None',0)") #new
         conn.commit()
         print("register parent complete!")
         return True
@@ -101,7 +102,7 @@ def register_kid(user, password, parent):
     cursor.execute("SELECT * FROM users WHERE userName = '" + user + "'")
     fet = cursor.fetchone()
     if fet is None:
-        cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','kid','" + parent + "')")
+        cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','kid','" + parent + "',0)") #new
         conn.commit()
         print("register kid complete!")
         return True
@@ -125,7 +126,7 @@ def register_admin(user, password):
     cursor.execute("SELECT * FROM users WHERE userName = '" + user + "'")
     fet = cursor.fetchone()
     if fet is None:
-        cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','admin','None')")
+        cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','admin','None',1)") #new
         conn.commit()
         print("register admin complete!")
         return True

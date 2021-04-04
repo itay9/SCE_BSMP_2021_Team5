@@ -1,5 +1,4 @@
 import unittest
-import LoginManu
 
 class TestIntegration(unittest.TestCase):
   """

@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'py.test --verbose --junit-xml test-reports/results.xml src/test_integration.py'
+                sh 'python -m pytest src/test_integration.py'
             }
         }
     }

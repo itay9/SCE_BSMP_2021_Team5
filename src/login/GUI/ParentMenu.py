@@ -1,8 +1,16 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import MainMenu
+import deleteChild
+
 import DB
 
 class Ui_parentMenu(object):
+
+    def openChildDelete(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = deleteChild.Ui_ChildTableDelete()
+        self.ui.setupUi(self.window)
+        self.window.show()
 
     def mainMenu_UI(self):
         self.window = QtWidgets.QMainWindow()
@@ -34,6 +42,10 @@ class Ui_parentMenu(object):
         self.registerChild.setFont(font)
         self.registerChild.setObjectName("registerChild")
         self.DeleteChild = QtWidgets.QPushButton(self.centralwidget)
+
+        self.DeleteChild.clicked.connect(self.openChildDelete)
+        self.DeleteChild.clicked.connect(parentMenu.close)
+
         self.DeleteChild.setGeometry(QtCore.QRect(50, 370, 201, 71))
         font = QtGui.QFont()
         font.setFamily("Arial Black")
@@ -56,6 +68,7 @@ class Ui_parentMenu(object):
 
         self.LogOut.clicked.connect(self.mainMenu_UI)
         self.LogOut.clicked.connect(parentMenu.close)
+
         self.LogOut.clicked.connect(DB.logOut)
 
         font = QtGui.QFont()
@@ -92,6 +105,7 @@ class Ui_parentMenu(object):
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     parentMenu = QtWidgets.QMainWindow()
     ui = Ui_parentMenu()

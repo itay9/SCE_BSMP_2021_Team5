@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>743</width>
+    <height>501</height>
    </rect>
   </property>
   <property name="cursor">
@@ -20,8 +20,8 @@
    <widget class="QPushButton" name="logOutButton">
     <property name="geometry">
      <rect>
-      <x>310</x>
-      <y>490</y>
+      <x>290</x>
+      <y>410</y>
       <width>141</width>
       <height>51</height>
      </rect>
@@ -45,7 +45,7 @@
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>230</y>
+      <y>140</y>
       <width>251</width>
       <height>81</height>
      </rect>
@@ -65,9 +65,9 @@
    <widget class="QPushButton" name="viewChildResultButton">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>230</y>
-      <width>251</width>
+      <x>400</x>
+      <y>140</y>
+      <width>291</width>
       <height>81</height>
      </rect>
     </property>
@@ -86,9 +86,9 @@
    <widget class="QPushButton" name="viewQuestionsButton">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>360</y>
-      <width>251</width>
+      <x>410</x>
+      <y>290</y>
+      <width>281</width>
       <height>81</height>
      </rect>
     </property>
@@ -107,9 +107,9 @@
    <widget class="QLabel" name="title">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>60</y>
-      <width>561</width>
+      <x>40</x>
+      <y>20</y>
+      <width>661</width>
       <height>101</height>
      </rect>
     </property>
@@ -129,7 +129,7 @@
     <property name="geometry">
      <rect>
       <x>50</x>
-      <y>360</y>
+      <y>290</y>
       <width>251</width>
       <height>81</height>
      </rect>

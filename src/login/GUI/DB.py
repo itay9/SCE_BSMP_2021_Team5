@@ -13,7 +13,8 @@ def db_init():
                 (userName text,
                 pass text,
                 type text, 
-                parent text)""")  # type is admin , parent or kid
+                parent text
+                canReg integer)""")  # type is admin , parent or kid
     # db insert rows
     cursor.execute("INSERT INTO users VALUES ('itay','123','admin','')")
     cursor.execute("INSERT INTO users VALUES ('yaron','123','parent','')")
@@ -29,11 +30,13 @@ def changeSassion(user):
     sassionFlag = True
 
 
+
 def logOut():
     global currentUser
     global sassionFlag
     currentUser = ""
     sassionFlag = False
+
 
 
 def login(user, password):
@@ -53,10 +56,8 @@ def login(user, password):
         return "wrong user"
     else:
         if fet[1] == password:
-
             print("login succss!")
             changeSassion(fet[0])
-            print(currentUser)
             return fet[0]  # return user name
         else:
             print("wrong password!")

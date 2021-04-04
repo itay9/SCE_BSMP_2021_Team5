@@ -3,6 +3,7 @@ import ParentRegister
 import ParentMenu
 import DB
 import KidMenu
+import ManagerMenu
 
 
 class Ui_mainMenu(object):
@@ -103,22 +104,20 @@ class Ui_mainMenu(object):
         nextWindow = DB.get_type(DB.currentUser)
         if nextWindow == "admin":
             pass
-            #TODO open admin window
+            #TODO admin page
         elif nextWindow == "parent":
             self.openParentMenu()
-            #TODO open parent window
         elif nextWindow == "kid":
             self.openKidMenu()
-            #TODO open kid window
 
     def retranslateUi(self, mainMenu):
         _translate = QtCore.QCoreApplication.translate
         mainMenu.setWindowTitle(_translate("mainMenu", "MainWindow"))
-        self.loginButton.setText(_translate("mainMenu", "Log In"))
-        self.parentRegisterButton.setText(_translate("mainMenu", "Parent Register"))
+        self.loginButton.setText(_translate("mainMenu", "התחבר"))
+        self.parentRegisterButton.setText(_translate("mainMenu", "רישום הורה"))
         self.title.setText(_translate("mainMenu", "Welcome!"))
-        self.userLabel.setText(_translate("mainMenu", "User Name:"))
-        self.passLabel.setText(_translate("mainMenu", "Password:"))
+        self.userLabel.setText(_translate("mainMenu", "שם משתמש:"))
+        self.passLabel.setText(_translate("mainMenu", "סיסמא:"))
 
 
 

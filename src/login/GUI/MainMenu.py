@@ -26,7 +26,7 @@ class Ui_mainMenu(object):
         self.ui.setupUi(self.window)
         self.window.show()
 
-    def openAdminMenu(self): #new
+    def openAdminMenu(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = ManagerMenu.Ui_ManagerMenu()
         self.ui.setupUi(self.window)
@@ -109,7 +109,7 @@ class Ui_mainMenu(object):
         DB.login(self.userNameInput.text(),self.pwInput.text())
         nextWindow = DB.get_type(DB.currentUser)
         if nextWindow == "admin":
-            self.openAdminMenu() #new
+            self.openAdminMenu()
         elif nextWindow == "parent":
             self.openParentMenu()
         elif nextWindow == "kid":

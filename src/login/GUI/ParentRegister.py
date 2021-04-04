@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import Success_POP
-
+import MainMenu
 class Ui_parentRegister(object):
 
     def Success_UI(self):
@@ -8,6 +8,13 @@ class Ui_parentRegister(object):
         self.ui = Success_POP.Ui_Parent_Registered()
         self.ui.setupUi(self.window)
         self.window.show()
+
+    def return_mainMneu(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = MainMenu.Ui_mainMenu()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
 
     def setupUi(self, parentRegister):
         parentRegister.setObjectName("parentRegister")
@@ -63,6 +70,9 @@ class Ui_parentRegister(object):
         self.registerButton.setObjectName("registerButton")
         self.exitButton = QtWidgets.QPushButton(self.centralwidget)
         self.exitButton.setGeometry(QtCore.QRect(630, 340, 131, 41))
+
+        self.exitButton.clicked.connect(self.return_mainMneu)
+        self.exitButton.clicked.connect(parentRegister.close)
 
         #self.exitButton.clicked.connect(""" Make Function for returing to main""")
         font = QtGui.QFont()

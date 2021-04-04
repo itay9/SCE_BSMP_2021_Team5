@@ -4,6 +4,7 @@ pipeline {
         stage('build') {
             steps {
                 sh 'python --version'
+                sh 'python -m py_compile src/LoginManu.py'
             }
         }
     }

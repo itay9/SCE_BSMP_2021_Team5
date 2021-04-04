@@ -15,7 +15,7 @@ def db_init():
                 type text, 
                 parent text,
                 canReg integer)""")  # type is admin , parent or kid
-    # db insert rows #new !
+    # db insert rows
     cursor.execute("INSERT INTO users VALUES ('itay','123','admin','',1)")
     cursor.execute("INSERT INTO users VALUES ('yaron','123','parent','',1)")
     cursor.execute("INSERT INTO users VALUES ('chen','123','kid','yaron',0)")
@@ -28,7 +28,7 @@ def changeSassion(user):
     global sassionFlag
     currentUser = user
     sassionFlag = True
-    print(currentUser) #new
+    print(currentUser)
 
 
 def logOut():
@@ -36,7 +36,7 @@ def logOut():
     global sassionFlag
     currentUser = ""
     sassionFlag = False
-    print("session clear") #new
+    print("session clear")
 
 
 def login(user, password):
@@ -77,7 +77,7 @@ def register_parent(user, password):
     cursor.execute("SELECT * FROM users WHERE userName = '" + user + "'")
     fet = cursor.fetchone()
     if fet is None:
-        cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','parent','None',0)") #new
+        cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','parent','None',0)")
         conn.commit()
         print("register parent complete!")
         return True
@@ -102,7 +102,7 @@ def register_kid(user, password, parent):
     cursor.execute("SELECT * FROM users WHERE userName = '" + user + "'")
     fet = cursor.fetchone()
     if fet is None:
-        cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','kid','" + parent + "',0)") #new
+        cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','kid','" + parent + "',0)")
         conn.commit()
         print("register kid complete!")
         return True

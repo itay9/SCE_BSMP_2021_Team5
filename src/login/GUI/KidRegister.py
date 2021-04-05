@@ -66,7 +66,7 @@ class Ui_kidRegister(object):
         #button func
         self.registerButton.clicked.connect(self.regClick)
         self.exit_Bttn.clicked.connect(self.mainMenu_UI)
-        self.exit_Bttn.clicked.connect(parentMenu.close)
+        self.exit_Bttn.clicked.connect(kidRegister.close)
         self.exit_Bttn.clicked.connect(DB.logOut)
         
         

@@ -4,8 +4,8 @@ import DB
 
 
 class TestDb(unittest.TestCase):
-    conn = sqlite3.connect("usersDB.db")
-    cursor = conn.cursor()
+    with sqlite3.connect("usersDB.db") as conn:
+        cursor = conn.cursor()
 
     @classmethod
     def setUpClass(cls):

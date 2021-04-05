@@ -87,8 +87,8 @@ class TestDb(unittest.TestCase):
         # res = DB.register_kid('kidTest', '123', '')
         # self.assertNotEqual(res, True)  # Test
 
-        res = DB.register_kid('kidTest', '123', 'parentTest')
-        self.assertNotEqual(res, True)  # Test
+        # res = DB.register_kid('kidTest', '123', 'parentTest')
+        # self.assertNotEqual(res, True)  # Test
 
         res = DB.register_kid('kidTest2', '123', 'parentTest')
         self.assertEqual(res, True)  # Test

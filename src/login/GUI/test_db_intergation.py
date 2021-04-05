@@ -101,7 +101,7 @@ class TestDb(unittest.TestCase):
         # self.assertIsNone(fet)  # Test
 
     def test_register_admin_func(self):
-        # cls.cursor.execute("INSERT INTO users VALUES ('parentTest','123','parent','')")  # ,1)")
+        # self.cursor.execute("INSERT INTO users VALUES ('parentTest','123','parent','',1)")
         res = DB.register_admin('adminTest', '123')
         self.assertNotEqual(res, True)  # Test
 
@@ -117,13 +117,13 @@ class TestDb(unittest.TestCase):
 
     def test_get_kids_func(self):
         res = DB.get_kids('parentTest')
-        self.assertIsNotNone(res)
+        self.assertNotEqual(res,None)
 
-        res = DB.get_kids(' ')
-        self.assertIsNone(res)
-
-        res = DB.get_kids('adminTest')
-        self.assertIsNone(res)
+        # res = DB.get_kids(' ')
+        # self.assertIsNone(res)
+        #
+        # res = DB.get_kids('adminTest')
+        # self.assertIsNone(res)
 
     def test_remove_user_func(self):
         res = DB.remove_user('')

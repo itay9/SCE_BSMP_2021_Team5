@@ -2,7 +2,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import MainMenu
 import deleteChild
 import DB
-import kidRegister
+import KidRegister
 
 class Ui_parentMenu(object):
 
@@ -29,7 +29,7 @@ class Ui_parentMenu(object):
     def register_kid(self):
         if DB.canRegister(DB.currentUser):
             self.window = QtWidgets.QMainWindow()
-            self.ui = kidRegister.Ui_mainMenu()
+            self.ui = KidRegister.Ui_mainMenu()
             self.ui.setupUi(self.window)
             self.window.show()
 

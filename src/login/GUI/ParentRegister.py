@@ -21,7 +21,7 @@ class Ui_parentRegister(object):
     def register_parent(self):
         user = self.userNameInput.text()
         pw = self.pwInput.text()
-        DB.register_parent(user, pw)
+        DB.register_parent(user,pw)
 
     def setupUi(self, parentRegister):
         parentRegister.setObjectName("parentRegister")
@@ -91,9 +91,10 @@ class Ui_parentRegister(object):
         self.exitButton.clicked.connect(self.return_mainMneu)
         self.exitButton.clicked.connect(parentRegister.close)
         self.registerButton.clicked.connect(self.Success_UI)
-        self.registerButton.clicked.connect(parentRegister.close)
         self.registerButton.clicked.connect(self.register_parent)
-        
+        self.registerButton.clicked.connect(parentRegister.close)
+        self.registerButton.clicked.connect(self.return_mainMneu)
+
         self.retranslateUi(parentRegister)
         QtCore.QMetaObject.connectSlotsByName(parentRegister)
 

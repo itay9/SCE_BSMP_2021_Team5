@@ -183,12 +183,27 @@ def remove_user(user):
 
 
 def get_type(user):
+    """
+
+    Args:
+        user: string
+
+    Returns: list of kids
+
+    """
     cursor.execute("SELECT * FROM users WHERE userName ='" + user + "'")
     fet = cursor.fetchone()
     return fet[2]
-
-
+"""
+def allowReg(parent):
+    cursor.execute(UPDATE usersDB
+    SET
+    canReg = 1,
+    WHERE
+    userName=''
+"""
 # test
+
 """
 login("itay","123") #ok
 login("yaron","11234") #wrong pass

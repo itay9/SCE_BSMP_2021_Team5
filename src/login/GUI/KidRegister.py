@@ -72,7 +72,13 @@ class Ui_kidRegister(object):
         
         self.retranslateUi(kidRegister)
         QtCore.QMetaObject.connectSlotsByName(kidRegister)
-
+        
+    def mainMenu_UI(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = MainMenu.Ui_mainMenu()
+        self.ui.setupUi(self.window)
+        self.window.show()
+        
     def regClick(self):
         if DB.sassionFlag == True:
             user = self.userName_input.text()

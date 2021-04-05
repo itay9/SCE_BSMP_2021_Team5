@@ -10,7 +10,6 @@ pipeline {
             }
             steps {
                 sh 'python --version'
-                sh 'python DB.py
                 sh 'python -m py_compile src/login/GUI/*.py'
             }
         }

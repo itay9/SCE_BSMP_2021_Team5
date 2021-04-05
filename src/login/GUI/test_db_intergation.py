@@ -117,7 +117,7 @@ class TestDb(unittest.TestCase):
         res = DB.get_kids('parentTest')
         self.assertIsNotNone(res)
 
-        res = DB.get_kids('')
+        res = DB.get_kids(' ')
         self.assertIsNone(res)
 
         res = DB.get_kids('adminTest')

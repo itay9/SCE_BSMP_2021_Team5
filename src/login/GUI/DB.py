@@ -158,7 +158,7 @@ def get_kids(parent):
                 kids_list.append(kid[0])
             print(kids_list)
             return kids_list
-
+    return
 
 def remove_user(user):
     """

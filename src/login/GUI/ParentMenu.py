@@ -25,6 +25,13 @@ class Ui_parentMenu(object):
         self.ui = MainMenu.Ui_mainMenu()
         self.ui.setupUi(self.window)
         self.window.show()
+       
+    def register_kid(self):
+        if DB.canRegister(DB.currentUser):
+            self.window = QtWidgets.QMainWindow()
+            self.ui = kidRegister.Ui_mainMenu()
+            self.ui.setupUi(self.window)
+            self.window.show()
 
     def setupUi(self, parentMenu):
         parentMenu.setObjectName("parentMenu")

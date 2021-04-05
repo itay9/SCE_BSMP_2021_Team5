@@ -90,11 +90,11 @@ class TestDb(unittest.TestCase):
         # res = DB.register_kid('kidTest', '123', 'parentTest')
         # self.assertNotEqual(res, True)  # Test
 
-        res = DB.register_kid('kidTest2', '123', 'parentTest')
-        self.assertEqual(res, True)  # Test
-
-        self.cursor.execute("DELETE FROM users WHERE userName= 'kidTest2'")
-        self.conn.commit()
+        # res = DB.register_kid('kidTest2', '123', 'parentTest')
+        # self.assertEqual(res, True)  # Test
+        #
+        # self.cursor.execute("DELETE FROM users WHERE userName= 'kidTest2'")
+        # self.conn.commit()
 
         # self.cursor.execute("SELECT * FROM users WHERE userName = 'kidTest2'")
         # fet = self.cursor.fetchone()

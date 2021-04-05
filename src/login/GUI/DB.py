@@ -14,7 +14,9 @@ def db_init():
                 pass text,
                 type text, 
                 parent text,
-                canReg integer)""")  # type is admin , parent or kid
+                canReg integer)""")
+                                     # type is admin , parent or kid
+                                     # canReg : 1 True , 0 False
     # db insert rows
     cursor.execute("INSERT INTO users VALUES ('itay','123','admin','',1)")
     cursor.execute("INSERT INTO users VALUES ('yaron','123','parent','',1)")

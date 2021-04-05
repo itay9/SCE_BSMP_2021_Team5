@@ -13,12 +13,6 @@ import DB
 
 class Ui_ManagerMenu(object):
 
-    def mainMenu_UI(self):
-        self.window = QtWidgets.QMainWindow()
-        self.ui = MainMenu.Ui_mainMenu()
-        self.ui.setupUi(self.window)
-        self.window.show()
-
     def setupUi(self, ManagerMenu):
         ManagerMenu.setObjectName("ManagerMenu")
         ManagerMenu.resize(828, 600)
@@ -92,7 +86,7 @@ class Ui_ManagerMenu(object):
         ManagerMenu.setCentralWidget(self.centralwidget)
 
         #bttn connect
-
+        self.logOutButton.clicked.connect(self.logout_bttn)
 
         self.retranslateUi(ManagerMenu)
         QtCore.QMetaObject.connectSlotsByName(ManagerMenu)
@@ -108,6 +102,13 @@ class Ui_ManagerMenu(object):
         self.deleteUserButton.setText(_translate("ManagerMenu", "Delete a User"))
         self.viewQuestionsButton_2.setText(_translate("ManagerMenu", "Allow Parent Reg"))
 
+    def logout_bttn(self):
+        DB.logOut()
+        self.window = QtWidgets.QMainWindow()
+        self.ui = MainMenu.Ui_mainMenu()
+        self.ui.setupUi(self.window)
+        self.window.show()
+        ManagerMenu.close()
 
 if __name__ == "__main__":
     import sys

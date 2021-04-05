@@ -3,6 +3,7 @@ import ParentRegister
 import ParentMenu
 import DB
 import KidMenu
+import ManagerMenu
 
 
 class Ui_mainMenu(object):
@@ -22,6 +23,18 @@ class Ui_mainMenu(object):
     def openKidMenu(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = KidMenu.Ui_kidMenu()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
+    def openAdminMenu(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = ManagerMenu.Ui_ManagerMenu()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
+    def openMainMenu(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = self.Ui_mainMenu()
         self.ui.setupUi(self.window)
         self.window.show()
 
@@ -100,16 +113,15 @@ class Ui_mainMenu(object):
 
     def onClick(self):
         DB.login(self.userNameInput.text(),self.pwInput.text())
-        nextWindow = DB.get_type(DB.currentUser)
-        if nextWindow == "admin":
-            pass
-            #TODO open admin window
-        elif nextWindow == "parent":
-            self.openParentMenu()
-            #TODO open parent window
-        elif nextWindow == "kid":
-            self.openKidMenu()
-            #TODO open kid window
+        if DB.sassionFlag:
+            nextWindow = DB.get_type(DB.currentUser)
+            if nextWindow == "admin":
+                self.openAdminMenu()
+            elif nextWindow == "parent":
+                self.openParentMenu()
+            elif nextWindow == "kid":
+                self.openKidMenu()
+
 
     def retranslateUi(self, mainMenu):
         _translate = QtCore.QCoreApplication.translate

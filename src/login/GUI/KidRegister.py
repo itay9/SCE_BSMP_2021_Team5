@@ -70,10 +70,12 @@ class Ui_kidRegister(object):
         QtCore.QMetaObject.connectSlotsByName(kidRegister)
 
     def regClick(self):
-        user = self.userName_input.text()
-        pw = self.PW_input.text()
-        parent = DB.currentUser
-        DB.register_kid(user,pw,parent)
+        if DB.sassionFlag == True:
+            user = self.userName_input.text()
+            if DB.canRegister(user):
+                pw = self.PW_input.text()
+                parent = DB.currentUser
+                DB.register_kid(user,pw,parent)
 
     def retranslateUi(self, kidRegister):
         _translate = QtCore.QCoreApplication.translate

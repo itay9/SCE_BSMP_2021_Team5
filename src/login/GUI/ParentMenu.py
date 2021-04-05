@@ -1,11 +1,18 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import MainMenu
 import deleteChild
-
 import DB
 
 class Ui_parentMenu(object):
 
+    def deleteThisUser(self):
+        #TODO fix bug, prog crush after click DELETE THIS USER
+        DB.remove_user(DB.currentUser)
+        DB.logOut()
+        self.mainMenu_UI()
+        parentMenu.close()
+        #need to fix BUG !
+        ##
     def openChildDelete(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = deleteChild.Ui_ChildTableDelete()
@@ -42,10 +49,6 @@ class Ui_parentMenu(object):
         self.registerChild.setFont(font)
         self.registerChild.setObjectName("registerChild")
         self.DeleteChild = QtWidgets.QPushButton(self.centralwidget)
-
-        self.DeleteChild.clicked.connect(self.openChildDelete)
-        self.DeleteChild.clicked.connect(parentMenu.close)
-
         self.DeleteChild.setGeometry(QtCore.QRect(50, 370, 201, 71))
         font = QtGui.QFont()
         font.setFamily("Arial Black")
@@ -65,12 +68,6 @@ class Ui_parentMenu(object):
         self.DeleteParentUser.setObjectName("DeleteParentUser")
         self.LogOut = QtWidgets.QPushButton(self.centralwidget)
         self.LogOut.setGeometry(QtCore.QRect(320, 480, 141, 51))
-
-        self.LogOut.clicked.connect(self.mainMenu_UI)
-        self.LogOut.clicked.connect(parentMenu.close)
-
-        self.LogOut.clicked.connect(DB.logOut)
-
         font = QtGui.QFont()
         font.setFamily("Arial Black")
         font.setPointSize(12)
@@ -89,12 +86,20 @@ class Ui_parentMenu(object):
         self.ParentMenu.setObjectName("ParentMenu")
         parentMenu.setCentralWidget(self.centralwidget)
 
+        #bttn connect
+        self.LogOut.clicked.connect(self.mainMenu_UI)
+        self.LogOut.clicked.connect(parentMenu.close)
+        self.LogOut.clicked.connect(DB.logOut)
+        self.DeleteChild.clicked.connect(self.openChildDelete)
+        self.DeleteChild.clicked.connect(parentMenu.close)
+        self.DeleteParentUser.clicked.connect(self.deleteThisUser)
+
         self.retranslateUi(parentMenu)
         QtCore.QMetaObject.connectSlotsByName(parentMenu)
 
     def retranslateUi(self, parentMenu):
         _translate = QtCore.QCoreApplication.translate
-        parentMenu.setWindowTitle(_translate("parentMenu", "MainWindow"))
+        parentMenu.setWindowTitle(_translate("parentMenu", "Parent Menu"))
         self.ViewChildData.setText(_translate("parentMenu", "View Child Data"))
         self.registerChild.setText(_translate("parentMenu", "Register Child "))
         self.DeleteChild.setText(_translate("parentMenu", "Delete Child"))

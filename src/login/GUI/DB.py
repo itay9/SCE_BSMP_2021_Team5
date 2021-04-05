@@ -13,12 +13,15 @@ def db_init():
                 (userName text,
                 pass text,
                 type text, 
-                parent text)""")  # type is admin , parent or kid
+                parent text,
+                canReg integer)""")
+    # type is admin , parent or kid
+    # canReg : 1 True , 0 False
     # db insert rows
-    cursor.execute("INSERT INTO users VALUES ('itay','123','admin','')")
-    cursor.execute("INSERT INTO users VALUES ('yaron','123','parent','')")
-    cursor.execute("INSERT INTO users VALUES ('chen','123','kid','yaron')")
-    cursor.execute("INSERT INTO users VALUES ('yaniv','123','kid','yaron')")
+    cursor.execute("INSERT INTO users VALUES ('itay','123','admin','',1)")
+    cursor.execute("INSERT INTO users VALUES ('yaron','123','parent','',1)")
+    cursor.execute("INSERT INTO users VALUES ('chen','123','kid','yaron',0)")
+    cursor.execute("INSERT INTO users VALUES ('yaniv','123','kid','yaron',0)")
     conn.commit()
 
 
@@ -27,6 +30,7 @@ def changeSassion(user):
     global sassionFlag
     currentUser = user
     sassionFlag = True
+    print(currentUser)
 
 
 def logOut():
@@ -34,6 +38,7 @@ def logOut():
     global sassionFlag
     currentUser = ""
     sassionFlag = False
+    print("session clear")
 
 
 def login(user, password):
@@ -53,10 +58,8 @@ def login(user, password):
         return "wrong user"
     else:
         if fet[1] == password:
-
             print("login succss!")
             changeSassion(fet[0])
-            print(currentUser)
             return fet[0]  # return user name
         else:
             print("wrong password!")
@@ -73,16 +76,17 @@ def register_parent(user, password):
     Returns: register parent to DB
 
     """
-    cursor.execute("SELECT * FROM users WHERE userName = '" + user + "'")
-    fet = cursor.fetchone()
-    if fet is None:
-        cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','parent','None')")
-        conn.commit()
-        print("register parent complete!")
-        return True
-    else:
-        print("user already exist!, select different user name!")
-        return False
+    if user != "":
+        cursor.execute("SELECT * FROM users WHERE userName = '" + user + "'")
+        fet = cursor.fetchone()
+        if fet is None:
+            cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','parent','None',0)")
+            conn.commit()
+            print("register parent complete!")
+            return True
+        else:
+            print("user already exist!, select different user name!")
+            return False
 
 
 def register_kid(user, password, parent):
@@ -98,15 +102,19 @@ def register_kid(user, password, parent):
         false if not
 
     """
-    cursor.execute("SELECT * FROM users WHERE userName = '" + user + "'")
-    fet = cursor.fetchone()
-    if fet is None:
-        cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','kid','" + parent + "')")
-        conn.commit()
-        print("register kid complete!")
-        return True
+    if canRegister(parent):
+        cursor.execute("SELECT * FROM users WHERE userName = '" + user + "'")
+        fet = cursor.fetchone()
+        if fet is None:
+            cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','kid','" + parent + "',0)")
+            conn.commit()
+            print("register kid complete!")
+            return True
+        else:
+            print("user already exist!, select different user name!")
+            return False
     else:
-        print("user already exist!, select different user name!")
+        print("cant register!")
         return False
 
 
@@ -125,7 +133,7 @@ def register_admin(user, password):
     cursor.execute("SELECT * FROM users WHERE userName = '" + user + "'")
     fet = cursor.fetchone()
     if fet is None:
-        cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','admin','None')")
+        cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','admin','None',1)")  # new
         conn.commit()
         print("register admin complete!")
         return True
@@ -143,16 +151,18 @@ def get_kids(parent):
     Returns: list of parent kids
 
     """
-    cursor.execute("SELECT * FROM users WHERE parent='" + parent + "'")
-    fet = cursor.fetchall()
-    if len(fet) == 0:
-        print(parent, "has no kids in the system!")
-    else:
-        kids_list = []
-        for kid in fet:
-            kids_list.append(kid[0])
-        print(kids_list)
-        return kids_list
+    if parent != "":
+        cursor.execute("SELECT * FROM users WHERE parent='" + parent + "'")
+        fet = cursor.fetchall()
+        if len(fet) == 0:
+            print(parent, "has no kids in the system!")
+            return
+        else:
+            kids_list = []
+            for kid in fet:
+                kids_list.append(kid[0])
+            print(kids_list)
+            return kids_list
 
 
 def remove_user(user):
@@ -172,20 +182,47 @@ def remove_user(user):
     if fet is None:
         print("user no exist")
         return False
-    if fet[2] == "parent":
-        for kid in get_kids(user):
-            cursor.execute("DELETE FROM users WHERE userName= '" + kid + "'")
+    elif fet[2] == "parent":
+        if get_kids(user) != None:
+            for kid in get_kids(user):
+                remove_user(kid)
     cursor.execute("DELETE FROM users WHERE userName= '" + user + "'")
     conn.commit()
-    print("remove complete")
+    print(user, "removed")
     return True
 
 
 def get_type(user):
+    """
+
+    Args:
+        user: string
+
+    Returns: list of kids
+
+    """
     cursor.execute("SELECT * FROM users WHERE userName ='" + user + "'")
     fet = cursor.fetchone()
     return fet[2]
 
+
+def allowReg(parent):
+    cursor.execute("UPDATE users SET canReg = 1 WHERE userName= ? ",parent)
+    conn.commit()
+
+def canRegister(user):
+    if get_type(user) == "parent":
+        if getUser(user)[4] == 1:
+            return True
+    elif get_type(user) == "admin":
+        return True
+    else:
+        return False
+
+def getUser(userName):
+    cursor.execute("SELECT * FROM users WHERE userName = ?",userName)
+    fet = cursor.fetchone()
+    return fet
 
 # test
 """
@@ -205,4 +242,16 @@ remove_user("a")
 login("a", "123")
 login("b", "123")
 login("c", "123")
+remove_user("a")
+register_parent("a","a")
+register_kid("b","b","a")
+allowReg("a")
+register_kid("b","b","a")
 """
+
+
+if __name__ == '__main__':
+    try:
+        db_init()
+    except:
+        pass

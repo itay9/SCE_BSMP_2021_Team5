@@ -1,5 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import Success_POP
+import MainMenu
+import DB
+
 
 class Ui_parentRegister(object):
 
@@ -8,6 +11,17 @@ class Ui_parentRegister(object):
         self.ui = Success_POP.Ui_Parent_Registered()
         self.ui.setupUi(self.window)
         self.window.show()
+
+    def return_mainMenu(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = MainMenu.Ui_mainMenu()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
+    def register_parent(self):
+        user = self.userNameInput.text()
+        pw = self.pwInput.text()
+        DB.register_parent(user,pw)
 
     def setupUi(self, parentRegister):
         parentRegister.setObjectName("parentRegister")
@@ -50,10 +64,6 @@ class Ui_parentRegister(object):
         self.userLabel.setObjectName("userLabel")
         self.registerButton = QtWidgets.QPushButton(self.centralwidget)
         self.registerButton.setGeometry(QtCore.QRect(480, 340, 131, 41))
-
-        self.registerButton.clicked.connect(self.Success_UI)
-        self.registerButton.clicked.connect(parentRegister.close)
-
         font = QtGui.QFont()
         font.setFamily("Arial Black")
         font.setPointSize(12)
@@ -64,7 +74,7 @@ class Ui_parentRegister(object):
         self.exitButton = QtWidgets.QPushButton(self.centralwidget)
         self.exitButton.setGeometry(QtCore.QRect(630, 340, 131, 41))
 
-        #self.exitButton.clicked.connect(""" Make Function for returing to main""")
+        # self.exitButton.clicked.connect(""" Make Function for returing to main""")
         font = QtGui.QFont()
         font.setFamily("Arial Black")
         font.setPointSize(12)
@@ -76,6 +86,14 @@ class Ui_parentRegister(object):
         self.statusbar = QtWidgets.QStatusBar(parentRegister)
         self.statusbar.setObjectName("statusbar")
         parentRegister.setStatusBar(self.statusbar)
+
+        # bttn connect
+        self.exitButton.clicked.connect(self.return_mainMenu)
+        self.exitButton.clicked.connect(parentRegister.close)
+        self.registerButton.clicked.connect(self.Success_UI)
+        self.registerButton.clicked.connect(self.register_parent)
+        self.registerButton.clicked.connect(parentRegister.close)
+        self.registerButton.clicked.connect(self.return_mainMenu)
 
         self.retranslateUi(parentRegister)
         QtCore.QMetaObject.connectSlotsByName(parentRegister)
@@ -92,6 +110,7 @@ class Ui_parentRegister(object):
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     parentRegister = QtWidgets.QMainWindow()
     ui = Ui_parentRegister()

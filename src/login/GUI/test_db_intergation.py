@@ -130,11 +130,11 @@ class TestDb(unittest.TestCase):
         res = DB.remove_user('')
         self.assertNotEqual(res, True)#Test
 
-        res = DB.remove_user('kidTest')
-        self.assertEqual(res, True)#Test
-        self.assertIsNone(DB.get_kids('parentTest'))#Test
-        self.cursor.execute("INSERT INTO users VALUES ('kidTest','123','kid','parentTest',0)")
-        self.conn.commit()
+        # res = DB.remove_user('kidTest')
+        # self.assertEqual(res, True)#Test
+        # self.assertIsNone(DB.get_kids('parentTest'))#Test
+        # self.cursor.execute("INSERT INTO users VALUES ('kidTest','123','kid','parentTest',0)")
+        # self.conn.commit()
 
         res = DB.remove_user('parentTest')
         self.assertEqual(res, True)#Test

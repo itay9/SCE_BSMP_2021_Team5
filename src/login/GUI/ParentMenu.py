@@ -2,6 +2,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import MainMenu
 import deleteChild
 import DB
+import kidRegister
 
 class Ui_parentMenu(object):
 

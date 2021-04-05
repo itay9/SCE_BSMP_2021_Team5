@@ -151,7 +151,7 @@ def get_kids(parent):
         fet = cursor.fetchall()
         if len(fet) == 0:
             print(parent, "has no kids in the system!")
-            return []
+            return
         else:
             kids_list = []
             for kid in fet:

@@ -32,6 +32,12 @@ class Ui_mainMenu(object):
         self.ui.setupUi(self.window)
         self.window.show()
 
+    def openMainMenu(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = self.Ui_mainMenu()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
 
     def setupUi(self, mainMenu):
         mainMenu.setObjectName("mainMenu")
@@ -107,13 +113,15 @@ class Ui_mainMenu(object):
 
     def onClick(self):
         DB.login(self.userNameInput.text(),self.pwInput.text())
-        nextWindow = DB.get_type(DB.currentUser)
-        if nextWindow == "admin":
-            self.openAdminMenu()
-        elif nextWindow == "parent":
-            self.openParentMenu()
-        elif nextWindow == "kid":
-            self.openKidMenu()
+        if DB.sassionFlag:
+            nextWindow = DB.get_type(DB.currentUser)
+            if nextWindow == "admin":
+                self.openAdminMenu()
+            elif nextWindow == "parent":
+                self.openParentMenu()
+            elif nextWindow == "kid":
+                self.openKidMenu()
+
 
     def retranslateUi(self, mainMenu):
         _translate = QtCore.QCoreApplication.translate

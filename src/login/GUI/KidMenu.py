@@ -40,9 +40,11 @@ class Ui_kidMenu(object):
         self.statusbar.setObjectName("statusbar")
         kidMenu.setStatusBar(self.statusbar)
 
+        #bttn connect:
         self.logoutButton.clicked.connect(DB.logOut)
         self.logoutButton.clicked.connect(self.mainMenu_UI)
         self.logoutButton.clicked.connect(kidMenu.close)
+        self.StartNewGameButton.clicked.connect(self.newGame)
 
         self.retranslateUi(kidMenu)
         QtCore.QMetaObject.connectSlotsByName(kidMenu)
@@ -52,6 +54,9 @@ class Ui_kidMenu(object):
         self.ui = MainMenu.Ui_mainMenu()
         self.ui.setupUi(self.window)
         self.window.show()
+
+    def newGame(self):
+        print("start game ok")
 
     def retranslateUi(self, kidMenu):
         _translate = QtCore.QCoreApplication.translate

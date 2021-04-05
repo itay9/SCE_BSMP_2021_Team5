@@ -105,6 +105,9 @@ class TestDb(unittest.TestCase):
         res = DB.register_admin('adminTest', '123')
         self.assertNotEqual(res, True)  # Test
 
+        self.cursor.execute("DELETE FROM users WHERE userName= 'adminTest2'")
+        self.conn.commit()
+
         res=DB.register_admin('adminTest2','123')
         self.assertEqual(res,True)#Test
 

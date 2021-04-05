@@ -83,6 +83,7 @@ class TestDb(unittest.TestCase):
         # self.assertIsNone(fet)  # Test
 
     def test_register_kid_func(self):
+        self.assertEqual(True,True)
         # cls.cursor.execute("INSERT INTO users VALUES ('parentTest','123','parent','')")  # ,1)")
         # res = DB.register_kid('kidTest', '123', '')
         # self.assertNotEqual(res, True)  # Test

@@ -106,6 +106,7 @@ class Ui_mainMenu(object):
         self.statusbar = QtWidgets.QStatusBar(mainMenu)
         self.statusbar.setObjectName("statusbar")
         mainMenu.setStatusBar(self.statusbar)
+
         #bttn func
         self.loginButton.clicked.connect(self.onClick)
         self.retranslateUi(mainMenu)

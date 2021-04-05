@@ -27,11 +27,10 @@ class Ui_parentMenu(object):
         self.window.show()
        
     def register_kid(self):
-        if DB.canRegister(DB.currentUser):
-            self.window = QtWidgets.QMainWindow()
-            self.ui = KidRegister.Ui_mainMenu()
-            self.ui.setupUi(self.window)
-            self.window.show()
+        self.window = QtWidgets.QMainWindow()
+        self.ui = KidRegister.Ui_mainMenu()
+        self.ui.setupUi(self.window)
+        self.window.show()
 
     def setupUi(self, parentMenu):
         parentMenu.setObjectName("parentMenu")
@@ -102,6 +101,7 @@ class Ui_parentMenu(object):
         self.DeleteChild.clicked.connect(parentMenu.close)
         self.DeleteParentUser.clicked.connect(self.deleteThisUser)
         self.registerChild.clicked.connect(self.register_kid)
+
 
         self.retranslateUi(parentMenu)
         QtCore.QMetaObject.connectSlotsByName(parentMenu)

@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import DB
-import MainMenu 
+import MainMenu
+import ParentMenu
 
 class Ui_kidRegister(object):
     def setupUi(self, kidRegister):
@@ -66,17 +67,17 @@ class Ui_kidRegister(object):
 
         #button func
         self.registerButton.clicked.connect(self.regClick)
-        self.exit_Bttn.clicked.connect(self.mainMenu_UI)
+        self.exit_Bttn.clicked.connect(self.openParentMenu)
         self.exit_Bttn.clicked.connect(kidRegister.close)
         self.exit_Bttn.clicked.connect(DB.logOut)
         
         
         self.retranslateUi(kidRegister)
         QtCore.QMetaObject.connectSlotsByName(kidRegister)
-        
-    def mainMenu_UI(self):
+
+    def openParentMenu(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = MainMenu.Ui_mainMenu()
+        self.ui = ParentMenu.Ui_parentMenu()
         self.ui.setupUi(self.window)
         self.window.show()
         

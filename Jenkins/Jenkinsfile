@@ -10,13 +10,14 @@ pipeline {
 				withEnv(["HOME=${env.WORKSPACE}"]) {
 					sh 'python --version'
 					sh 'python -m py_compile src/login/GUI/*.py'
-					sh 'python src/login/GUI/DB.py'
+					
 				}
             }
         }
         stage('Test') {
             steps {
 				withEnv(["HOME=${env.WORKSPACE}"]) {
+					sh 'python src/login/GUI/DB.py'
 					sh 'pip install pytest'
 					sh 'pytest --verbose --junit-xml test-reports/results.xml src/login/GUI/test_db_intergation.py'
                 }

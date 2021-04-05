@@ -11,6 +11,7 @@ pipeline {
             steps {
                 sh 'python --version'
                 sh 'python -m py_compile src/login/GUI/*.py'
+                sh 'python src/login/GUI/DB.py'
             }
         }
         stage('Test') {
@@ -20,7 +21,6 @@ pipeline {
                 }
             }
             steps {
-                sh 'python src/login/GUI/DB.py'
                 sh 'py.test --verbose --junit-xml test-reports/results.xml src/login/GUI/test_db_intergation.py'
                 
             }

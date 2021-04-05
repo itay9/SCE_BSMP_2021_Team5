@@ -76,16 +76,17 @@ def register_parent(user, password):
     Returns: register parent to DB
 
     """
-    cursor.execute("SELECT * FROM users WHERE userName = '" + user + "'")
-    fet = cursor.fetchone()
-    if fet is None:
-        cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','parent','None',0)")
-        conn.commit()
-        print("register parent complete!")
-        return True
-    else:
-        print("user already exist!, select different user name!")
-        return False
+    if user != "":
+        cursor.execute("SELECT * FROM users WHERE userName = '" + user + "'")
+        fet = cursor.fetchone()
+        if fet is None:
+            cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','parent','None',0)")
+            conn.commit()
+            print("register parent complete!")
+            return True
+        else:
+            print("user already exist!, select different user name!")
+            return False
 
 
 def register_kid(user, password, parent):
@@ -151,14 +152,14 @@ def get_kids(parent):
         fet = cursor.fetchall()
         if len(fet) == 0:
             print(parent, "has no kids in the system!")
-            return
+            return []
         else:
             kids_list = []
             for kid in fet:
                 kids_list.append(kid[0])
             print(kids_list)
             return kids_list
-    return
+
 
 def remove_user(user):
     """
@@ -208,7 +209,6 @@ def allowReg(parent):
     userName=''
 """
 # test
-
 """
 login("itay","123") #ok
 login("yaron","11234") #wrong pass
@@ -226,11 +226,5 @@ remove_user("a")
 login("a", "123")
 login("b", "123")
 login("c", "123")
-remove_user("a")
 """
 
-if __name__ == '__main__':
-    try:
-        db_init()
-    except:
-        pass

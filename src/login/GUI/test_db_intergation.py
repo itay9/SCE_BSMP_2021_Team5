@@ -15,7 +15,6 @@ class TestDb(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.db=DB(database='usersDB.db')
         cls.cursor.execute("INSERT INTO users VALUES ('adminTest','123','admin','',1)")
         cls.cursor.execute("INSERT INTO users VALUES ('parentTest','123','parent','',1)")
         cls.cursor.execute("INSERT INTO users VALUES ('kidTest','123','kid','parentTest',0)")

@@ -148,7 +148,7 @@ def get_kids(parent):
     fet = cursor.fetchall()
     if len(fet) == 0:
         print(parent, "has no kids in the system!")
-        return []
+        return
     else:
         kids_list = []
         for kid in fet:
@@ -176,6 +176,7 @@ def remove_user(user):
         return False
     if fet[2] == "parent":
         for kid in get_kids(user):
+            #cursor.execute("DELETE FROM users WHERE userName= '" + kid + "'")
             remove_user(kid)
     cursor.execute("DELETE FROM users WHERE userName= '" + user + "'")
     conn.commit()
@@ -225,3 +226,9 @@ login("b", "123")
 login("c", "123")
 remove_user("a")
 """
+
+if __name__ == '__main__':
+    try:
+        db_init()
+    except:
+        pass

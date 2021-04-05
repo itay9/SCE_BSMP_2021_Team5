@@ -12,7 +12,7 @@ class Ui_parentRegister(object):
         self.ui.setupUi(self.window)
         self.window.show()
 
-    def return_mainMneu(self):
+    def return_mainMenu(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = MainMenu.Ui_mainMenu()
         self.ui.setupUi(self.window)
@@ -88,12 +88,12 @@ class Ui_parentRegister(object):
         parentRegister.setStatusBar(self.statusbar)
 
         # bttn connect
-        self.exitButton.clicked.connect(self.return_mainMneu)
+        self.exitButton.clicked.connect(self.return_mainMenu)
         self.exitButton.clicked.connect(parentRegister.close)
         self.registerButton.clicked.connect(self.Success_UI)
         self.registerButton.clicked.connect(self.register_parent)
         self.registerButton.clicked.connect(parentRegister.close)
-        self.registerButton.clicked.connect(self.return_mainMneu)
+        self.registerButton.clicked.connect(self.return_mainMenu)
 
         self.retranslateUi(parentRegister)
         QtCore.QMetaObject.connectSlotsByName(parentRegister)

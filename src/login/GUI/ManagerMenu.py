@@ -12,6 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_ManagerMenu(object):
+
     def setupUi(self, ManagerMenu):
         ManagerMenu.setObjectName("ManagerMenu")
         ManagerMenu.resize(828, 600)

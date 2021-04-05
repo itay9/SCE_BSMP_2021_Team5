@@ -136,8 +136,8 @@ class TestDb(unittest.TestCase):
         # self.cursor.execute("INSERT INTO users VALUES ('kidTest','123','kid','parentTest',0)")
         # self.conn.commit()
 
-        res = DB.remove_user('parentTest')
-        self.assertEqual(res, True)#Test
+        # res = DB.remove_user('parentTest')
+        # self.assertEqual(res, True)#Test
 
         self.cursor.execute("SELECT * FROM users WHERE userName = 'parentTest'")
         # fet = self.cursor.fetchone()

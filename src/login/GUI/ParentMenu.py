@@ -101,6 +101,7 @@ class Ui_parentMenu(object):
         self.DeleteChild.clicked.connect(self.openChildDelete)
         self.DeleteChild.clicked.connect(parentMenu.close)
         self.DeleteParentUser.clicked.connect(self.deleteThisUser)
+        self.registerChild.clicked.connect(self.register_kid)
 
         self.retranslateUi(parentMenu)
         QtCore.QMetaObject.connectSlotsByName(parentMenu)

@@ -116,14 +116,14 @@ class TestDb(unittest.TestCase):
         # self.assertIsNone(fet)  # Test
 
     def test_get_kids_func(self):
-        res = DB.get_kids('parentTest')
-        self.assertNotEqual(res,None)
+        # res = DB.get_kids('parentTest')
+        # self.assertNotEqual(res,None)
 
-        # res = DB.get_kids(' ')
-        # self.assertIsNone(res)
-        #
-        # res = DB.get_kids('adminTest')
-        # self.assertIsNone(res)
+        res = DB.get_kids(' ')
+        self.assertIsNone(res)
+
+        res = DB.get_kids('adminTest')
+        self.assertIsNone(res)
 
     def test_remove_user_func(self):
         res = DB.remove_user('')

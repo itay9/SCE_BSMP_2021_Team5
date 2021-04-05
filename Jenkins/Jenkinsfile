@@ -1,28 +1,25 @@
-
 pipeline {
-    agent none
+    agent {
+		docker {
+            image 'python:3.7'
+        }
+	}
     stages {
         stage('Build') {
-            agent {
-                docker {
-                    image 'python:3.7'
-                }
-            }
             steps {
-                sh 'python --version'
-                sh 'python -m py_compile src/login/GUI/*.py'
-                sh 'python src/login/GUI/DB.py'
+				withEnv(["HOME=${env.WORKSPACE}"]) {
+					sh 'python --version'
+					sh 'python -m py_compile src/login/GUI/*.py'
+					sh 'python src/login/GUI/DB.py'
+				}
             }
         }
         stage('Test') {
-            agent {
-                docker {
-                    image 'qnib/pytest'
-                }
-            }
             steps {
-                sh 'py.test --verbose --junit-xml test-reports/results.xml src/login/GUI/test_db_intergation.py'
-                
+				withEnv(["HOME=${env.WORKSPACE}"]) {
+					sh 'pip install pytest'
+					sh 'pytest --verbose --junit-xml test-reports/results.xml src/login/GUI/test_db_intergation.py'
+                }
             }
         }
     }

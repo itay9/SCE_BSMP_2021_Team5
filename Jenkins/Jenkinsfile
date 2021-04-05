@@ -13,5 +13,15 @@ pipeline {
                 sh 'python -m py_compile src/login/GUI/*.py'
             }
         }
+        stage('Test') {
+            agent {
+                docker {
+                    image 'qnib/pytest'
+                }
+            }
+            steps {
+                sh 'py.test --verbose --junit-xml test-reports/results.xml src/login/GUI/test_db_intergation.py'
+            }
+        }
     }
 }

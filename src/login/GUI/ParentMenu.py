@@ -12,7 +12,7 @@ class Ui_parentMenu(object):
         parentMenu.close()
         self.mainMenu_UI()
         #need to fix BUG !
-
+        ##
     def openChildDelete(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = deleteChild.Ui_ChildTableDelete()

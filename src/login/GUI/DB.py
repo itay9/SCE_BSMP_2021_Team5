@@ -146,17 +146,18 @@ def get_kids(parent):
     Returns: list of parent kids
 
     """
-    cursor.execute("SELECT * FROM users WHERE parent='" + parent + "'")
-    fet = cursor.fetchall()
-    if len(fet) == 0:
-        print(parent, "has no kids in the system!")
-        return
-    else:
-        kids_list = []
-        for kid in fet:
-            kids_list.append(kid[0])
-        print(kids_list)
-        return kids_list
+    if parent != "":
+        cursor.execute("SELECT * FROM users WHERE parent='" + parent + "'")
+        fet = cursor.fetchall()
+        if len(fet) == 0:
+            print(parent, "has no kids in the system!")
+            return []
+        else:
+            kids_list = []
+            for kid in fet:
+                kids_list.append(kid[0])
+            print(kids_list)
+            return kids_list
 
 
 def remove_user(user):
@@ -178,7 +179,6 @@ def remove_user(user):
         return False
     if fet[2] == "parent":
         for kid in get_kids(user):
-            #cursor.execute("DELETE FROM users WHERE userName= '" + kid + "'")
             remove_user(kid)
     cursor.execute("DELETE FROM users WHERE userName= '" + user + "'")
     conn.commit()
@@ -228,9 +228,4 @@ login("b", "123")
 login("c", "123")
 remove_user("a")
 """
-
-if __name__ == '__main__':
-    try:
-        db_init()
-    except:
-        pass
+get_kids("")

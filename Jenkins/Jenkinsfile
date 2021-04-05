@@ -20,7 +20,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'py.test --verbose --junit-xml test-reports/results.xml src/login/GUI/test_db_intergation.py'
+                sh 'python -m unittest src/login/GUI/test_db_intergation.py'
             }
         }
     }

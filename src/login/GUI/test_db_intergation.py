@@ -139,7 +139,7 @@ class TestDb(unittest.TestCase):
         res = DB.remove_user('parentTest')
         self.assertEqual(res, True)#Test
 
-        # self.cursor.execute("SELECT * FROM users WHERE userName = 'parentTest'")
+        self.cursor.execute("SELECT * FROM users WHERE userName = 'parentTest'")
         # fet = self.cursor.fetchone()
         # self.assertIsNone(fet)#Test
 

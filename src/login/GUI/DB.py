@@ -176,7 +176,6 @@ def remove_user(user):
         return False
     if fet[2] == "parent":
         for kid in get_kids(user):
-            #cursor.execute("DELETE FROM users WHERE userName= '" + kid + "'")
             remove_user(kid)
     cursor.execute("DELETE FROM users WHERE userName= '" + user + "'")
     conn.commit()

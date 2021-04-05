@@ -148,6 +148,7 @@ def get_kids(parent):
     fet = cursor.fetchall()
     if len(fet) == 0:
         print(parent, "has no kids in the system!")
+        return []
     else:
         kids_list = []
         for kid in fet:
@@ -175,10 +176,11 @@ def remove_user(user):
         return False
     if fet[2] == "parent":
         for kid in get_kids(user):
-            cursor.execute("DELETE FROM users WHERE userName= '" + kid + "'")
+            #cursor.execute("DELETE FROM users WHERE userName= '" + kid + "'")
+            remove_user(kid)
     cursor.execute("DELETE FROM users WHERE userName= '" + user + "'")
     conn.commit()
-    print("remove complete")
+    print(user,"removed")
     return True
 
 
@@ -194,6 +196,7 @@ def get_type(user):
     cursor.execute("SELECT * FROM users WHERE userName ='" + user + "'")
     fet = cursor.fetchone()
     return fet[2]
+
 """
 def allowReg(parent):
     cursor.execute(UPDATE usersDB
@@ -221,4 +224,5 @@ remove_user("a")
 login("a", "123")
 login("b", "123")
 login("c", "123")
+remove_user("a")
 """

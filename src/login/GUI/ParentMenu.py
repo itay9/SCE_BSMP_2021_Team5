@@ -7,10 +7,10 @@ class Ui_parentMenu(object):
 
     def deleteThisUser(self):
         #TODO fix bug, prog crush after click DELETE THIS USER
-        DB.logOut()
         DB.remove_user(DB.currentUser)
-        parentMenu.close()
+        DB.logOut()
         self.mainMenu_UI()
+        parentMenu.close()
         #need to fix BUG !
         ##
     def openChildDelete(self):

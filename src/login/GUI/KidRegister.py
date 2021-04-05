@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from src.login.GUI import DB
+import DB
+import MainMenu 
 
 class Ui_kidRegister(object):
     def setupUi(self, kidRegister):

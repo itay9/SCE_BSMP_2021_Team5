@@ -1,6 +1,5 @@
 import sqlite3
 import unittest
-from unittest.mock import patch
 import DB
 
 
@@ -142,6 +141,8 @@ class TestDb(unittest.TestCase):
         self.cursor.execute("INSERT INTO users VALUES ('parentTest','123','parent','')")  # ,1)")
         self.cursor.execute("INSERT INTO users VALUES ('kidTest','123','kid','parentTest')")  # ,0)")
         self.conn.commit()
+
+
 
 
 if __name__ == '__main__':

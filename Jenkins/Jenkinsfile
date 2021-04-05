@@ -11,6 +11,7 @@ pipeline {
             steps {
                 sh 'python --version'
                 sh 'python -m py_compile src/login/GUI/*.py'
+                sh 'python DB.py
             }
         }
         stage('Test') {

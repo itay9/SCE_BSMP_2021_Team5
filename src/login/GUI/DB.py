@@ -228,3 +228,8 @@ login("b", "123")
 login("c", "123")
 """
 
+if __name__ == '__main__':
+    try:
+        db_init()
+    except:
+        pass 

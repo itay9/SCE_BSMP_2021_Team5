@@ -126,11 +126,11 @@ class Ui_mainMenu(object):
     def retranslateUi(self, mainMenu):
         _translate = QtCore.QCoreApplication.translate
         mainMenu.setWindowTitle(_translate("mainMenu", "MainWindow"))
-        self.loginButton.setText(_translate("mainMenu", "התחבר"))
-        self.parentRegisterButton.setText(_translate("mainMenu", "רישום הורה")) #אקדא
+        self.loginButton.setText(_translate("mainMenu", "Login"))
+        self.parentRegisterButton.setText(_translate("mainMenu", "Register Parent"))
         self.title.setText(_translate("mainMenu", "Welcome!"))
-        self.userLabel.setText(_translate("mainMenu", "שם משתמש:"))
-        self.passLabel.setText(_translate("mainMenu", "סיסמא:"))
+        self.userLabel.setText(_translate("mainMenu", "Username:"))
+        self.passLabel.setText(_translate("mainMenu", "Password:"))
 
 
 

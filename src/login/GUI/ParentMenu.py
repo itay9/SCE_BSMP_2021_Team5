@@ -2,6 +2,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import MainMenu
 import deleteChild
 import DB
+import KidRegister
 
 class Ui_parentMenu(object):
 
@@ -22,6 +23,12 @@ class Ui_parentMenu(object):
     def mainMenu_UI(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = MainMenu.Ui_mainMenu()
+        self.ui.setupUi(self.window)
+        self.window.show()
+       
+    def register_kid(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = KidRegister.Ui_mainMenu()
         self.ui.setupUi(self.window)
         self.window.show()
 
@@ -93,6 +100,8 @@ class Ui_parentMenu(object):
         self.DeleteChild.clicked.connect(self.openChildDelete)
         self.DeleteChild.clicked.connect(parentMenu.close)
         self.DeleteParentUser.clicked.connect(self.deleteThisUser)
+        self.registerChild.clicked.connect(self.register_kid)
+
 
         self.retranslateUi(parentMenu)
         QtCore.QMetaObject.connectSlotsByName(parentMenu)

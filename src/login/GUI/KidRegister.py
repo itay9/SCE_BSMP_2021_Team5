@@ -1,5 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from src.login.GUI import DB
+import DB
+import MainMenu
+import ParentMenu
 
 class Ui_kidRegister(object):
     def setupUi(self, kidRegister):
@@ -65,15 +67,27 @@ class Ui_kidRegister(object):
 
         #button func
         self.registerButton.clicked.connect(self.regClick)
-        self.exit_Bttn.clicked.connect()#TODO exit
+        self.exit_Bttn.clicked.connect(self.openParentMenu)
+        self.exit_Bttn.clicked.connect(kidRegister.close)
+        self.exit_Bttn.clicked.connect(DB.logOut)
+        
+        
         self.retranslateUi(kidRegister)
         QtCore.QMetaObject.connectSlotsByName(kidRegister)
 
+    def openParentMenu(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = ParentMenu.Ui_parentMenu()
+        self.ui.setupUi(self.window)
+        self.window.show()
+        
     def regClick(self):
-        user = self.userName_input.text()
-        pw = self.PW_input.text()
-        parent = DB.currentUser
-        DB.register_kid(user,pw,parent)
+        if DB.sassionFlag == True:
+            user = self.userName_input.text()
+            if DB.canRegister(user):
+                pw = self.PW_input.text()
+                parent = DB.currentUser
+                DB.register_kid(user,pw,parent)
 
     def retranslateUi(self, kidRegister):
         _translate = QtCore.QCoreApplication.translate

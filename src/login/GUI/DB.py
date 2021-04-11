@@ -156,7 +156,7 @@ def get_kids(parent):
         fet = cursor.fetchall()
         if len(fet) == 0:
             print(parent, "has no kids in the system!")
-            return []
+            return
         else:
             kids_list = []
             for kid in fet:
@@ -173,7 +173,7 @@ def remove_user(user):
         user: user to remove
 
     Returns:
-        false if user not exist
+        false if user not exsist
         True if exist
 
     """

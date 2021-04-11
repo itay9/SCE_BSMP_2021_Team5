@@ -4,15 +4,9 @@ import ParentMenu
 import DB
 import KidMenu
 import ManagerMenu
-import loginSucc_POP
+
 
 class Ui_mainMenu(object):
-
-    def loginSucc(self):
-        self.window = QtWidgets.QMainWindow()
-        self.ui = loginSucc_POP.Ui_Login_Success()
-        self.ui.setupUi(self.window)
-        self.window.show()
 
     def openParentRegister(self):
         self.window = QtWidgets.QMainWindow()
@@ -127,8 +121,6 @@ class Ui_mainMenu(object):
                 self.openParentMenu()
             elif nextWindow == "kid":
                 self.openKidMenu()
-            mainMenu.close()
-
 
 
     def retranslateUi(self, mainMenu):
@@ -144,14 +136,9 @@ class Ui_mainMenu(object):
 
 if __name__ == "__main__":
     import sys
-    try:
-        DB.db_init()
-    except:
-        pass
     app = QtWidgets.QApplication(sys.argv)
     mainMenu = QtWidgets.QMainWindow()
     ui = Ui_mainMenu()
     ui.setupUi(mainMenu)
     mainMenu.show()
     sys.exit(app.exec_())
-

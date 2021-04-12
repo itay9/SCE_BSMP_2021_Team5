@@ -30,7 +30,7 @@ def init_QDB():
                 choice4 text,
                 answer INTEGER)""")
 
-    connKids.commit()
+    connQ.commit()
 
 def stampToTime(timestamp):
     return datetime.fromtimestamp(timestamp)

@@ -19,12 +19,8 @@ def db_init():
 
     conn.commit()
 
-from datetime import datetime
+def stampToTime(timestamp):
+    return datetime.fromtimestamp(timestamp)
 
-"""
-# current date and time
-now = datetime.now()
-
-timestamp = int(datetime.timestamp(now))
-time = datetime.fromtimestamp(timestamp)
-"""
+def timeToStamp(time):
+    return int(datetime.timestamp(time))

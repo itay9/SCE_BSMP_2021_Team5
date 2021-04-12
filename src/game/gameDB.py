@@ -32,6 +32,9 @@ def init_QDB():
 
     connQ.commit()
 
+def get_question(question):
+    cursorQ.execute()
+
 def stampToTime(timestamp):
     return datetime.fromtimestamp(timestamp)
 

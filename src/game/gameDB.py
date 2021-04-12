@@ -6,7 +6,8 @@ cursorKids = connKids.cursor()
 connQ = sqlite3.connect("questionDB.db")
 cursorQ = connQ.cursor()
 
-#DB init table
+
+# DB init table
 def init_kidDB():
     cursorKids.execute("""CREATE TABLE users
                 (KidName text,
@@ -14,10 +15,11 @@ def init_kidDB():
                 GameNumber INTEGER,
                 GameLog Blob,
                 GameSuccess Real)""")
-    #gamalog = [(Qnumber,answer,correct)]*
-    #GameSuccess = (number of correct / total Q) * 100 %
-    #db insert rows
-    #cursor.execute("INSERT INTO users VALUES ('chen','123','admin','')")
+    # gamalog = [(Qnumber,answer,correct)]*
+    # GameSuccess = (number of correct / total Q) * 100 %
+    # db insert rows
+    # cursor.execute("INSERT INTO users VALUES ('chen','123','admin','')")
+
 
 def init_QDB():
     cursorQ.execute("""CREATE TABLE users
@@ -32,8 +34,9 @@ def init_QDB():
 
     connQ.commit()
 
+
 def get_question_from_id(questionID):
-    cursorQ.execute("SELECT * FROM KidsDB WHERE qid = ?",questionID)
+    cursorQ.execute("SELECT * FROM KidsDB WHERE qid = ?", questionID)
     fet = cursorQ.fetchone()
     if fet != None:
         return fet
@@ -41,9 +44,23 @@ def get_question_from_id(questionID):
         print("cant find question")
 
 
-
 def stampToTime(timestamp):
     return datetime.fromtimestamp(timestamp)
 
+
 def timeToStamp(time):
     return int(datetime.timestamp(time))
+
+
+def add_result_to_db(kidName, date, gameNumber, gameLog, gameSuccess):
+    cursorKids.execute("INSERT into KidsDB VALUES (?,?,?,?,?)", [kidName, date, gameNumber, gameLog, gameSuccess])
+    print("result add to DB")
+
+def get_kid_results(kidName):
+    cursorKids.execute("SELECT * FROM KidsDB WHERE kidName = ?",kidName )
+    fet = cursorKids.fetchall()
+    if len(fet)!=0:
+        return fet
+    else:
+        print("no result")
+        return []

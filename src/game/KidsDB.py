@@ -1,4 +1,5 @@
 import sqlite3
+from datetime import datetime
 
 conn = sqlite3.connect("KidsDB.db")
 cursor = conn.cursor()
@@ -14,6 +15,16 @@ def db_init():
     #gamalog = [(Qnumber,answer,correct)]*
     #GameSuccess = (number of correct / total Q) * 100 %
     #db insert rows
-    #cursor.execute("INSERT INTO users VALUES ('itay','123','admin','')")
+    #cursor.execute("INSERT INTO users VALUES ('chen','123','admin','')")
 
     conn.commit()
+
+from datetime import datetime
+
+"""
+# current date and time
+now = datetime.now()
+
+timestamp = int(datetime.timestamp(now))
+time = datetime.fromtimestamp(timestamp)
+"""

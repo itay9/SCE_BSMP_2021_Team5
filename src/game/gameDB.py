@@ -21,8 +21,8 @@ def init_kidDB():
 
 def init_QDB():
     cursorQ.execute("""CREATE TABLE users
-                (QuestionID INTEGER,
-                Quesion text,
+                (qid INTEGER,
+                quesion text,
                 picture blob,
                 choice1 text,
                 choice2 text,
@@ -32,8 +32,15 @@ def init_QDB():
 
     connQ.commit()
 
-def get_question(question):
-    cursorQ.execute()
+def get_question_from_id(questionID):
+    cursorQ.execute("SELECT * FROM KidsDB WHERE qid = ?",questionID)
+    fet = cursorQ.fetchone()
+    if fet != None:
+        return fet
+    else:
+        print("cant find question")
+
+
 
 def stampToTime(timestamp):
     return datetime.fromtimestamp(timestamp)

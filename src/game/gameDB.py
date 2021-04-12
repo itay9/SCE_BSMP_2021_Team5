@@ -1,15 +1,13 @@
 import sqlite3
 from datetime import datetime
 
-connKids = sqlite3.connect("KidsDB.db")
-cursorKids = connKids.cursor()
-connQ = sqlite3.connect("questionDB.db")
-cursorQ = connQ.cursor()
+conn = sqlite3.connect("GameDB.db")
+cursor = conn.cursor()
 
 
 # DB init table
 def init_kidDB():
-    cursorKids.execute("""CREATE TABLE users
+    cursor.execute("""CREATE TABLE results
                 (KidName text,
                 Date timestamp,
                 GameNumber INTEGER,
@@ -22,7 +20,7 @@ def init_kidDB():
 
 
 def init_QDB():
-    cursorQ.execute("""CREATE TABLE users
+    cursor.execute("""CREATE TABLE ques
                 (qid INTEGER,
                 quesion text,
                 picture blob,
@@ -32,12 +30,12 @@ def init_QDB():
                 choice4 text,
                 answer INTEGER)""")
 
-    connQ.commit()
+    conn.commit()
 
 
 def get_question_from_id(questionID):
-    cursorQ.execute("SELECT * FROM KidsDB WHERE qid = ?", questionID)
-    fet = cursorQ.fetchone()
+    cursor.execute("SELECT * FROM ques WHERE qid = ?", questionID)
+    fet = cursor.fetchone()
     if fet != None:
         return fet
     else:
@@ -52,15 +50,20 @@ def timeToStamp(time):
     return int(datetime.timestamp(time))
 
 
-def add_result_to_db(kidName, date, gameNumber, gameLog, gameSuccess):
-    cursorKids.execute("INSERT into KidsDB VALUES (?,?,?,?,?)", [kidName, date, gameNumber, gameLog, gameSuccess])
+def add_result_to_Kidsdb(kidName, date, gameNumber, gameLog, gameSuccess):
+    cursor.execute("INSERT into results VALUES (?,?,?,?,?)", [kidName, date, gameNumber, gameLog, gameSuccess])
     print("result add to DB")
 
 def get_kid_results(kidName):
-    cursorKids.execute("SELECT * FROM KidsDB WHERE kidName = ?",kidName )
-    fet = cursorKids.fetchall()
+    cursor.execute("SELECT * FROM results WHERE kidName = ?",kidName )
+    fet = cursor.fetchall()
     if len(fet)!=0:
         return fet
     else:
         print("no result")
         return []
+
+def add_question_to_qdb(quesion,picUrl,ch1,ch2,ch3,ch4,ans):
+    cursor.execute("INSERT INTO ques VALUES (?,?,?,?,?,?,?)",[quesion,picUrl,ch1,ch2,ch3,ch4,ans])
+    print("question added")
+

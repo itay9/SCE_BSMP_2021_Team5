@@ -30,7 +30,6 @@ def init_QDB():
     add_question_to_qdb("banana","burl",1,2,3,4,1)
     add_question_to_qdb("apple", "aurl", 1, 2, 3, 4, 2)
 
-
 def init_kidDB():
     cursor.execute("""CREATE TABLE results
                 (KidName text,
@@ -44,7 +43,6 @@ def init_kidDB():
     conn.commit()
     add_result_to_Kidsdb("chen",datetime.now(),1,23)
     add_result_to_Kidsdb("chen", datetime.now(), 0, 95)
-
 
 def get_question_from_id(questionID):
     cursor.execute("SELECT * FROM ques WHERE qid = ?", questionID)
@@ -61,7 +59,7 @@ def timeToStamp(time):
     return int(datetime.timestamp(time))
 
 def get_kid_results(kidName):
-    cursor.execute("SELECT * FROM results WHERE kidName ='chen'")
+    cursor.execute("SELECT * FROM results WHERE kidName =?",(kidName,))
     fet = cursor.fetchall()
     if len(fet)!=0:
         return fet
@@ -78,7 +76,7 @@ def get_ans(qid):
         return 0
 
 def get_game_number(kidName):
-    cursor.execute("SELECT * FROM results WHERE kidName = 'chen'")
+    cursor.execute("SELECT * FROM results WHERE kidName=?",(kidName,))
     fet = cursor.fetchall()
     return len(fet)
 

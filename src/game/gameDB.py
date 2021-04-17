@@ -85,11 +85,6 @@ def get_qestion_id():
     fet = cursor.fetchall()
     return len(fet)+1
 
-name = "chen"
-print(get_game_number(name))
-print(get_kid_results(name))
-
-
 
 
 

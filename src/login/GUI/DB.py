@@ -207,8 +207,9 @@ def get_type(user):
 
 
 def allowReg(parent):
-    cursor.execute("UPDATE users SET canReg = 1 WHERE userName= ? ",parent)
+    cursor.execute("UPDATE users SET canReg = 1 WHERE userName= ? ", parent)
     conn.commit()
+
 
 def canRegister(user):
     if get_type(user) == "parent":
@@ -219,10 +220,12 @@ def canRegister(user):
     else:
         return False
 
+
 def getUser(userName):
-    cursor.execute("SELECT * FROM users WHERE userName = ?",userName)
+    cursor.execute("SELECT * FROM users WHERE userName = ?", userName)
     fet = cursor.fetchone()
     return fet
+
 
 # test
 """
@@ -250,7 +253,7 @@ register_kid("b","b","a")
 """
 
 
-if __name__ == '__main__':
+def build_db():
     try:
         db_init()
     except:

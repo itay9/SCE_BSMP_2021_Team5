@@ -3,14 +3,12 @@ import unittest
 import DB
 import os.path
 
+
 class TestDb(unittest.TestCase):
-
-
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     db_path = os.path.join(BASE_DIR, "usersDB.db")
     with sqlite3.connect(db_path) as conn:
-
-    # with sqlite3.connect("usersDB.db") as conn:
+        # with sqlite3.connect("usersDB.db") as conn:
         cursor = conn.cursor()
 
     @classmethod
@@ -34,8 +32,9 @@ class TestDb(unittest.TestCase):
 
     # def tearDown(self):
     #     print('tearDown\n')
+
     def test_check(self):
-        self.assertEqual(True,True)
+        self.assertEqual(True, True)
 
     def test_add_remove_user(self):
         self.cursor.execute("INSERT INTO users VALUES ('userTest',123,'kid','parentTest',0)")
@@ -83,7 +82,7 @@ class TestDb(unittest.TestCase):
         # self.assertIsNone(fet)  # Test
 
     def test_register_kid_func(self):
-        self.assertEqual(True,True)
+        self.assertEqual(True, True)
         # cls.cursor.execute("INSERT INTO users VALUES ('parentTest','123','parent','')")  # ,1)")
         # res = DB.register_kid('kidTest', '123', '')
         # self.assertNotEqual(res, True)  # Test
@@ -128,7 +127,7 @@ class TestDb(unittest.TestCase):
 
     def test_remove_user_func(self):
         res = DB.remove_user('')
-        self.assertNotEqual(res, True)#Test
+        self.assertNotEqual(res, True)  # Test
 
         # res = DB.remove_user('kidTest')
         # self.assertEqual(res, True)#Test
@@ -150,8 +149,6 @@ class TestDb(unittest.TestCase):
         self.cursor.execute("INSERT INTO users VALUES ('parentTest','123','parent','',1)")
         self.cursor.execute("INSERT INTO users VALUES ('kidTest','123','kid','parentTest',0)")
         self.conn.commit()
-
-
 
 
 if __name__ == '__main__':

@@ -10,7 +10,7 @@ def init_QDB():
     cursor.execute("""CREATE TABLE ques
                 (qid INTEGER,
                 quesion text,
-                picture blob,
+                picture text,
                 choice1 text,
                 choice2 text,
                 choice3 text,

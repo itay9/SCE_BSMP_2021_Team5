@@ -270,6 +270,12 @@ def get_data_kid_by_parent(parent):
         fet = cursor.fetchall()
         return fet
 
+def get_data_parent():
+    cursor.execute("SELECT * FROM users WHERE type='parent'")
+    fet = cursor.fetchall()
+    return fet
+
+
 
 
 

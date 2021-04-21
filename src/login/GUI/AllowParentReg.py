@@ -1,4 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+import DB
 
 class Ui_AllowParentReg(object):
     def setupUi(self, AllowParentReg):
@@ -58,9 +59,24 @@ class Ui_AllowParentReg(object):
         self.parent_NAME_LABEL.setFont(font)
         self.parent_NAME_LABEL.setObjectName("parent_NAME_LABEL")
         AllowParentReg.setCentralWidget(self.centralwidget)
-
+        #load data
+        self.load_data()
         self.retranslateUi(AllowParentReg)
         QtCore.QMetaObject.connectSlotsByName(AllowParentReg)
+
+    def load_data(self):
+        result = DB.get_data_parent()
+        self.parentTable.setRowCount(len(result))
+        for row_num in range(len(result)):
+            row = result[row_num]
+            if row[4] == 1:
+                allow = "True"
+            else:
+                allow= "False"
+            self.parentTable.setItem(row_num,0,QtWidgets.QTableWidgetItem(row[0]))
+            self.parentTable.setItem(row_num, 1, QtWidgets.QTableWidgetItem(row[1]))
+            self.parentTable.setItem(row_num, 2, QtWidgets.QTableWidgetItem(allow))
+
 
     def retranslateUi(self, AllowParentReg):
         _translate = QtCore.QCoreApplication.translate

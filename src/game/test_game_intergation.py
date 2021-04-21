@@ -35,7 +35,19 @@ class GameTest(unittest.TestCase):
         self.assertEqual(fet, 999)
 
         res = gameDB.get_question_from_id(999)
+        self.assertIsNotNone(res)
         print("question is:", res)
+
+        res = gameDB.get_question_from_id(99999)
+        self.assertIsNone(res)
+
+    def test_add_ques(self):
+        qst = ('testQ', 'url', 'a', 'b', 'c', 'd', 1)
+        gameDB.add_question_to_qdb(*qst)
+
+        self.cursor.execute("SELECT qid FROM ques WHERE quesion = 'testQ'")
+        fet = self.cursor.fetchone()
+        self.assertIsNotNone(fet)
 
 
 if __name__ == '__main__':

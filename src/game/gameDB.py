@@ -57,7 +57,7 @@ def get_question_from_id(questionID):
     if fet != None:
         return fet
     else:
-        print("cant find question")
+        print("can't find question")
         return
 
 

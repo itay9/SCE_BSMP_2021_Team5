@@ -161,7 +161,6 @@ def get_kids(parent):
             kids_list = []
             for kid in fet:
                 kids_list.append(kid[0])
-            print(kids_list)
             return kids_list
 
 
@@ -256,6 +255,21 @@ def get_data_all_users():
     cursor.execute("SELECT userName, pass FROM users WHERE type NOT IN ('admin')")
     fet = cursor.fetchall()
     return fet
+
+def get_data_kid_by_parent(parent):
+    '''
+
+    Args:
+        parent: name of parent
+
+    Returns: data from users of parent kids
+
+    '''
+    if parent != "":
+        cursor.execute("SELECT * FROM users WHERE parent=?",(parent,))
+        fet = cursor.fetchall()
+        return fet
+
 
 
 

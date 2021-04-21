@@ -4,14 +4,6 @@ import ParentMenu
 import DB
 
 class Ui_ChildTableDelete(object):
-    def load_data(self):
-        conn = sqlite3.connect("usersDB.db")
-        cursor = conn.cursor()
-        result = cursor.execute("SELECT ?,? FROM users",("userName","pass"))
-        self.childTable.setRowCount(0)
-        print(result)
-        #for row_number,row_data in enumerate(result):
-
 
     def rtrn_ParentMenu(self):
         self.window = QtWidgets.QMainWindow()
@@ -79,8 +71,20 @@ class Ui_ChildTableDelete(object):
         self.child_NAME_LABEL.setObjectName("child_NAME_LABEL")
         ChildTableDelete.setCentralWidget(self.centralwidget)
 
+        #get data
+        self.load_data()
         self.retranslateUi(ChildTableDelete)
         QtCore.QMetaObject.connectSlotsByName(ChildTableDelete)
+
+    def load_data(self):
+        result = DB.get_data_all_users()
+        self.childTable.setRowCount(len(result))
+        for row_num in  range(len(result)):
+            row = result[row_num]
+            self.childTable.setItem(row_num,0,QtWidgets.QTableWidgetItem(row[0]))
+            self.childTable.setItem(row_num, 1, QtWidgets.QTableWidgetItem(row[1]))
+
+        #for row_number,row_data in enumerate(result):
 
     def retranslateUi(self, ChildTableDelete):
         _translate = QtCore.QCoreApplication.translate

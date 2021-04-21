@@ -14,14 +14,15 @@ def db_init():
                 pass text,
                 type text, 
                 parent text,
-                canReg integer)""")
+                canReg integer,
+                canPlay integer)""")
     # type is admin , parent or kid
     # canReg : 1 True , 0 False
     # db insert rows
-    cursor.execute("INSERT INTO users VALUES ('itay','123','admin','',1)")
-    cursor.execute("INSERT INTO users VALUES ('yaron','123','parent','',1)")
-    cursor.execute("INSERT INTO users VALUES ('chen','123','kid','yaron',0)")
-    cursor.execute("INSERT INTO users VALUES ('yaniv','123','kid','yaron',0)")
+    cursor.execute("INSERT INTO users VALUES ('itay','123','admin','',1,0)")
+    cursor.execute("INSERT INTO users VALUES ('yaron','123','parent','',1,0)")
+    cursor.execute("INSERT INTO users VALUES ('chen','123','kid','yaron',0,1)")
+    cursor.execute("INSERT INTO users VALUES ('yaniv','123','kid','yaron',0,1)")
     conn.commit()
 
 
@@ -80,7 +81,7 @@ def register_parent(user, password):
         cursor.execute("SELECT * FROM users WHERE userName = '" + user + "'")
         fet = cursor.fetchone()
         if fet is None:
-            cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','parent','None',0)")
+            cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','parent','None',0,0)")
             conn.commit()
             print("register parent complete!")
             return True
@@ -106,7 +107,7 @@ def register_kid(user, password, parent):
         cursor.execute("SELECT * FROM users WHERE userName = '" + user + "'")
         fet = cursor.fetchone()
         if fet is None:
-            cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','kid','" + parent + "',0)")
+            cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','kid','" + parent + "',0,0)")
             conn.commit()
             print("register kid complete!")
             return True
@@ -133,7 +134,7 @@ def register_admin(user, password):
     cursor.execute("SELECT * FROM users WHERE userName = '" + user + "'")
     fet = cursor.fetchone()
     if fet is None:
-        cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','admin','None',1)")  # new
+        cursor.execute("INSERT INTO users VALUES ('" + user + "','" + password + "','admin','None',1,0)")  # new
         conn.commit()
         print("register admin complete!")
         return True
@@ -221,7 +222,7 @@ def canRegister(user):
 
 
 def getUser(userName):
-    cursor.execute("SELECT * FROM users WHERE userName = ?", userName)
+    cursor.execute("SELECT * FROM users WHERE userName = ?", (userName,))
     fet = cursor.fetchone()
     return fet
 
@@ -275,13 +276,9 @@ def get_data_parent():
     fet = cursor.fetchall()
     return fet
 
-
-
-
-
-
-
-
+def allowPlay(kid):
+    cursor.execute("UPDATE users SET canPlay = 1 WHERE userName= ? ", kid)
+    conn.commit()
 
 
 # test
@@ -308,6 +305,7 @@ register_kid("b","b","a")
 allowReg("a")
 register_kid("b","b","a")
 """
+
 def build_db():
     try:
         db_init()

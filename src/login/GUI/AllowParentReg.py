@@ -61,6 +61,9 @@ class Ui_AllowParentReg(object):
         AllowParentReg.setCentralWidget(self.centralwidget)
         #load data
         self.load_data()
+
+        #bttn
+        self.allowButton.clicked.connect(self.allow_user)
         self.retranslateUi(AllowParentReg)
         QtCore.QMetaObject.connectSlotsByName(AllowParentReg)
 
@@ -76,6 +79,10 @@ class Ui_AllowParentReg(object):
             self.parentTable.setItem(row_num,0,QtWidgets.QTableWidgetItem(row[0]))
             self.parentTable.setItem(row_num, 1, QtWidgets.QTableWidgetItem(row[1]))
             self.parentTable.setItem(row_num, 2, QtWidgets.QTableWidgetItem(allow))
+    def allow_user(self):
+        user = self.input_parent_name.text()
+        DB.allowReg(user)
+        self.load_data()
 
 
     def retranslateUi(self, AllowParentReg):

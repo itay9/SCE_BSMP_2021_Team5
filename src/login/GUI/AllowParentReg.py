@@ -1,6 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
 class Ui_AllowParentReg(object):
     def setupUi(self, AllowParentReg):
         AllowParentReg.setObjectName("AllowParentReg")

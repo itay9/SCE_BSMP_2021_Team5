@@ -226,6 +226,43 @@ def getUser(userName):
     fet = cursor.fetchone()
     return fet
 
+def get_number_of_users():
+    """
+
+    Returns: number of users for row in print table
+
+    """
+    cursor.execute("SELECT * FROM users")
+    fet = cursor.fetchall()
+    return len(fet)
+
+#get data funcs
+def get_data_all():
+    '''
+
+    Returns: all data INCLUDE ADMIN
+            internal use only!
+
+    '''
+    cursor.execute("SELECT * FROM users")
+    fet = cursor.fetchall()
+    return fet
+
+def get_data_all_users():
+    '''
+
+    Returns: all data except admin
+    '''
+    cursor.execute("SELECT userName, pass FROM users WHERE type NOT IN ('admin')")
+    fet = cursor.fetchall()
+    return fet
+
+
+
+
+
+
+
 
 # test
 """
@@ -251,8 +288,6 @@ register_kid("b","b","a")
 allowReg("a")
 register_kid("b","b","a")
 """
-
-
 def build_db():
     try:
         db_init()

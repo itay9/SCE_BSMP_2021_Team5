@@ -1,8 +1,17 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+import sqlite3
 import ParentMenu
-
+import DB
 
 class Ui_ChildTableDelete(object):
+    def load_data(self):
+        conn = sqlite3.connect("usersDB.db")
+        cursor = conn.cursor()
+        result = cursor.execute("SELECT ?,? FROM users",("userName","pass"))
+        self.childTable.setRowCount(0)
+        print(result)
+        #for row_number,row_data in enumerate(result):
+
 
     def rtrn_ParentMenu(self):
         self.window = QtWidgets.QMainWindow()
@@ -89,7 +98,6 @@ class Ui_ChildTableDelete(object):
 
 if __name__ == "__main__":
     import sys
-
     app = QtWidgets.QApplication(sys.argv)
     ChildTableDelete = QtWidgets.QMainWindow()
     ui = Ui_ChildTableDelete()

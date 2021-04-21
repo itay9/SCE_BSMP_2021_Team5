@@ -24,6 +24,7 @@ class GameTest(unittest.TestCase):
         cls.cursor.execute("DELETE FROM ques WHERE qid= 9999")
         cls.conn.commit()
         print("tearDown complete")
+        cls.conn.close()
 
     def test_check(self):
         self.assertEqual(True, True)

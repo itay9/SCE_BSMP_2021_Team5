@@ -133,7 +133,6 @@ class Ui_mainMenu(object):
 
 if __name__ == "__main__":
     import sys
-
     DB.build_db()
     app = QtWidgets.QApplication(sys.argv)
     mainMenu = QtWidgets.QMainWindow()

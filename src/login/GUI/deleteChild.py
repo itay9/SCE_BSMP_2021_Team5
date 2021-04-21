@@ -73,18 +73,22 @@ class Ui_ChildTableDelete(object):
 
         #get data
         self.load_data()
+        self.DeleteButton.clicked.connect(self.delete_child)
         self.retranslateUi(ChildTableDelete)
         QtCore.QMetaObject.connectSlotsByName(ChildTableDelete)
 
     def load_data(self):
-        result = DB.get_data_all_users()
+        result = DB.get_data_kid_by_parent(DB.currentUser)
         self.childTable.setRowCount(len(result))
         for row_num in  range(len(result)):
             row = result[row_num]
             self.childTable.setItem(row_num,0,QtWidgets.QTableWidgetItem(row[0]))
             self.childTable.setItem(row_num, 1, QtWidgets.QTableWidgetItem(row[1]))
 
-        #for row_number,row_data in enumerate(result):
+    def delete_child(self):
+        name_to_delete = self.inputChildName.text()
+        DB.remove_user(name_to_delete)
+        self.load_data()
 
     def retranslateUi(self, ChildTableDelete):
         _translate = QtCore.QCoreApplication.translate

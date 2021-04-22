@@ -78,6 +78,28 @@ class GameTest(unittest.TestCase):
         fet = self.cursor.fetchone()
         self.assertIsNotNone(fet)
 
+    def test_add_result(self):
+        date = datetime.now()
+        self.cursor.execute("INSERT into results VALUES ('chenB', ?, 1, 2, 80)", (date,))
+        self.conn.commit()
+
+        self.cursor.execute("SELECT * FROM results WHERE KidName = 'chenB'")
+        fet = self.cursor.fetchone()
+        self.assertIsNotNone(fet)
+
+        self.cursor.execute("DELETE FROM results WHERE KidName= 'chenB'")
+        self.conn.commit()
+
+        tup = ('chenB', datetime.now(), 1, 100)
+        gameDB.add_result_to_Kidsdb(*tup)
+
+        self.cursor.execute("SELECT * FROM results WHERE KidName = 'chenB'")
+        fet = self.cursor.fetchone()
+        self.assertIsNotNone(fet)
+
+        self.cursor.execute("DELETE FROM results WHERE KidName= 'chenB'")
+        self.conn.commit()
+
 
 if __name__ == '__main__':
     unittest.main()

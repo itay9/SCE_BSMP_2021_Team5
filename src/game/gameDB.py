@@ -1,5 +1,6 @@
 import sqlite3
 from datetime import datetime
+import random
 
 conn = sqlite3.connect("GameDB.db")
 cursor = conn.cursor()
@@ -91,12 +92,51 @@ def get_game_number(kidName):
     return len(fet)
 
 def get_qestion_id():
+    '''
+
+    Returns: id for next questions
+
+    '''
     cursor.execute("SELECT * FROM ques")
     fet = cursor.fetchall()
     return len(fet) + 1
 
 def get_question_for_game(number_of_question):
+    '''
 
+    Args:
+        number_of_question: number of questions
+
+    Returns: list of questions
+
+    '''
+    if number_of_question > get_qestion_id() -1:
+        number_of_question = get_qestion_id() -1
+    qList = []
+    num_list = generate_rand_number_list(number_of_question)
+    for qid in num_list:
+        cursor.execute("SELECT * FROM ques WHERE qid=?",(qid,))
+        fet = cursor.fetchone()
+        if fet != None:
+            qList.append(fet)
+    return qList
+
+def generate_rand_number_list(size):
+    '''
+
+    Args:
+        size: int size of list
+
+    Returns: list of random number for qid
+
+    '''
+    num_list = []
+    for i in range(size):
+        number = random.randint(1,size+1)
+        while number in num_list:
+            number = random.randint(1, size + 1)
+        num_list.append(number)
+    return num_list
 
 
 def build_db():
@@ -105,3 +145,5 @@ def build_db():
         init_kidDB()
     except:
         pass
+build_db()
+print(get_question_for_game(2))

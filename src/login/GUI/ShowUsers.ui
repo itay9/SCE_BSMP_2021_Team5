@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>QuestionTable</class>
- <widget class="QMainWindow" name="QuestionTable">
+ <class>ShowUsers</class>
+ <widget class="QMainWindow" name="ShowUsers">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>762</width>
-    <height>466</height>
+    <width>573</width>
+    <height>525</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTableWidget" name="questionTable">
+   <widget class="QTableWidget" name="userTable">
     <property name="geometry">
      <rect>
-      <x>30</x>
+      <x>20</x>
       <y>70</y>
-      <width>711</width>
+      <width>521</width>
       <height>221</height>
      </rect>
     </property>
@@ -28,41 +28,31 @@
     </property>
     <column>
      <property name="text">
-      <string>Qid</string>
+      <string>Username</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>answer</string>
+      <string>Password</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>img URL</string>
+      <string>Can Play</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>choice 1</string>
+      <string>Can Reg</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>choice 2</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>choice 3</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>choice 4</string>
+      <string>Parent</string>
      </property>
     </column>
    </widget>
-   <widget class="QLabel" name="question_TABLE_LABEL">
+   <widget class="QLabel" name="user_TABLE_LABEL">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -80,14 +70,14 @@
      </font>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; text-decoration: underline;&quot;&gt;Question Table&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; text-decoration: underline;&quot;&gt;Users table&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QPushButton" name="deleteButton">
     <property name="geometry">
      <rect>
-      <x>410</x>
-      <y>300</y>
+      <x>30</x>
+      <y>360</y>
       <width>131</width>
       <height>41</height>
      </rect>
@@ -107,9 +97,9 @@
    <widget class="QPushButton" name="backButton">
     <property name="geometry">
      <rect>
-      <x>600</x>
-      <y>390</y>
-      <width>141</width>
+      <x>200</x>
+      <y>440</y>
+      <width>201</width>
       <height>51</height>
      </rect>
     </property>
@@ -125,7 +115,7 @@
      <string>Back</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="input_qid">
+   <widget class="QLineEdit" name="input_user_name">
     <property name="geometry">
      <rect>
       <x>260</x>
@@ -135,7 +125,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="question_label_LABEL">
+   <widget class="QLabel" name="user_NAME_LABEL">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -153,16 +143,16 @@
      </font>
     </property>
     <property name="text">
-     <string>Enter Question ID :</string>
+     <string>Enter user  Name:</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="add_new_question_button">
+   <widget class="QPushButton" name="allowRegButton">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>380</y>
-      <width>201</width>
-      <height>51</height>
+      <x>180</x>
+      <y>360</y>
+      <width>131</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
@@ -174,7 +164,28 @@
      </font>
     </property>
     <property name="text">
-     <string>Add New Question</string>
+     <string>Allow Reg</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="allowPlayButton">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>360</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial Black</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Allow Play</string>
     </property>
    </widget>
   </widget>

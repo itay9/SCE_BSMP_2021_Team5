@@ -60,7 +60,6 @@ def get_question_from_id(questionID):
         print("can't find question")
         return
 
-
 def stampToTime(timestamp):
     return datetime.fromtimestamp(timestamp)
 
@@ -78,7 +77,6 @@ def get_kid_results(kidName):
         print("no result")
         return []
 
-
 def get_ans(qid):
     cursor.execute("SELECT answer FROM ques WHERE qid=?", qid)
     fet = cursor.fetchone()
@@ -87,21 +85,23 @@ def get_ans(qid):
     else:
         return 0
 
-
 def get_game_number(kidName):
     cursor.execute("SELECT * FROM results WHERE kidName=?", (kidName,))
     fet = cursor.fetchall()
     return len(fet)
-
 
 def get_qestion_id():
     cursor.execute("SELECT * FROM ques")
     fet = cursor.fetchall()
     return len(fet) + 1
 
+def get_question_for_game(number_of_question):
+
+
 
 def build_db():
     try:
         init_QDB()
+        init_kidDB()
     except:
         pass

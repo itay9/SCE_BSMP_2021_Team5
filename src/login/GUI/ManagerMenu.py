@@ -10,7 +10,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import MainMenu
 import DB
-
+import DeleteUser
 class Ui_ManagerMenu(object):
 
     def setupUi(self, ManagerMenu):
@@ -89,6 +89,7 @@ class Ui_ManagerMenu(object):
         self.logOutButton.clicked.connect(self.mainMenu_UI)
         self.logOutButton.clicked.connect(ManagerMenu.close)
         self.logOutButton.clicked.connect(DB.logOut)
+        self.deleteUserButton
 
         self.retranslateUi(ManagerMenu)
         QtCore.QMetaObject.connectSlotsByName(ManagerMenu)
@@ -107,6 +108,11 @@ class Ui_ManagerMenu(object):
     def mainMenu_UI(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = MainMenu.Ui_mainMenu()
+        self.ui.setupUi(self.window)
+        self.window.show()
+    def open_deleteUser_UI(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = DeleteUser.Ui_DeleteUser()
         self.ui.setupUi(self.window)
         self.window.show()
 

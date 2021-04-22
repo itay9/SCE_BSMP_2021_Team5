@@ -49,6 +49,19 @@ class GameTest(unittest.TestCase):
         fet = self.cursor.fetchone()
         self.assertIsNotNone(fet)
 
+    def test_get_ans(self):
+        self.cursor.execute("SELECT answer FROM ques WHERE qid = 999")
+        fet=self.cursor.fetchone()[0]
+        self.assertEqual(fet,1)
+
+        res=gameDB.get_ans(999)
+        self.assertEqual(res,1)
+
+        res = gameDB.get_ans(99999)
+        self.assertIsNone(res)
+
+
+
 
 if __name__ == '__main__':
     unittest.main()

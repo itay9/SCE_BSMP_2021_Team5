@@ -106,6 +106,10 @@ def build_db():
         init_QDB()
     except:
         pass
+    try:
+        init_kidDB()
+    except:
+        pass
 
 
 build_db()

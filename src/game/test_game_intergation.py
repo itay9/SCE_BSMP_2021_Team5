@@ -2,6 +2,7 @@ import sqlite3
 import unittest
 import gameDB
 import os.path
+from datetime import datetime
 
 
 class GameTest(unittest.TestCase):
@@ -16,12 +17,20 @@ class GameTest(unittest.TestCase):
         cls.cursor.execute("INSERT INTO ques VALUES (999,'firstQ','url','a','b','c','d',1)")
         cls.cursor.execute("INSERT INTO ques VALUES (9999,'secondQ','url','e','f','g','h',2)")
         cls.conn.commit()
+
+        date = datetime.now()
+        cls.cursor.execute("INSERT into results VALUES ('chenA', ?, 1, 2, 80)", (date,))
+        cls.conn.commit()
+
         print("setUp complete")
 
     @classmethod
     def tearDownClass(cls):
         cls.cursor.execute("DELETE FROM ques WHERE qid= 999")
         cls.cursor.execute("DELETE FROM ques WHERE qid= 9999")
+        cls.conn.commit()
+
+        cls.cursor.execute("DELETE FROM results WHERE KidName= 'chenA'")
         cls.conn.commit()
         print("tearDown complete")
         cls.conn.close()
@@ -51,16 +60,23 @@ class GameTest(unittest.TestCase):
 
     def test_get_ans(self):
         self.cursor.execute("SELECT answer FROM ques WHERE qid = 999")
-        fet=self.cursor.fetchone()[0]
-        self.assertEqual(fet,1)
+        fet = self.cursor.fetchone()[0]
+        self.assertEqual(fet, 1)
 
-        res=gameDB.get_ans(999)
-        self.assertEqual(res,1)
+        res = gameDB.get_ans(999)
+        self.assertEqual(res, 1)
 
         res = gameDB.get_ans(99999)
         self.assertIsNone(res)
 
+    def test_kidsDB(self):
+        self.cursor.execute("SELECT * FROM results")
+        fet = self.cursor.fetchall()
+        self.assertIsNotNone(fet)
 
+        self.cursor.execute("SELECT * FROM results WHERE KidName = 'chenA'")
+        fet = self.cursor.fetchone()
+        self.assertIsNotNone(fet)
 
 
 if __name__ == '__main__':

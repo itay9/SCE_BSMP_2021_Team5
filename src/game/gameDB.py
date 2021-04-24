@@ -74,14 +74,19 @@ def add_result_to_Kidsdb(kidName, date, gameLog, gameSuccess):
     print("result add to DB")
 
 def add_question_to_qdb(quesion, picUrl, ch1, ch2, ch3, ch4, ans):
+    pass
+
+def add_question_to_qdb(question, picUrl, ch1, ch2, ch3, ch4, ans):
+    # check if question already exist (by 'question')
+
     cursor.execute("INSERT INTO ques VALUES (?,?,?,?,?,?,?,?)",
-                   (get_qestion_id(), quesion, picUrl, ch1, ch2, ch3, ch4, ans))
+                   (get_qestion_id(), question, picUrl, ch1, ch2, ch3, ch4, ans))
     conn.commit()
     print("question added")
 
 def get_question_from_id(questionID):
     # check if input is legal
-    cursor.execute("SELECT * FROM ques WHERE qid = ?", (questionID,))#send the INT as tuple is required
+    cursor.execute("SELECT * FROM ques WHERE qid = ?", (questionID,))  # send the INT as tuple is required
     fet = cursor.fetchone()
     if fet != None:
         return fet
@@ -105,12 +110,12 @@ def get_kid_results(kidName):
         return []
 
 def get_ans(qid):
-    cursor.execute("SELECT answer FROM ques WHERE qid=?", qid)
+    cursor.execute("SELECT answer FROM ques WHERE qid=?", (qid,))
     fet = cursor.fetchone()
     if fet != None:
-        return fet
+        return fet[0] #fetchone return tuple
     else:
-        return 0
+        return
 
 def get_game_number(kidName):
     cursor.execute("SELECT * FROM results WHERE kidName=?", (kidName,))
@@ -212,8 +217,6 @@ def calc_game_success(kidName,gameNumber):
             correct_ans+=1
     success_rate =  correct_ans/len(fet)
     return success_rate
-
-
 
 
 print(get_question_for_game(2))

@@ -21,7 +21,6 @@ def init_QDB():
     add_question_to_qdb("banana", "burl", 1, 2, 3, 4, 1)
     add_question_to_qdb("apple", "aurl", 1, 2, 3, 4, 2)
 
-
 def init_kidDB():
     cursor.execute("""CREATE TABLE results
                 (KidName text,
@@ -36,20 +35,17 @@ def init_kidDB():
     add_result_to_Kidsdb("chen", datetime.now(), 1, 23)
     add_result_to_Kidsdb("chen", datetime.now(), 0, 95)
 
-
 def add_result_to_Kidsdb(kidName, date, gameLog, gameSuccess):
     cursor.execute("INSERT into results VALUES (?,?,?,?,?)",
                    (kidName, date, get_game_number(kidName) + 1, gameLog, gameSuccess))
     conn.commit()
     print("result add to DB")
 
-
 def add_question_to_qdb(quesion, picUrl, ch1, ch2, ch3, ch4, ans):
     cursor.execute("INSERT INTO ques VALUES (?,?,?,?,?,?,?,?)",
                    (get_qestion_id(), quesion, picUrl, ch1, ch2, ch3, ch4, ans))
     conn.commit()
     print("question added")
-
 
 def get_question_from_id(questionID):
     # check if input is legal
@@ -64,10 +60,8 @@ def get_question_from_id(questionID):
 def stampToTime(timestamp):
     return datetime.fromtimestamp(timestamp)
 
-
 def timeToStamp(time):
     return int(datetime.timestamp(time))
-
 
 def get_kid_results(kidName):
     cursor.execute("SELECT * FROM results WHERE kidName =?", (kidName,))
@@ -111,6 +105,7 @@ def get_question_for_game(number_of_question):
 
     '''
     if number_of_question > get_qestion_id() -1:
+        #תיקון מספר השאלות
         number_of_question = get_qestion_id() -1
     qList = []
     num_list = generate_rand_number_list(number_of_question)
@@ -138,6 +133,26 @@ def generate_rand_number_list(size):
         num_list.append(number)
     return num_list
 
+def check_answer(qid,ans):
+    '''
+
+    Args:
+        qid: int number of question
+        ans: player answer
+
+    Returns: True if ans correct
+             False if ans wrong
+
+    '''
+    cursor.execute("SELECT * FROM ques WHERE qid=?",(qid,))
+    fet = cursor.fetchone()
+    if fet != None:
+        true_ans = fet[7]
+        if true_ans==ans:
+            return True
+        else:
+            return False
+
 
 def build_db():
     try:
@@ -145,5 +160,7 @@ def build_db():
         init_kidDB()
     except:
         pass
-build_db()
+
 print(get_question_for_game(2))
+print(check_answer(1,2)) #false
+print(check_answer(1,1)) #true

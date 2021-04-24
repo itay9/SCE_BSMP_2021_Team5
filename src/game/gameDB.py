@@ -5,7 +5,6 @@ import random
 conn = sqlite3.connect("GameDB.db")
 cursor = conn.cursor()
 
-
 # DB init table
 def init_QDB():
     cursor.execute("""CREATE TABLE ques
@@ -34,6 +33,39 @@ def init_kidDB():
     conn.commit()
     add_result_to_Kidsdb("chen", datetime.now(), 1, 23)
     add_result_to_Kidsdb("chen", datetime.now(), 0, 95)
+
+def init_game_log_DB():
+    '''
+    init game result DB
+    0: KidName
+    1: GameNumber
+    2: qid
+    3: playerAns
+    Returns: build db
+
+    '''
+    cursor.execute("""CREATE TABLE gameLog
+                    (KidName text,
+                    GameNumber INTEGER,
+                    qid INTEGER,
+                    playerAns INTEGER)""")
+
+def add_result_to_gameLog(KidName,GameNumber,qid,playerAns):
+    '''
+    add gmaelog data after game
+    Args:
+        KidName:
+        GameNumber:
+        qid:
+        playerAns:
+
+    Returns:
+
+    '''
+    data = (KidName,GameNumber,qid,playerAns)
+    cursor.execute("INSERT INTO gameLog VALUES (?,?,?,?)",data)
+    conn.commit()
+    print("result add to DB")
 
 def add_result_to_Kidsdb(kidName, date, gameLog, gameSuccess):
     cursor.execute("INSERT into results VALUES (?,?,?,?,?)",
@@ -153,7 +185,6 @@ def check_answer(qid,ans):
         else:
             return False
 
-
 def build_db():
     try:
         init_QDB()
@@ -161,6 +192,32 @@ def build_db():
     except:
         pass
 
+def calc_game_success(kidName,gameNumber):
+    '''
+
+    Args:
+        kidName: str of kid
+        gameNumber: int of game
+
+    Returns: game success rate
+
+    '''
+    correct_ans = 0
+    param = (kidName,gameNumber)
+    cursor.execute("SELECT * FROM gameLog WHERE kidName=? AND gameNumber = ?",param)
+    fet = cursor.fetchall()
+    for data in fet:
+        if check_answer(data[2],data[3]):
+            print(data[2],data[3])
+            correct_ans+=1
+    success_rate =  correct_ans/len(fet)
+    return success_rate
+
+
+
+
 print(get_question_for_game(2))
 print(check_answer(1,2)) #false
 print(check_answer(1,1)) #true
+print(calc_game_success("chen",1)) #1.0
+print(calc_game_success("chen",2)) #0.5

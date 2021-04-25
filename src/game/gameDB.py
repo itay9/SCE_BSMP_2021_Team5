@@ -17,7 +17,7 @@ def init_QDB():
                 choice4 text,
                 answer INTEGER)""")
     conn.commit()
-    add_question_to_qdb("banana", "burl", 1, 2, 3, 4, 1)
+    add_question_to_qdb("banana", "https://www.google.com/imgres?imgurl=https%3A%2F%2Fcdn.mos.cms.futurecdn.net%2F42E9as7NaTaAi4A6JcuFwG-1200-80.jpg&imgrefurl=https%3A%2F%2Fwww.livescience.com%2F45005-banana-nutrition-facts.html&tbnid=l-xjqYxEGNZh1M&vet=12ahUKEwiAmIbzs5nwAhXTWOUKHWciAXYQMygAegUIARCTAg..i&docid=aCmLYEGvNNOXNM&w=700&h=467&q=banana&ved=2ahUKEwiAmIbzs5nwAhXTWOUKHWciAXYQMygAegUIARCTAg", 1, 2, 3, 4, 1)
     add_question_to_qdb("apple", "aurl", 1, 2, 3, 4, 2)
 
 def init_kidDB():
@@ -72,9 +72,6 @@ def add_result_to_Kidsdb(kidName, date, gameLog, gameSuccess):
                    (kidName, date, get_game_number(kidName) + 1, gameLog, gameSuccess))
     conn.commit()
     print("result add to DB")
-
-def add_question_to_qdb(quesion, picUrl, ch1, ch2, ch3, ch4, ans):
-    pass
 
 def add_question_to_qdb(question, picUrl, ch1, ch2, ch3, ch4, ans):
     # check if question already exist (by 'question')
@@ -199,6 +196,7 @@ def build_db():
     try:
         init_QDB()
         init_kidDB()
+        init_game_log_DB()
     except:
         pass
 
@@ -222,6 +220,5 @@ def calc_game_success(kidName,gameNumber):
             correct_ans+=1
     success_rate =  correct_ans/len(fet)
     return success_rate
-
 
 

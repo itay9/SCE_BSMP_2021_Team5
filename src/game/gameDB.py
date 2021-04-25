@@ -73,10 +73,6 @@ def add_result_to_Kidsdb(kidName, date, gameLog, gameSuccess):
     conn.commit()
     print("result add to DB")
 
-def add_question_to_qdb(quesion, picUrl, ch1, ch2, ch3, ch4, ans):
-    pass
-    #TODO משום מה נמחק
-
 def add_question_to_qdb(question, picUrl, ch1, ch2, ch3, ch4, ans):
     # check if question already exist (by 'question')
 

@@ -62,8 +62,13 @@ class GameTest(unittest.TestCase):
         self.conn.commit()
 
     def test_get_id(self):
+
         res=gameDB.get_qestion_id()
-        print("id:",id)
+        self.assertEqual(res,1000)
+
+
+
+
 
     def test_get_ans(self):
         self.cursor.execute("SELECT answer FROM ques WHERE qid = 999")

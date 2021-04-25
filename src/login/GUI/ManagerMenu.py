@@ -1,5 +1,6 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import AllowParentReg
 import AllowKidPlay
 import MainMenu
 import DB
@@ -111,6 +112,12 @@ class Ui_ManagerMenu(object):
     def open_AllowKidPlay_UI(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = AllowKidPlay.Ui_AllowKidPlay()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
+    def open_AllowParenReg_UI(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = AllowParentReg.Ui_AllowParentReg()
         self.ui.setupUi(self.window)
         self.window.show()
     #TODO allow parent reg bttn

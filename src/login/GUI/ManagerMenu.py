@@ -115,6 +115,9 @@ class Ui_ManagerMenu(object):
         self.ui = DeleteUser.Ui_DeleteUser()
         self.ui.setupUi(self.window)
         self.window.show()
+    #TODO allow kid to play bttn
+    #TODO allow parent reg bttn
+    #TODO fix bttn in those funcs
 
 
 

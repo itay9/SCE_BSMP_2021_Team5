@@ -325,4 +325,3 @@ def build_db():
     except:
         pass
 
-print(get_data_all_users())

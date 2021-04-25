@@ -62,6 +62,7 @@ class Ui_AllowKidPlay(object):
         #bttn
         self.load_data()
         self.allowButton.clicked.connect(self.allow_user)
+        self.backButton.clicked.connect(AllowKidPlay.close)
 
         self.retranslateUi(AllowKidPlay)
         QtCore.QMetaObject.connectSlotsByName(AllowKidPlay)

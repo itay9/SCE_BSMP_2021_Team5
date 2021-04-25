@@ -1,4 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+import DB
 
 
 class Ui_DeleteUser(object):
@@ -8,10 +9,10 @@ class Ui_DeleteUser(object):
         self.centralwidget = QtWidgets.QWidget(DeleteUser)
         self.centralwidget.setObjectName("centralwidget")
         self.userTable = QtWidgets.QTableWidget(self.centralwidget)
-        self.userTable.setGeometry(QtCore.QRect(100, 70, 351, 221))
+        self.userTable.setGeometry(QtCore.QRect(100, 70, 420, 221))
         self.userTable.setCornerButtonEnabled(False)
         self.userTable.setObjectName("userTable")
-        self.userTable.setColumnCount(3)
+        self.userTable.setColumnCount(4)
         self.userTable.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         self.userTable.setHorizontalHeaderItem(0, item)
@@ -19,8 +20,11 @@ class Ui_DeleteUser(object):
         self.userTable.setHorizontalHeaderItem(1, item)
         item = QtWidgets.QTableWidgetItem()
         self.userTable.setHorizontalHeaderItem(2, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.userTable.setHorizontalHeaderItem(3, item)
         self.user_TABLE_LABEL = QtWidgets.QLabel(self.centralwidget)
         self.user_TABLE_LABEL.setGeometry(QtCore.QRect(120, 10, 241, 61))
+
         font = QtGui.QFont()
         font.setFamily("Arial Black")
         font.setPointSize(20)
@@ -59,9 +63,27 @@ class Ui_DeleteUser(object):
         self.user_NAME_LABEL.setFont(font)
         self.user_NAME_LABEL.setObjectName("user_NAME_LABEL")
         DeleteUser.setCentralWidget(self.centralwidget)
+        #bttn
+        self.load_data()
+        self.deleteButton.clicked.connect(self.delete_user)
+
 
         self.retranslateUi(DeleteUser)
         QtCore.QMetaObject.connectSlotsByName(DeleteUser)
+
+    def load_data(self):
+        result = DB.get_data_all_users()
+        self.userTable.setRowCount(len(result))
+        for row_num in range(len(result)):
+            row = result[row_num]
+            self.userTable.setItem(row_num,0,QtWidgets.QTableWidgetItem(row[0]))
+            self.userTable.setItem(row_num, 1, QtWidgets.QTableWidgetItem(row[1]))
+            self.userTable.setItem(row_num, 2, QtWidgets.QTableWidgetItem(row[2]))
+            self.userTable.setItem(row_num, 3, QtWidgets.QTableWidgetItem(row[3]))
+    def delete_user(self):
+        user = self.input_user_name.text()
+        DB.remove_user(user)
+        self.load_data()
 
     def retranslateUi(self, DeleteUser):
         _translate = QtCore.QCoreApplication.translate
@@ -71,7 +93,9 @@ class Ui_DeleteUser(object):
         item = self.userTable.horizontalHeaderItem(1)
         item.setText(_translate("DeleteUser", "Password"))
         item = self.userTable.horizontalHeaderItem(2)
-        item.setText(_translate("DeleteUser", "Can Play"))
+        item.setText(_translate("DeleteUser", "Type"))
+        item = self.userTable.horizontalHeaderItem(3)
+        item.setText(_translate("DeleteUser", "Parent Name"))
         self.user_TABLE_LABEL.setText(_translate("DeleteUser", "<html><head/><body><p><span style=\" text-decoration: underline;\">Users table</span></p></body></html>"))
         self.deleteButton.setText(_translate("DeleteUser", "Delete"))
         self.backButton.setText(_translate("DeleteUser", "Back"))

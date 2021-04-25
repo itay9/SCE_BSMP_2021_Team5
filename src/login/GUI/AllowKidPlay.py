@@ -59,9 +59,30 @@ class Ui_AllowKidPlay(object):
         self.kid_NAME_LABEL.setFont(font)
         self.kid_NAME_LABEL.setObjectName("kid_NAME_LABEL")
         AllowKidPlay.setCentralWidget(self.centralwidget)
+        #bttn
+        self.load_data()
+        self.allowButton.clicked.connect(self.allow_user)
 
         self.retranslateUi(AllowKidPlay)
         QtCore.QMetaObject.connectSlotsByName(AllowKidPlay)
+
+    def load_data(self):
+        result = DB.get_data_kid()
+        self.childTable.setRowCount(len(result))
+        for row_num in range(len(result)):
+            row = result[row_num]
+            if row[5] == 1:
+                allow = "True"
+            else:
+                allow= "False"
+            self.childTable.setItem(row_num,0,QtWidgets.QTableWidgetItem(row[0]))
+            self.childTable.setItem(row_num, 1, QtWidgets.QTableWidgetItem(row[1]))
+            self.childTable.setItem(row_num, 2, QtWidgets.QTableWidgetItem(allow))
+
+    def allow_user(self):
+        user = self.input_kid_name.text()
+        DB.allowPlay(user)
+        self.load_data()
 
     def retranslateUi(self, AllowKidPlay):
         _translate = QtCore.QCoreApplication.translate
@@ -76,6 +97,7 @@ class Ui_AllowKidPlay(object):
         self.allowButton.setText(_translate("AllowKidPlay", "Allow"))
         self.backButton.setText(_translate("AllowKidPlay", "Back"))
         self.kid_NAME_LABEL.setText(_translate("AllowKidPlay", "Enter child  Name:"))
+
 
 
 if __name__ == "__main__":

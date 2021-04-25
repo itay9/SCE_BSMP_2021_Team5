@@ -29,17 +29,8 @@ class Ui_ManagerMenu(object):
         self.logOutButton.setFont(font)
         self.logOutButton.setCursor(QtGui.QCursor(QtCore.Qt.ClosedHandCursor))
         self.logOutButton.setObjectName("logOutButton")
-        self.showUsersButton = QtWidgets.QPushButton(self.centralwidget)
-        self.showUsersButton.setGeometry(QtCore.QRect(50, 230, 251, 81))
-        font = QtGui.QFont()
-        font.setFamily("Arial Black")
-        font.setPointSize(16)
-        font.setBold(True)
-        font.setWeight(75)
-        self.showUsersButton.setFont(font)
-        self.showUsersButton.setObjectName("showUsersButton")
         self.viewChildResultButton = QtWidgets.QPushButton(self.centralwidget)
-        self.viewChildResultButton.setGeometry(QtCore.QRect(480, 230, 251, 81))
+        self.viewChildResultButton.setGeometry(QtCore.QRect(50, 230, 251, 81))
         font = QtGui.QFont()
         font.setFamily("Arial Black")
         font.setPointSize(16)
@@ -47,6 +38,15 @@ class Ui_ManagerMenu(object):
         font.setWeight(75)
         self.viewChildResultButton.setFont(font)
         self.viewChildResultButton.setObjectName("viewChildResultButton")
+        self.allowKidPlayButton = QtWidgets.QPushButton(self.centralwidget)
+        self.allowKidPlayButton.setGeometry(QtCore.QRect(480, 230, 251, 81))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(16)
+        font.setBold(True)
+        font.setWeight(75)
+        self.allowKidPlayButton.setFont(font)
+        self.allowKidPlayButton.setObjectName("allowKidPlayButton")
         self.viewQuestionsButton = QtWidgets.QPushButton(self.centralwidget)
         self.viewQuestionsButton.setGeometry(QtCore.QRect(50, 350, 251, 81))
         font = QtGui.QFont()
@@ -89,7 +89,7 @@ class Ui_ManagerMenu(object):
         self.logOutButton.clicked.connect(self.mainMenu_UI)
         self.logOutButton.clicked.connect(ManagerMenu.close)
         self.logOutButton.clicked.connect(DB.logOut)
-        self.deleteUserButton
+        self.deleteUserButton.clicked.connect(self.open_deleteUser_UI)
 
         self.retranslateUi(ManagerMenu)
         QtCore.QMetaObject.connectSlotsByName(ManagerMenu)
@@ -98,7 +98,7 @@ class Ui_ManagerMenu(object):
         _translate = QtCore.QCoreApplication.translate
         ManagerMenu.setWindowTitle(_translate("ManagerMenu", "MainWindow"))
         self.logOutButton.setText(_translate("ManagerMenu", "Log Out"))
-        self.showUsersButton.setText(_translate("ManagerMenu", "Show Users"))
+        self.allowKidPlayButton.setText(_translate("ManagerMenu", "Allow Kid to Play")) #
         self.viewChildResultButton.setText(_translate("ManagerMenu", "View Child result"))
         self.viewQuestionsButton.setText(_translate("ManagerMenu", "View Questions"))
         self.title.setText(_translate("ManagerMenu", "Maneger Menu"))
@@ -115,6 +115,10 @@ class Ui_ManagerMenu(object):
         self.ui = DeleteUser.Ui_DeleteUser()
         self.ui.setupUi(self.window)
         self.window.show()
+    #TODO allow kid to play bttn
+    #TODO allow parent reg bttn
+    #TODO fix bttn in those funcs
+
 
 
 if __name__ == "__main__":

@@ -207,7 +207,11 @@ def get_type(user):
 
 
 def allowReg(parent):
-    cursor.execute("UPDATE users SET canReg = 1 WHERE userName= ? ", parent)
+    par_reg = getUser(parent)[4]
+    if par_reg==0:
+        cursor.execute("UPDATE users SET canReg = 1 WHERE userName= ? ", (parent,))
+    else:
+        cursor.execute("UPDATE users SET canReg = 0 WHERE userName= ? ", (parent,))
     conn.commit()
 
 
@@ -253,7 +257,7 @@ def get_data_all_users():
 
     Returns: all data except admin
     '''
-    cursor.execute("SELECT userName, pass FROM users WHERE type NOT IN ('admin')")
+    cursor.execute("SELECT * FROM users WHERE type NOT IN ('admin')")
     fet = cursor.fetchall()
     return fet
 
@@ -276,8 +280,17 @@ def get_data_parent():
     fet = cursor.fetchall()
     return fet
 
+def get_data_kid():
+    cursor.execute("SELECT * FROM users WHERE type='kid'")
+    fet = cursor.fetchall()
+    return fet
+
 def allowPlay(kid):
-    cursor.execute("UPDATE users SET canPlay = 1 WHERE userName= ? ", kid)
+    kid_allow = getUser(kid)[5]
+    if kid_allow==0:
+        cursor.execute("UPDATE users SET canPlay = 1 WHERE userName= ? ", (kid,))
+    else:
+        cursor.execute("UPDATE users SET canPlay = 0 WHERE userName= ? ", (kid,))
     conn.commit()
 
 
@@ -311,3 +324,5 @@ def build_db():
         db_init()
     except:
         pass
+
+print(get_data_all_users())

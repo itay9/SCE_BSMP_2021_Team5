@@ -67,15 +67,15 @@ class Ui_ManagerMenu(object):
         font.setWeight(75)
         self.deleteUserButton.setFont(font)
         self.deleteUserButton.setObjectName("deleteUserButton")
-        self.viewQuestionsButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.viewQuestionsButton_2.setGeometry(QtCore.QRect(480, 480, 251, 81))
+        self.allowParentRegButton = QtWidgets.QPushButton(self.centralwidget)
+        self.allowParentRegButton.setGeometry(QtCore.QRect(480, 480, 251, 81))
         font = QtGui.QFont()
         font.setFamily("Arial Black")
         font.setPointSize(16)
         font.setBold(True)
         font.setWeight(75)
-        self.viewQuestionsButton_2.setFont(font)
-        self.viewQuestionsButton_2.setObjectName("viewQuestionsButton_2")
+        self.allowParentRegButton.setFont(font)
+        self.allowParentRegButton.setObjectName("allowParentRegButton")
         ManagerMenu.setCentralWidget(self.centralwidget)
 
         #bttn connect
@@ -96,7 +96,7 @@ class Ui_ManagerMenu(object):
         self.viewQuestionsButton.setText(_translate("ManagerMenu", "View Questions"))
         self.title.setText(_translate("ManagerMenu", "Maneger Menu"))
         self.deleteUserButton.setText(_translate("ManagerMenu", "Delete a User"))
-        self.viewQuestionsButton_2.setText(_translate("ManagerMenu", "Allow Parent Reg"))
+        self.allowParentRegButton.setText(_translate("ManagerMenu", "Allow Parent Reg"))
 
     def mainMenu_UI(self):
         self.window = QtWidgets.QMainWindow()

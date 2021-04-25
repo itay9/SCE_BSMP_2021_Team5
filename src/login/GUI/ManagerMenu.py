@@ -85,6 +85,8 @@ class Ui_ManagerMenu(object):
         self.logOutButton.clicked.connect(DB.logOut)
         self.deleteUserButton.clicked.connect(self.open_deleteUser_UI)
         self.allowKidPlayButton.clicked.connect(self.open_AllowKidPlay_UI)
+        self.allowParentRegButton.clicked.connect(self.open_AllowParenReg_UI)
+
         self.retranslateUi(ManagerMenu)
         QtCore.QMetaObject.connectSlotsByName(ManagerMenu)
 

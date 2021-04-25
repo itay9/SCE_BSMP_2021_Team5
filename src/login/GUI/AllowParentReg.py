@@ -65,6 +65,7 @@ class Ui_AllowParentReg(object):
         #bttn
         self.allowButton.clicked.connect(self.allow_user)
         self.retranslateUi(AllowParentReg)
+        self.backButton.clicked.connect(AllowParentReg.close)
         QtCore.QMetaObject.connectSlotsByName(AllowParentReg)
 
     def load_data(self):

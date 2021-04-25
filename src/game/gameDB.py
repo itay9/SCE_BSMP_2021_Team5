@@ -17,7 +17,7 @@ def init_QDB():
                 choice4 text,
                 answer INTEGER)""")
     conn.commit()
-    add_question_to_qdb("banana", "https://www.google.com/imgres?imgurl=https%3A%2F%2Fcdn.mos.cms.futurecdn.net%2F42E9as7NaTaAi4A6JcuFwG-1200-80.jpg&imgrefurl=https%3A%2F%2Fwww.livescience.com%2F45005-banana-nutrition-facts.html&tbnid=l-xjqYxEGNZh1M&vet=12ahUKEwiAmIbzs5nwAhXTWOUKHWciAXYQMygAegUIARCTAg..i&docid=aCmLYEGvNNOXNM&w=700&h=467&q=banana&ved=2ahUKEwiAmIbzs5nwAhXTWOUKHWciAXYQMygAegUIARCTAg", 1, 2, 3, 4, 1)
+    add_question_to_qdb("banana", "pic/banana.jpg", 1, 2, 3, 4, 1)
     add_question_to_qdb("apple", "aurl", 1, 2, 3, 4, 2)
 
 def init_kidDB():

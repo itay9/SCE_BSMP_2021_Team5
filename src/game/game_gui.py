@@ -61,7 +61,7 @@ class Ui_game_level(object):
         self.statusbar = QtWidgets.QStatusBar(game_level)
         self.statusbar.setObjectName("statusbar")
         game_level.setStatusBar(self.statusbar)
-
+        self.set_img("pic/banana.jpg")
         self.retranslateUi(game_level)
         QtCore.QMetaObject.connectSlotsByName(game_level)
 
@@ -78,6 +78,11 @@ class Ui_game_level(object):
         self.voice3_button.setText(_translate("game_level", "voice3"))
         self.qid_label.setText(_translate("game_level", "00"))
         self.score_label.setText(_translate("game_level", "score"))
+
+    def set_img(self,url):
+        self.image_game.setStyleSheet("background-image: url("+url+");")
+        self.image_game.setPixmap(QtGui.QPixmap(url))
+
 
 
 if __name__ == "__main__":

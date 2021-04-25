@@ -107,7 +107,7 @@ def get_kid_results(kidName):
         return fet
     else:
         print("no result")
-        return []
+        return
 
 def get_ans(qid):
     cursor.execute("SELECT answer FROM ques WHERE qid=?", (qid,))

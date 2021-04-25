@@ -50,14 +50,6 @@ def init_game_log_DB():
                     qid INTEGER,
                     playerAns INTEGER)""")
 
-def build_db():
-    try:
-        init_QDB()
-        init_kidDB()
-        init_game_log_DB()
-    except:
-        pass
-
 def add_result_to_gameLog(KidName,GameNumber,qid,playerAns):
     '''
     add gmaelog data after game
@@ -115,7 +107,7 @@ def get_kid_results(kidName):
         return fet
     else:
         print("no result")
-        return []
+        return
 
 def get_ans(qid):
     cursor.execute("SELECT answer FROM ques WHERE qid=?", (qid,))
@@ -136,9 +128,9 @@ def get_qestion_id():
     Returns: id for next questions
 
     '''
-    cursor.execute("SELECT * FROM ques")
-    fet = cursor.fetchall()
-    return len(fet) + 1
+    cursor.execute("SELECT max(qid) FROM ques")
+    fet = cursor.fetchone()[0]
+    return fet + 1
 
 def get_question_for_game(number_of_question):
     '''
@@ -149,16 +141,21 @@ def get_question_for_game(number_of_question):
     Returns: list of questions
 
     '''
-    if number_of_question > get_qestion_id() -1:
-        #תיקון מספר השאלות
-        number_of_question = get_qestion_id() -1
+    if number_of_question == 0: return None
+    print("get_question_for_game:")
+    if number_of_question > get_qestion_id() - 1:
+        # תיקון מספר השאלות
+        print("number of question modify to max ques in DB")
+        number_of_question = get_qestion_id() - 1
+    # set the questions to list
+    cursor.execute("SELECT * FROM ques")
+    ques_list = cursor.fetchall()
+    print("ques_list: ",len(ques_list))
     qList = []
     num_list = generate_rand_number_list(number_of_question)
-    for qid in num_list:
-        cursor.execute("SELECT * FROM ques WHERE qid=?",(qid,))
-        fet = cursor.fetchone()
-        if fet != None:
-            qList.append(fet)
+    print("num_list", num_list)
+    for i in num_list:
+        qList.append(ques_list[i-1])
     return qList
 
 def generate_rand_number_list(size):
@@ -198,6 +195,13 @@ def check_answer(qid,ans):
         else:
             return False
 
+def build_db():
+    try:
+        init_QDB()
+        init_kidDB()
+    except:
+        pass
+
 def calc_game_success(kidName,gameNumber):
     '''
 
@@ -219,61 +223,5 @@ def calc_game_success(kidName,gameNumber):
     success_rate =  correct_ans/len(fet)
     return success_rate
 
-def play_game(player,num_of_ques):
-    '''
-
-    Args:
-        player: str name of player
-        num_of_ques: number of ques for game
-
-    Returns: make full game
-
-    '''
-    ques_list = get_question_for_game(num_of_ques)
-    for ques in ques_list:
-        play_level(ques,player)
 
 
-    #TODO
-
-def play_level(ques,player):
-    '''
-
-    Args:
-        question: FULL question row from DB
-
-    Returns: play single level with GUI
-
-    '''
-    # split data
-    qid = ques[0]
-    picture = ques[2]
-    choice1 = ques[3]
-    choice2 = ques[4]
-    choice3 = ques[5]
-    choice4 = ques[6]
-    #beck test
-    print(qid)
-    print(picture)
-    print(choice1)
-    print(choice2)
-    print(choice3)
-    print(choice4)
-    player_ans = int(input("enter your ans: "))
-    if check_answer(qid,player_ans):
-        print("currect!")
-    else:
-        print("WRONG!")
-    current_game_number = get_game_number(player)
-    add_result_to_gameLog(player,current_game_number,qid,player_ans)
-
-    #todo
-    pass
-"""
-print(get_question_for_game(2))
-print(check_answer(1,2)) #false
-print(check_answer(1,1)) #true
-print(calc_game_success("chen",1)) #1.0
-print(calc_game_success("chen",2)) #0.5
-"""
-play_game("chen",2)

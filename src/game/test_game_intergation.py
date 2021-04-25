@@ -61,6 +61,10 @@ class GameTest(unittest.TestCase):
         self.cursor.execute("DELETE FROM ques WHERE quesion = 'testQ'")
         self.conn.commit()
 
+    def test_get_id(self):
+        res=gameDB.get_qestion_id()
+        print("id:",id)
+
     def test_get_ans(self):
         self.cursor.execute("SELECT answer FROM ques WHERE qid = 999")
         fet = self.cursor.fetchone()[0]

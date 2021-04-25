@@ -58,6 +58,9 @@ class GameTest(unittest.TestCase):
         fet = self.cursor.fetchone()
         self.assertIsNotNone(fet)
 
+        self.cursor.execute("DELETE FROM ques WHERE quesion = 'testQ'")
+        self.conn.commit()
+
     def test_get_ans(self):
         self.cursor.execute("SELECT answer FROM ques WHERE qid = 999")
         fet = self.cursor.fetchone()[0]
@@ -123,6 +126,16 @@ class GameTest(unittest.TestCase):
         fet = self.cursor.fetchone()
         self.assertIsNone(fet)
 
+    def test_get_list_of_qeus(self):
+        ques_list=[]
+        ques_list=gameDB.get_question_for_game(2)
+        self.assertEqual(len(ques_list),2)
+
+        ques_list = gameDB.get_question_for_game(1)
+        self.assertEqual(len(ques_list), 1)
+
+        ques_list = gameDB.get_question_for_game(0)
+        self.assertIsNone(ques_list)
 
 if __name__ == '__main__':
     unittest.main()

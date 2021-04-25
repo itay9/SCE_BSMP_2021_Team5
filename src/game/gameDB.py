@@ -5,7 +5,6 @@ import random
 conn = sqlite3.connect("GameDB.db")
 cursor = conn.cursor()
 
-
 # DB init table
 def init_QDB():
     cursor.execute("""CREATE TABLE ques
@@ -21,7 +20,6 @@ def init_QDB():
     add_question_to_qdb("banana", "burl", 1, 2, 3, 4, 1)
     add_question_to_qdb("apple", "aurl", 1, 2, 3, 4, 2)
 
-
 def init_kidDB():
     cursor.execute("""CREATE TABLE results
                 (KidName text,
@@ -35,7 +33,6 @@ def init_kidDB():
     conn.commit()
     add_result_to_Kidsdb("chen", datetime.now(), 1, 23)
     add_result_to_Kidsdb("chen", datetime.now(), 0, 95)
-
 
 def init_game_log_DB():
     '''
@@ -53,8 +50,7 @@ def init_game_log_DB():
                     qid INTEGER,
                     playerAns INTEGER)""")
 
-
-def add_result_to_gameLog(KidName, GameNumber, qid, playerAns):
+def add_result_to_gameLog(KidName,GameNumber,qid,playerAns):
     '''
     add gmaelog data after game
     Args:
@@ -66,11 +62,10 @@ def add_result_to_gameLog(KidName, GameNumber, qid, playerAns):
     Returns:
 
     '''
-    data = (KidName, GameNumber, qid, playerAns)
-    cursor.execute("INSERT INTO gameLog VALUES (?,?,?,?)", data)
+    data = (KidName,GameNumber,qid,playerAns)
+    cursor.execute("INSERT INTO gameLog VALUES (?,?,?,?)",data)
     conn.commit()
     print("result add to DB")
-
 
 def add_result_to_Kidsdb(kidName, date, gameLog, gameSuccess):
     cursor.execute("INSERT into results VALUES (?,?,?,?,?)",
@@ -78,10 +73,8 @@ def add_result_to_Kidsdb(kidName, date, gameLog, gameSuccess):
     conn.commit()
     print("result add to DB")
 
-
 def add_question_to_qdb(quesion, picUrl, ch1, ch2, ch3, ch4, ans):
     pass
-
 
 def add_question_to_qdb(question, picUrl, ch1, ch2, ch3, ch4, ans):
     # check if question already exist (by 'question')
@@ -90,7 +83,6 @@ def add_question_to_qdb(question, picUrl, ch1, ch2, ch3, ch4, ans):
                    (get_qestion_id(), question, picUrl, ch1, ch2, ch3, ch4, ans))
     conn.commit()
     print("question added")
-
 
 def get_question_from_id(questionID):
     # check if input is legal
@@ -102,14 +94,11 @@ def get_question_from_id(questionID):
         print("can't find question")
         return
 
-
 def stampToTime(timestamp):
     return datetime.fromtimestamp(timestamp)
 
-
 def timeToStamp(time):
     return int(datetime.timestamp(time))
-
 
 def get_kid_results(kidName):
     cursor.execute("SELECT * FROM results WHERE kidName =?", (kidName,))
@@ -118,23 +107,20 @@ def get_kid_results(kidName):
         return fet
     else:
         print("no result")
-        return
-
+        return []
 
 def get_ans(qid):
     cursor.execute("SELECT answer FROM ques WHERE qid=?", (qid,))
     fet = cursor.fetchone()
     if fet != None:
-        return fet[0]  # fetchone return tuple
+        return fet[0] #fetchone return tuple
     else:
         return
-
 
 def get_game_number(kidName):
     cursor.execute("SELECT * FROM results WHERE kidName=?", (kidName,))
     fet = cursor.fetchall()
     return len(fet)
-
 
 def get_qestion_id():
     '''
@@ -146,7 +132,6 @@ def get_qestion_id():
     fet = cursor.fetchall()
     return len(fet) + 1
 
-
 def get_question_for_game(number_of_question):
     '''
 
@@ -156,24 +141,17 @@ def get_question_for_game(number_of_question):
     Returns: list of questions
 
     '''
-    if number_of_question == 0: return None
-    print("get_question_for_game:")
-    if number_of_question > get_qestion_id() - 1:
-        # תיקון מספר השאלות
-        print("number of question modify to max ques in DB")
-        number_of_question = get_qestion_id() - 1
-    # set the questions to list
-    cursor.execute("SELECT * FROM ques")
-    ques_list = cursor.fetchall()
-
+    if number_of_question > get_qestion_id() -1:
+        #תיקון מספר השאלות
+        number_of_question = get_qestion_id() -1
     qList = []
     num_list = generate_rand_number_list(number_of_question)
-    print("num_list", num_list)
-    for i in num_list:
-        qList.append(ques_list[i - 1])
-    print("qList", qList)
+    for qid in num_list:
+        cursor.execute("SELECT * FROM ques WHERE qid=?",(qid,))
+        fet = cursor.fetchone()
+        if fet != None:
+            qList.append(fet)
     return qList
-
 
 def generate_rand_number_list(size):
     '''
@@ -186,14 +164,13 @@ def generate_rand_number_list(size):
     '''
     num_list = []
     for i in range(size):
-        number = random.randint(1, size + 1)
+        number = random.randint(1,size+1)
         while number in num_list:
             number = random.randint(1, size + 1)
         num_list.append(number)
     return num_list
 
-
-def check_answer(qid, ans):
+def check_answer(qid,ans):
     '''
 
     Args:
@@ -204,15 +181,14 @@ def check_answer(qid, ans):
              False if ans wrong
 
     '''
-    cursor.execute("SELECT * FROM ques WHERE qid=?", (qid,))
+    cursor.execute("SELECT * FROM ques WHERE qid=?",(qid,))
     fet = cursor.fetchone()
     if fet != None:
         true_ans = fet[7]
-        if true_ans == ans:
+        if true_ans==ans:
             return True
         else:
             return False
-
 
 def build_db():
     try:
@@ -221,8 +197,7 @@ def build_db():
     except:
         pass
 
-
-def calc_game_success(kidName, gameNumber):
+def calc_game_success(kidName,gameNumber):
     '''
 
     Args:
@@ -233,18 +208,19 @@ def calc_game_success(kidName, gameNumber):
 
     '''
     correct_ans = 0
-    param = (kidName, gameNumber)
-    cursor.execute("SELECT * FROM gameLog WHERE kidName=? AND gameNumber = ?", param)
+    param = (kidName,gameNumber)
+    cursor.execute("SELECT * FROM gameLog WHERE kidName=? AND gameNumber = ?",param)
     fet = cursor.fetchall()
     for data in fet:
-        if check_answer(data[2], data[3]):
-            print(data[2], data[3])
-            correct_ans += 1
-    success_rate = correct_ans / len(fet)
+        if check_answer(data[2],data[3]):
+            print(data[2],data[3])
+            correct_ans+=1
+    success_rate =  correct_ans/len(fet)
     return success_rate
 
-# print(get_question_for_game(2))
-# print(check_answer(1,2)) #false
-# print(check_answer(1,1)) #true
-# print(calc_game_success("chen",1)) #1.0
-# print(calc_game_success("chen",2)) #0.5
+
+print(get_question_for_game(2))
+print(check_answer(1,2)) #false
+print(check_answer(1,1)) #true
+print(calc_game_success("chen",1)) #1.0
+print(calc_game_success("chen",2)) #0.5

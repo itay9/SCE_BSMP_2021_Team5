@@ -88,7 +88,7 @@ class Ui_ManagerMenu(object):
         self.allowKidPlayButton.clicked.connect(self.open_AllowKidPlay_UI)
         self.allowParentRegButton.clicked.connect(self.open_AllowParenReg_UI)
         self.viewQuestionsButton.clicked.connect(self.open_ShowQuestions_UI)
-
+        #
 
         self.retranslateUi(ManagerMenu)
         QtCore.QMetaObject.connectSlotsByName(ManagerMenu)

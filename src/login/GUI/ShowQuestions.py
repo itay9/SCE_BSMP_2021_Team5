@@ -86,6 +86,9 @@ class Ui_QuestionTable(object):
         self.add_new_question_button.setFont(font)
         self.add_new_question_button.setObjectName("add_new_question_button")
         QuestionTable.setCentralWidget(self.centralwidget)
+        #bttn
+        self.backButton.clicked.connect(QuestionTable.close)
+
 
         self.retranslateUi(QuestionTable)
         QtCore.QMetaObject.connectSlotsByName(QuestionTable)

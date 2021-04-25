@@ -64,6 +64,7 @@ class Ui_DeleteUser(object):
         self.user_NAME_LABEL.setObjectName("user_NAME_LABEL")
         DeleteUser.setCentralWidget(self.centralwidget)
         #bttn
+        self.backButton.clicked.connect(DeleteUser.close)
         self.load_data()
         self.deleteButton.clicked.connect(self.delete_user)
 

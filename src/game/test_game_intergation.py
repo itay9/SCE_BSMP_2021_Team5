@@ -100,6 +100,29 @@ class GameTest(unittest.TestCase):
         self.cursor.execute("DELETE FROM results WHERE KidName= 'chenB'")
         self.conn.commit()
 
+    def test_get_kid_res(self):
+        self.cursor.execute("SELECT * FROM results WHERE kidName =?", ('chenA',))
+        fet = self.cursor.fetchall()
+        self.assertIsNotNone(fet)
+
+        res = gameDB.get_kid_results('chenA')
+        self.assertIsNotNone(fet)
+
+        res = gameDB.get_kid_results('chenABCD')
+        self.assertIsNone(res)
+
+        res = gameDB.get_kid_results('')
+        self.assertIsNone(res)
+
+    def test_get_game_number(self):
+        self.cursor.execute("SELECT * FROM results WHERE kidName =?", ('chenA',))
+        fet = self.cursor.fetchall()
+        self.assertEqual(len(fet), 1)
+
+        self.cursor.execute("SELECT * FROM results WHERE kidName =?", ('chenABCD',))
+        fet = self.cursor.fetchone()
+        self.assertIsNone(fet)
+
 
 if __name__ == '__main__':
     unittest.main()

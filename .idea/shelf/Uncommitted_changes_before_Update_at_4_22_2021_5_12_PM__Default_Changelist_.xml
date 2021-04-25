@@ -1,0 +1,14 @@
+<changelist name="Uncommitted_changes_before_Update_at_4_22_2021_5_12_PM_[Default_Changelist]" date="1619100746249" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_22_2021_5_12_PM_[Default_Changelist]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 4/22/2021 5:12 PM [Default Changelist]" />
+  <binary>
+    <option name="BEFORE_PATH" value="src/login/GUI/usersDB.db" />
+    <option name="AFTER_PATH" value="src/login/GUI/usersDB.db" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_22_2021_5_12_PM_[Default_Changelist]/usersDB.db" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="src/game/GameDB.db" />
+    <option name="AFTER_PATH" value="src/game/GameDB.db" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_4_22_2021_5_12_PM_[Default_Changelist]/GameDB.db" />
+  </binary>
+</changelist>

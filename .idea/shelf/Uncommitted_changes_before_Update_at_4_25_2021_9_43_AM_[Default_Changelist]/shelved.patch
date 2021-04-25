@@ -1,0 +1,59 @@
+Index: src/game/gameDB.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import sqlite3\r\nfrom datetime import datetime\r\n\r\nconn = sqlite3.connect(\"GameDB.db\")\r\ncursor = conn.cursor()\r\n\r\n\r\n# DB init table\r\ndef init_QDB():\r\n    cursor.execute(\"\"\"CREATE TABLE ques\r\n                (qid INTEGER,\r\n                quesion text,\r\n                picture text,\r\n                choice1 text,\r\n                choice2 text,\r\n                choice3 text,\r\n                choice4 text,\r\n                answer INTEGER)\"\"\")\r\n    conn.commit()\r\n    add_question_to_qdb(\"banana\", \"burl\", 1, 2, 3, 4, 1)\r\n    add_question_to_qdb(\"apple\", \"aurl\", 1, 2, 3, 4, 2)\r\n\r\n\r\ndef init_kidDB():\r\n    cursor.execute(\"\"\"CREATE TABLE results\r\n                (KidName text,\r\n                Date timestamp,\r\n                GameNumber INTEGER,\r\n                GameLog Blob,\r\n                GameSuccess Real)\"\"\")\r\n    # gamalog = [(Qnumber,answer,correct)]*\r\n    # GameSuccess = (number of correct / total Q) * 100 %\r\n    # db insert rows\r\n    conn.commit()\r\n    add_result_to_Kidsdb(\"chen\", datetime.now(), 1, 23)\r\n    add_result_to_Kidsdb(\"chen\", datetime.now(), 0, 95)\r\n\r\n\r\ndef add_result_to_Kidsdb(kidName, date, gameLog, gameSuccess):\r\n    cursor.execute(\"INSERT into results VALUES (?,?,?,?,?)\",\r\n                   (kidName, date, get_game_number(kidName) + 1, gameLog, gameSuccess))\r\n    conn.commit()\r\n    print(\"result add to DB\")\r\n\r\n\r\ndef add_question_to_qdb(question, picUrl, ch1, ch2, ch3, ch4, ans):\r\n    # check if question already exist (by 'question')\r\n    cursor.execute(\"INSERT INTO ques VALUES (?,?,?,?,?,?,?,?)\",\r\n                   (get_qestion_id(), question, picUrl, ch1, ch2, ch3, ch4, ans))\r\n    conn.commit()\r\n    print(\"question added\")\r\n\r\n\r\ndef get_question_from_id(questionID):\r\n    # check if input is legal\r\n    cursor.execute(\"SELECT * FROM ques WHERE qid = ?\", (questionID,))  # send the INT as tuple is required\r\n    fet = cursor.fetchone()\r\n    if fet != None:\r\n        return fet\r\n    else:\r\n        print(\"can't find question\")\r\n        return\r\n\r\n\r\ndef stampToTime(timestamp):\r\n    return datetime.fromtimestamp(timestamp)\r\n\r\n\r\ndef timeToStamp(time):\r\n    return int(datetime.timestamp(time))\r\n\r\n\r\ndef get_kid_results(kidName):\r\n    cursor.execute(\"SELECT * FROM results WHERE kidName =?\", (kidName,))\r\n    fet = cursor.fetchall()\r\n    if len(fet) != 0:\r\n        return fet\r\n    else:\r\n        print(\"no result\")\r\n        return []\r\n\r\n\r\ndef get_ans(qid):\r\n    cursor.execute(\"SELECT answer FROM ques WHERE qid=?\", (qid,))\r\n    fet = cursor.fetchone()\r\n    if fet != None:\r\n        return fet[0] #fetchone return tuple\r\n    else:\r\n        return\r\n\r\n\r\ndef get_game_number(kidName):\r\n    cursor.execute(\"SELECT * FROM results WHERE kidName=?\", (kidName,))\r\n    fet = cursor.fetchall()\r\n    return len(fet)\r\n\r\n\r\ndef get_qestion_id():\r\n    cursor.execute(\"SELECT * FROM ques\")\r\n    fet = cursor.fetchall()\r\n    return len(fet) + 1\r\n\r\n\r\ndef build_db():\r\n    try:\r\n        init_QDB()\r\n    except:\r\n        pass\r\n    try:\r\n        init_kidDB()\r\n    except:\r\n        pass\r\n\r\n\r\nbuild_db()\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/game/gameDB.py b/src/game/gameDB.py
+--- a/src/game/gameDB.py	(revision 8882a5aa96d002074e28a8be1dad63f127043d02)
++++ b/src/game/gameDB.py	(date 1619274481730)
+@@ -77,7 +77,7 @@
+         return fet
+     else:
+         print("no result")
+-        return []
++        return
+ 
+ 
+ def get_ans(qid):
+Index: src/game/test_game_intergation.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import sqlite3\r\nimport unittest\r\nimport gameDB\r\nimport os.path\r\nfrom datetime import datetime\r\n\r\n\r\nclass GameTest(unittest.TestCase):\r\n    BASE_DIR = os.path.dirname(os.path.abspath(__file__))\r\n    db_path = os.path.join(BASE_DIR, \"gameDB.db\")\r\n    with sqlite3.connect(db_path) as conn:\r\n        # with sqlite3.connect(\"usersDB.db\") as conn:\r\n        cursor = conn.cursor()\r\n\r\n    @classmethod\r\n    def setUpClass(cls):\r\n        cls.cursor.execute(\"INSERT INTO ques VALUES (999,'firstQ','url','a','b','c','d',1)\")\r\n        cls.cursor.execute(\"INSERT INTO ques VALUES (9999,'secondQ','url','e','f','g','h',2)\")\r\n        cls.conn.commit()\r\n\r\n        date = datetime.now()\r\n        cls.cursor.execute(\"INSERT into results VALUES ('chenA', ?, 1, 2, 80)\", (date,))\r\n        cls.conn.commit()\r\n\r\n        print(\"setUp complete\")\r\n\r\n    @classmethod\r\n    def tearDownClass(cls):\r\n        cls.cursor.execute(\"DELETE FROM ques WHERE qid= 999\")\r\n        cls.cursor.execute(\"DELETE FROM ques WHERE qid= 9999\")\r\n        cls.conn.commit()\r\n\r\n        cls.cursor.execute(\"DELETE FROM results WHERE KidName= 'chenA'\")\r\n        cls.conn.commit()\r\n        print(\"tearDown complete\")\r\n        cls.conn.close()\r\n\r\n    def test_check(self):\r\n        self.assertEqual(True, True)\r\n\r\n    def test_get_ques(self):\r\n        self.cursor.execute(\"SELECT qid FROM ques WHERE qid = 999\")\r\n        fet = self.cursor.fetchone()[0]  # first arg from fet(return tuple)\r\n        self.assertEqual(fet, 999)\r\n\r\n        res = gameDB.get_question_from_id(999)\r\n        self.assertIsNotNone(res)\r\n        print(\"question is:\", res)\r\n\r\n        res = gameDB.get_question_from_id(99999)\r\n        self.assertIsNone(res)\r\n\r\n    def test_add_ques(self):\r\n        qst = ('testQ', 'url', 'a', 'b', 'c', 'd', 1)\r\n        gameDB.add_question_to_qdb(*qst)\r\n\r\n        self.cursor.execute(\"SELECT qid FROM ques WHERE quesion = 'testQ'\")\r\n        fet = self.cursor.fetchone()\r\n        self.assertIsNotNone(fet)\r\n\r\n    def test_get_ans(self):\r\n        self.cursor.execute(\"SELECT answer FROM ques WHERE qid = 999\")\r\n        fet = self.cursor.fetchone()[0]\r\n        self.assertEqual(fet, 1)\r\n\r\n        res = gameDB.get_ans(999)\r\n        self.assertEqual(res, 1)\r\n\r\n        res = gameDB.get_ans(99999)\r\n        self.assertIsNone(res)\r\n\r\n    def test_kidsDB(self):\r\n        self.cursor.execute(\"SELECT * FROM results\")\r\n        fet = self.cursor.fetchall()\r\n        self.assertIsNotNone(fet)\r\n\r\n        self.cursor.execute(\"SELECT * FROM results WHERE KidName = 'chenA'\")\r\n        fet = self.cursor.fetchone()\r\n        self.assertIsNotNone(fet)\r\n\r\n    def test_add_result(self):\r\n        date = datetime.now()\r\n        self.cursor.execute(\"INSERT into results VALUES ('chenB', ?, 1, 2, 80)\", (date,))\r\n        self.conn.commit()\r\n\r\n        self.cursor.execute(\"SELECT * FROM results WHERE KidName = 'chenB'\")\r\n        fet = self.cursor.fetchone()\r\n        self.assertIsNotNone(fet)\r\n\r\n        self.cursor.execute(\"DELETE FROM results WHERE KidName= 'chenB'\")\r\n        self.conn.commit()\r\n\r\n        tup = ('chenB', datetime.now(), 1, 100)\r\n        gameDB.add_result_to_Kidsdb(*tup)\r\n\r\n        self.cursor.execute(\"SELECT * FROM results WHERE KidName = 'chenB'\")\r\n        fet = self.cursor.fetchone()\r\n        self.assertIsNotNone(fet)\r\n\r\n        self.cursor.execute(\"DELETE FROM results WHERE KidName= 'chenB'\")\r\n        self.conn.commit()\r\n\r\n\r\nif __name__ == '__main__':\r\n    unittest.main()\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/game/test_game_intergation.py b/src/game/test_game_intergation.py
+--- a/src/game/test_game_intergation.py	(revision 8882a5aa96d002074e28a8be1dad63f127043d02)
++++ b/src/game/test_game_intergation.py	(date 1619276483145)
+@@ -100,6 +100,29 @@
+         self.cursor.execute("DELETE FROM results WHERE KidName= 'chenB'")
+         self.conn.commit()
+ 
++    def test_get_kid_res(self):
++        self.cursor.execute("SELECT * FROM results WHERE kidName =?", ('chenA',))
++        fet = self.cursor.fetchall()
++        self.assertIsNotNone(fet)
++
++        res = gameDB.get_kid_results('chenA')
++        self.assertIsNotNone(fet)
++
++        res = gameDB.get_kid_results('chenABCD')
++        self.assertIsNone(res)
++
++        res = gameDB.get_kid_results('')
++        self.assertIsNone(res)
++
++    def test_get_game_number(self):
++        self.cursor.execute("SELECT * FROM results WHERE kidName =?", ('chenA',))
++        fet = self.cursor.fetchall()
++        self.assertEqual(len(fet), 1)
++
++        self.cursor.execute("SELECT * FROM results WHERE kidName =?", ('chenABCD',))
++        fet = self.cursor.fetchone()
++        self.assertIsNone(fet)
++
+ 
+ if __name__ == '__main__':
+     unittest.main()

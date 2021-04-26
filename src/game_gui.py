@@ -1,4 +1,6 @@
 import time
+import pyttsx3
+import DB
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import gameDB
@@ -9,8 +11,13 @@ class Ui_game_level(object):
     qid = -99999
     kidName = "test"
     correct_ans = 0
-    currnet_level = 0
+    current_level = 0
     number_of_games = -8888
+    choice1 = "1"
+    choice2 = "2"
+    choice3 = "3"
+    choice4 = "4"
+    current_game = -77777
     def setupUi(self, game_level):
         game_level.setObjectName("game_level")
         game_level.resize(949, 691)
@@ -75,6 +82,11 @@ class Ui_game_level(object):
         self.ans2_button.clicked.connect(self.click_ans2)
         self.ans3_button.clicked.connect(self.click_ans3)
         self.ans4_button.clicked.connect(self.click_ans4)
+        self.voice1_button.clicked.connect(self.click_hint1)
+        self.voice2_button.clicked.connect(self.click_hint2)
+        self.voice3_button.clicked.connect(self.click_hint3)
+        self.voice4_button.clicked.connect(self.click_hint4)
+
         self.retranslateUi(game_level)
         QtCore.QMetaObject.connectSlotsByName(game_level)
 
@@ -91,6 +103,7 @@ class Ui_game_level(object):
         self.voice3_button.setText(_translate("game_level", "השמע"))
         self.qid_label.setText(_translate("game_level", "00"))
         self.score_label.setText(_translate("game_level", "score"))
+
     def set_new_game(self,new_game):
         '''
         
@@ -104,15 +117,15 @@ class Ui_game_level(object):
         #global qid
         self.qid = new_game[0]
         img_url = new_game[2]
-        choice1 = new_game[3]
-        choice2 = new_game[4]
-        choice3 = new_game[5]
-        choice4 = new_game[6]
+        self.set_choice1(new_game[3])
+        self.set_choice2(new_game[4])
+        self.set_choice3(new_game[5])
+        self.set_choice4(new_game[6])
         self.ans = new_game[7]
-        self.set_ans1_bttn(choice1)
-        self.set_ans2_bttn(choice2)
-        self.set_ans3_bttn(choice3)
-        self.set_ans4_bttn(choice4)
+        self.set_ans1_bttn(self.choice1)
+        self.set_ans2_bttn(self.choice2)
+        self.set_ans3_bttn(self.choice3)
+        self.set_ans4_bttn(self.choice4)
         self.set_img(img_url)
         self.pushed = False
         self.inc_current_level()
@@ -138,6 +151,21 @@ class Ui_game_level(object):
         self.ans3_button.setText(QtCore.QCoreApplication.translate("game_level", str(ans)))
     def set_ans4_bttn(self, ans):
         self.ans4_button.setText(QtCore.QCoreApplication.translate("game_level", str(ans)))
+
+    def set_choice1(self,text):
+        self.choice1=text
+    def set_choice2(self,text):
+        self.choice2=text
+    def set_choice3(self,text):
+        self.choice3=text
+    def set_choice4(self,text):
+        self.choice4=text
+
+    def set_kid_name(self,name):
+        self.kidName=name
+    def set_current_game(self):
+        self.current_game=gameDB.get_game_number(self.kidName)+1
+
     def click_ans1(self):
         print(gameDB.check_answer(self.qid,1))
         if gameDB.check_answer(self.qid,1):
@@ -158,19 +186,48 @@ class Ui_game_level(object):
         if gameDB.check_answer(self.qid,4):
             self.inc_correct_ans()
         self.pushed = True
+
+    def click_hint1(self):
+        self.play_hint(self.choice1)
+    def click_hint2(self):
+        self.play_hint(self.choice2)
+    def click_hint3(self):
+        self.play_hint(self.choice3)
+    def click_hint4(self):
+        self.play_hint(self.choice4)
+
     def wait_until_clicked(self):
         while self.pushed==False:
             QtCore.QCoreApplication.processEvents()
+
     def inc_correct_ans(self):
         self.correct_ans+=1
     def inc_current_level(self):
-        self.currnet_level+=1
+        self.current_level+=1
+
     def check_if_finish(self):
-        if self.currnet_level==self.number_of_games:
+        if self.current_level==self.number_of_games:
             print("end game")
             game_level.close() #TODO maybe bug
+
     def set_number_of_games(self,num):
         self.number_of_games = num
+
+    def play_hint(self,str_to_play):
+        '''
+
+        Args:
+            str_to_play: string
+
+        Returns: plays the hint
+
+        '''
+        engine = pyttsx3.init()
+        engine.say(str_to_play)
+        engine.runAndWait()
+
+    def recored_gameLog(self,qid,ans):
+        gameDB.add_result_to_gameLog(self.kidName,self.current_game,qid,ans)
 
 
 
@@ -182,6 +239,7 @@ if __name__ == "__main__":
     ui.setupUi(game_level)
     game_data = gameDB.get_question_for_game(NUM_OF_LEVELS)
     ui.set_number_of_games(len(game_data))
+    ui.set_kid_name(DB.currentUser())
     for data in game_data:
         ui.set_new_game(data)
         game_level.show()

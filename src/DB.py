@@ -3,7 +3,7 @@ import sqlite3
 conn = sqlite3.connect("usersDB.db")
 cursor = conn.cursor()
 
-currentUser = ""
+currentUser = "defult"
 sassionFlag = False
 
 

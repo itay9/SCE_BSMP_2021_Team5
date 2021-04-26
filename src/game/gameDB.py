@@ -19,6 +19,8 @@ def init_QDB():
     conn.commit()
     add_question_to_qdb("banana", "pic/banana.jpg", 1, 2, 3, 4, 1)
     add_question_to_qdb("apple", "aurl", 1, 2, 3, 4, 2)
+    add_question_to_qdb("Pineapple", "pine url", 1, 2, 3, 4, 4)
+    add_question_to_qdb("tomato", "tomato url", 1, 2, 3, 4, 4)
 
 def init_kidDB():
     cursor.execute("""CREATE TABLE results
@@ -126,8 +128,9 @@ def get_qestion_id():
 
     '''
     cursor.execute("SELECT max(qid) FROM ques")
-    fet = cursor.fetchone()[0]
-    return fet + 1
+    fet = cursor.fetchone()
+    if fet !=None:
+        return fet[0] + 1
 
 def get_question_for_game(number_of_question):
     '''
@@ -222,3 +225,5 @@ def calc_game_success(kidName,gameNumber):
     return success_rate
 
 
+add_question_to_qdb("Pineapple", "pine url", 1, 2, 3, 4, 4)
+add_question_to_qdb("tomato", "tomato url", 1, 2, 3, 4, 4)

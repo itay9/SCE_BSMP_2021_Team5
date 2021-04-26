@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import gameDB
+NUM_OF_LEVELS = 2
 
 class Ui_game_level(object):
     def setupUi(self, game_level):
@@ -61,8 +62,11 @@ class Ui_game_level(object):
         self.statusbar = QtWidgets.QStatusBar(game_level)
         self.statusbar.setObjectName("statusbar")
         game_level.setStatusBar(self.statusbar)
-        self.set_img("pic/banana.jpg")
+        #bttn
+
+
         self.retranslateUi(game_level)
+        self.set_ans1_bttn("4231")
         QtCore.QMetaObject.connectSlotsByName(game_level)
 
     def retranslateUi(self, game_level):
@@ -72,17 +76,45 @@ class Ui_game_level(object):
         self.ans2_button.setText(_translate("game_level", "ans2"))
         self.ans3_button.setText(_translate("game_level", "ans3"))
         self.ans4_button.setText(_translate("game_level", "ans4"))
-        self.voice1_button.setText(_translate("game_level", "voice1"))
-        self.voice4_button.setText(_translate("game_level", "voice4"))
-        self.voice2_button.setText(_translate("game_level", "voice2"))
-        self.voice3_button.setText(_translate("game_level", "voice3"))
+        self.voice1_button.setText(_translate("game_level", "השמע"))
+        self.voice4_button.setText(_translate("game_level", "השמע"))
+        self.voice2_button.setText(_translate("game_level", "השמע"))
+        self.voice3_button.setText(_translate("game_level", "השמע"))
         self.qid_label.setText(_translate("game_level", "00"))
         self.score_label.setText(_translate("game_level", "score"))
+    def set_new_game(self,new_game):
+        '''
+        
+        Args:
+            new_game: game row from DB
 
+        Returns: update screen to new game
+
+        '''
+        pass
+        
     def set_img(self,url):
+        '''
+        
+        Args:
+            url: url link from DB 
+
+        Returns:
+
+        '''
         self.image_game.setStyleSheet("background-image: url("+url+");")
         self.image_game.setPixmap(QtGui.QPixmap(url))
-
+    
+    def set_ans1_bttn(self,ans):
+        self.ans1_button.setText(QtCore.QCoreApplication.translate("game_level", ans))
+    def set_ans2_bttn(self, ans):
+        self.ans2_button.setText(QtCore.QCoreApplication.translate("game_level", ans))
+    def set_ans3_bttn(self, ans):
+        self.ans3_button.setText(QtCore.QCoreApplication.translate("game_level", ans))
+    def set_ans4_bttn(self, ans):
+        self.ans4_button.setText(QtCore.QCoreApplication.translate("game_level", ans))
+    def click_ans(self,qid,ans):
+        gameDB.check_answer(qid,ans)
 
 
 if __name__ == "__main__":
@@ -90,6 +122,7 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     game_level = QtWidgets.QMainWindow()
     ui = Ui_game_level()
+    #game_data = gameDB.get_question_for_game(1)
     ui.setupUi(game_level)
     game_level.show()
     sys.exit(app.exec_())

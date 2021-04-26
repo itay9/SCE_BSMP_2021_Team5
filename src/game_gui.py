@@ -9,6 +9,8 @@ class Ui_game_level(object):
     qid = -99999
     kidName = "test"
     correct_ans = 0
+    currnet_level = 0
+    number_of_games = -8888
     def setupUi(self, game_level):
         game_level.setObjectName("game_level")
         game_level.resize(949, 691)
@@ -113,6 +115,8 @@ class Ui_game_level(object):
         self.set_ans4_bttn(choice4)
         self.set_img(img_url)
         self.pushed = False
+        self.inc_current_level()
+
 
     def set_img(self,url):
         '''
@@ -159,6 +163,15 @@ class Ui_game_level(object):
             QtCore.QCoreApplication.processEvents()
     def inc_correct_ans(self):
         self.correct_ans+=1
+    def inc_current_level(self):
+        self.currnet_level+=1
+    def check_if_finish(self):
+        if self.currnet_level==self.number_of_games:
+            print("end game")
+            game_level.close() #TODO maybe bug
+    def set_number_of_games(self,num):
+        self.number_of_games = num
+
 
 
 if __name__ == "__main__":
@@ -167,7 +180,8 @@ if __name__ == "__main__":
     game_level = QtWidgets.QMainWindow()
     ui = Ui_game_level()
     ui.setupUi(game_level)
-    game_data = gameDB.get_question_for_game(3)
+    game_data = gameDB.get_question_for_game(NUM_OF_LEVELS)
+    ui.set_number_of_games(len(game_data))
     for data in game_data:
         ui.set_new_game(data)
         game_level.show()

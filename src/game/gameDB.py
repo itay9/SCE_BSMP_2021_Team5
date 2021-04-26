@@ -129,6 +129,7 @@ def get_qestion_id():
     '''
     cursor.execute("SELECT max(qid) FROM ques")
     fet = cursor.fetchone()
+    #TODO fix None bug
     if fet !=None:
         return fet[0] + 1
 

@@ -17,10 +17,10 @@ def init_QDB():
                 choice4 text,
                 answer INTEGER)""")
     conn.commit()
-    add_question_to_qdb("banana", "pic/banana.jpg", 1, 2, 3, 4, 1)
-    add_question_to_qdb("apple", "aurl", 1, 2, 3, 4, 2)
-    add_question_to_qdb("Pineapple", "pine url", 1, 2, 3, 4, 4)
-    add_question_to_qdb("tomato", "tomato url", 1, 2, 3, 4, 4)
+    add_question_to_qdb("banana", "pic/banana.jpg", "banana", "apple", "pizza", "car", 1)
+    add_question_to_qdb("apple", "pic/apple.jpg", "dad", "apple", "table", "dog", 2)
+    add_question_to_qdb("Pineapple", "pic/pineapple.jpg", "watermelon", "hair", "cat", "pineapple", 4)
+    add_question_to_qdb("tomato", "pic/tomato.jpg", "cat", "dog", "window", "tomato", 4)
 
 def init_kidDB():
     cursor.execute("""CREATE TABLE results
@@ -129,7 +129,7 @@ def get_qestion_id():
     '''
     cursor.execute("SELECT max(qid) FROM ques")
     fet = cursor.fetchone()[0]
-    print(fet)
+    #print(fet)
     if fet !=None:
         return fet + 1
     else:
@@ -146,7 +146,7 @@ def get_question_for_game(number_of_question):
 
     '''
     if number_of_question == 0: return None
-    print("get_question_for_game:")
+    #print("get_question_for_game:")
     if number_of_question > get_qestion_id() - 1:
         # תיקון מספר השאלות
         print("number of question modify to max ques in DB")
@@ -154,10 +154,10 @@ def get_question_for_game(number_of_question):
     # set the questions to list
     cursor.execute("SELECT * FROM ques")
     ques_list = cursor.fetchall()
-    print("ques_list: ",len(ques_list))
+    #print("ques_list: ",len(ques_list))
     qList = []
     num_list = generate_rand_number_list(number_of_question)
-    print("num_list", num_list)
+    #print("num_list", num_list)
     for i in num_list:
         qList.append(ques_list[i-1])
     return qList
@@ -228,4 +228,3 @@ def calc_game_success(kidName,gameNumber):
     success_rate =  correct_ans/len(fet)
     return success_rate
 
-print(get_question_for_game(1))

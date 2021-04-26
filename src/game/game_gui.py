@@ -1,8 +1,13 @@
+import time
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 import gameDB
 NUM_OF_LEVELS = 2
 
 class Ui_game_level(object):
+    pushed = False
+    qid = -99999
+    kidName = "test"
     def setupUi(self, game_level):
         game_level.setObjectName("game_level")
         game_level.resize(949, 691)
@@ -63,10 +68,11 @@ class Ui_game_level(object):
         self.statusbar.setObjectName("statusbar")
         game_level.setStatusBar(self.statusbar)
         #bttn
-
-
+        self.ans1_button.clicked.connect(self.click_ans1)
+        self.ans2_button.clicked.connect(self.click_ans2)
+        self.ans3_button.clicked.connect(self.click_ans3)
+        self.ans4_button.clicked.connect(self.click_ans4)
         self.retranslateUi(game_level)
-        self.set_ans1_bttn("4231")
         QtCore.QMetaObject.connectSlotsByName(game_level)
 
     def retranslateUi(self, game_level):
@@ -91,8 +97,22 @@ class Ui_game_level(object):
         Returns: update screen to new game
 
         '''
-        pass
-        
+        print(new_game)
+        #global qid
+        self.qid = new_game[0]
+        img_url = new_game[2]
+        choice1 = new_game[3]
+        choice2 = new_game[4]
+        choice3 = new_game[5]
+        choice4 = new_game[6]
+        self.ans = new_game[7]
+        self.set_ans1_bttn(choice1)
+        self.set_ans2_bttn(choice2)
+        self.set_ans3_bttn(choice3)
+        self.set_ans4_bttn(choice4)
+        self.set_img(img_url)
+        self.pushed = False
+
     def set_img(self,url):
         '''
         
@@ -106,15 +126,28 @@ class Ui_game_level(object):
         self.image_game.setPixmap(QtGui.QPixmap(url))
     
     def set_ans1_bttn(self,ans):
-        self.ans1_button.setText(QtCore.QCoreApplication.translate("game_level", ans))
+        self.ans1_button.setText(QtCore.QCoreApplication.translate("game_level", str(ans)))
     def set_ans2_bttn(self, ans):
-        self.ans2_button.setText(QtCore.QCoreApplication.translate("game_level", ans))
+        self.ans2_button.setText(QtCore.QCoreApplication.translate("game_level", str(ans)))
     def set_ans3_bttn(self, ans):
-        self.ans3_button.setText(QtCore.QCoreApplication.translate("game_level", ans))
+        self.ans3_button.setText(QtCore.QCoreApplication.translate("game_level", str(ans)))
     def set_ans4_bttn(self, ans):
-        self.ans4_button.setText(QtCore.QCoreApplication.translate("game_level", ans))
-    def click_ans(self,qid,ans):
-        gameDB.check_answer(qid,ans)
+        self.ans4_button.setText(QtCore.QCoreApplication.translate("game_level", str(ans)))
+    def click_ans1(self):
+        print(gameDB.check_answer(self.qid,1))
+        self.pushed = True
+    def click_ans2(self):
+        print(gameDB.check_answer(self.qid,2))
+        self.pushed = True
+    def click_ans3(self):
+        print(gameDB.check_answer(self.qid,3))
+        self.pushed = True
+    def click_ans4(self):
+        print(gameDB.check_answer(self.qid,4))
+        self.pushed = True
+    def wait_until_clicked(self):
+        while self.pushed==False:
+            QtCore.QCoreApplication.processEvents()
 
 
 if __name__ == "__main__":
@@ -122,7 +155,10 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     game_level = QtWidgets.QMainWindow()
     ui = Ui_game_level()
-    #game_data = gameDB.get_question_for_game(2)
     ui.setupUi(game_level)
-    game_level.show()
+    game_data = gameDB.get_question_for_game(2)
+    for data in game_data:
+        ui.set_new_game(data)
+        game_level.show()
+        ui.wait_until_clicked()
     sys.exit(app.exec_())

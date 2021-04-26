@@ -1,5 +1,6 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import ShowQuestions
 import AllowParentReg
 import AllowKidPlay
 import MainMenu
@@ -86,6 +87,8 @@ class Ui_ManagerMenu(object):
         self.deleteUserButton.clicked.connect(self.open_deleteUser_UI)
         self.allowKidPlayButton.clicked.connect(self.open_AllowKidPlay_UI)
         self.allowParentRegButton.clicked.connect(self.open_AllowParenReg_UI)
+        self.viewQuestionsButton.clicked.connect(self.open_ShowQuestions_UI)
+        #
 
         self.retranslateUi(ManagerMenu)
         QtCore.QMetaObject.connectSlotsByName(ManagerMenu)
@@ -122,10 +125,12 @@ class Ui_ManagerMenu(object):
         self.ui = AllowParentReg.Ui_AllowParentReg()
         self.ui.setupUi(self.window)
         self.window.show()
-    #TODO allow parent reg bttn
-    #TODO fix bttn in those funcs
 
-
+    def open_ShowQuestions_UI(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = ShowQuestions.Ui_QuestionTable()
+        self.ui.setupUi(self.window)
+        self.window.show()
 
 if __name__ == "__main__":
     import sys

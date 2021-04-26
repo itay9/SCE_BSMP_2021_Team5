@@ -113,8 +113,6 @@ class Ui_game_level(object):
         Returns: update screen to new game
 
         '''
-        print(new_game)
-        #global qid
         self.qid = new_game[0]
         img_url = new_game[2]
         self.set_choice1(new_game[3])
@@ -129,6 +127,8 @@ class Ui_game_level(object):
         self.set_img(img_url)
         self.pushed = False
         self.inc_current_level()
+        self.set_qid_label()
+        self.set_score_label()
 
 
     def set_img(self,url):
@@ -162,27 +162,33 @@ class Ui_game_level(object):
         self.choice4=text
 
     def set_kid_name(self,name):
-        self.kidName=name
-    def set_current_game(self):
-        self.current_game=gameDB.get_game_number(self.kidName)+1
+        self.kidName = name
+    def set_current_game(self,num):
+        self.current_game=num
+    def set_number_of_games(self,num):
+        self.number_of_games = num
+    def set_score_label(self):
+        self.score_label.setText(QtCore.QCoreApplication.translate("game_level", "Score: "+str(self.correct_ans)))
+    def set_qid_label(self):
+        self.qid_label.setText(QtCore.QCoreApplication.translate("game_level", "Question #"+str(self.qid)))
 
     def click_ans1(self):
-        print(gameDB.check_answer(self.qid,1))
+        self.recored_gameLog(self.qid,1)
         if gameDB.check_answer(self.qid,1):
             self.inc_correct_ans()
         self.pushed = True
     def click_ans2(self):
-        print(gameDB.check_answer(self.qid,2))
+        self.recored_gameLog(self.qid,2)
         if gameDB.check_answer(self.qid,2):
             self.inc_correct_ans()
         self.pushed = True
     def click_ans3(self):
-        print(gameDB.check_answer(self.qid,3))
+        self.recored_gameLog(self.qid,3)
         if gameDB.check_answer(self.qid,3):
             self.inc_correct_ans()
         self.pushed = True
     def click_ans4(self):
-        print(gameDB.check_answer(self.qid,4))
+        self.recored_gameLog(self.qid,4)
         if gameDB.check_answer(self.qid,4):
             self.inc_correct_ans()
         self.pushed = True
@@ -210,8 +216,6 @@ class Ui_game_level(object):
             print("end game")
             game_level.close() #TODO maybe bug
 
-    def set_number_of_games(self,num):
-        self.number_of_games = num
 
     def play_hint(self,str_to_play):
         '''
@@ -237,12 +241,16 @@ if __name__ == "__main__":
     game_level = QtWidgets.QMainWindow()
     ui = Ui_game_level()
     ui.setupUi(game_level)
-    game_data = gameDB.get_question_for_game(NUM_OF_LEVELS)
+    """game_data = gameDB.get_question_for_game(NUM_OF_LEVELS)
     ui.set_number_of_games(len(game_data))
-    ui.set_kid_name(DB.currentUser())
+    player = DB.currentUser
+    ui.set_kid_name(player)
+    current_game = gameDB.get_game_number(player)
+    ui.set_current_game(current_game)
     for data in game_data:
         ui.set_new_game(data)
         game_level.show()
-        ui.wait_until_clicked()
+        ui.wait_until_clicked()"""
+    game_level.show()
     print("correct ans:",ui.correct_ans)
     sys.exit(app.exec_())

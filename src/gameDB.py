@@ -1,6 +1,7 @@
 import sqlite3
 from datetime import datetime
 import random
+import DB
 
 conn = sqlite3.connect("GameDB.db")
 cursor = conn.cursor()
@@ -27,14 +28,11 @@ def init_kidDB():
                 (KidName text,
                 Date timestamp,
                 GameNumber INTEGER,
-                GameLog Blob,
                 GameSuccess Real)""")
-    # gamalog = [(Qnumber,answer,correct)]*
+    # gamalog = [(Qnumber,answer,correct)] TODO remove this attribute
     # GameSuccess = (number of correct / total Q) * 100 %
     # db insert rows
     conn.commit()
-    add_result_to_Kidsdb("chen", datetime.now(), 1, 23)
-    add_result_to_Kidsdb("chen", datetime.now(), 0, 95)
 
 def init_game_log_DB():
     '''
@@ -69,9 +67,12 @@ def add_result_to_gameLog(KidName,GameNumber,qid,playerAns):
     conn.commit()
     print("result add to DB")
 
-def add_result_to_Kidsdb(kidName, date, gameLog, gameSuccess):
-    cursor.execute("INSERT into results VALUES (?,?,?,?,?)",
-                   (kidName, date, get_game_number(kidName) + 1, gameLog, gameSuccess))
+def add_result_to_Kidsdb(kidName):
+    time = get_norm_time_now()
+    game_number = get_game_number(kidName)+1
+    suc_rate = calc_game_success(kidName,game_number)
+    data = (kidName,time,game_number,suc_rate)
+    cursor.execute("INSERT into results VALUES (?,?,?,?)",data)
     conn.commit()
     print("result add to DB")
 
@@ -98,6 +99,14 @@ def stampToTime(timestamp):
 
 def timeToStamp(time):
     return int(datetime.timestamp(time))
+
+def get_norm_time_now():
+    '''
+
+    Returns: time and date of now after normalize
+
+    '''
+    return stampToTime(timeToStamp(datetime.now()))
 
 def get_kid_results(kidName):
     cursor.execute("SELECT * FROM results WHERE kidName =?", (kidName,))
@@ -204,6 +213,7 @@ def build_db():
         init_QDB()
         init_kidDB()
         init_game_log_DB()
+        DB.db_init()
     except:
         pass
 
@@ -227,4 +237,5 @@ def calc_game_success(kidName,gameNumber):
             correct_ans+=1
     success_rate =  correct_ans/len(fet)
     return success_rate
+
 

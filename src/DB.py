@@ -1,6 +1,6 @@
 import sqlite3
-
-conn = sqlite3.connect("usersDB.db")
+import gameDB
+conn = sqlite3.connect("GameDB.db")
 cursor = conn.cursor()
 
 currentUser = "defult"
@@ -322,6 +322,9 @@ register_kid("b","b","a")
 def build_db():
     try:
         db_init()
+        gameDB.init_QDB()
+        gameDB.init_kidDB()
+        gameDB.init_game_log_DB()
     except:
         pass
 

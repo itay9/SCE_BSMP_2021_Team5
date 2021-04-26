@@ -1,6 +1,9 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import DB
 import MainMenu
+import game_gui
+import gameDB
+NUM_OF_GAME = 2
 
 class Ui_kidMenu(object):
     def setupUi(self, kidMenu):
@@ -44,7 +47,7 @@ class Ui_kidMenu(object):
         self.logoutButton.clicked.connect(DB.logOut)
         self.logoutButton.clicked.connect(self.mainMenu_UI)
         self.logoutButton.clicked.connect(kidMenu.close)
-        self.StartNewGameButton.clicked.connect(self.newGame)
+        self.StartNewGameButton.clicked.connect(self.newGame) #TODO fix game crush
 
         self.retranslateUi(kidMenu)
         QtCore.QMetaObject.connectSlotsByName(kidMenu)
@@ -56,7 +59,17 @@ class Ui_kidMenu(object):
         self.window.show()
 
     def newGame(self):
-        print("start game ok")
+        game_data = gameDB.get_question_for_game(NUM_OF_GAME)
+        player = DB.currentUser
+        current_game = gameDB.get_game_number(player)
+        self.window = QtWidgets.QMainWindow()
+        self.ui = game_gui.Ui_game_level()
+        self.ui.setupUi(self.window)
+        for data in game_data:
+            self.ui.set_new_game(data)
+            self.window.show()
+            game_gui.wait_until_clicked()
+
 
     def retranslateUi(self, kidMenu):
         _translate = QtCore.QCoreApplication.translate

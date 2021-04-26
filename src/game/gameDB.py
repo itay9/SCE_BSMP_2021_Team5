@@ -128,10 +128,13 @@ def get_qestion_id():
 
     '''
     cursor.execute("SELECT max(qid) FROM ques")
-    fet = cursor.fetchone()
-    #TODO fix None bug
+    fet = cursor.fetchone()[0]
+    print(fet)
     if fet !=None:
-        return fet[0] + 1
+        return fet + 1
+    else:
+        #init the first question
+        return 1
 
 def get_question_for_game(number_of_question):
     '''
@@ -225,6 +228,4 @@ def calc_game_success(kidName,gameNumber):
     success_rate =  correct_ans/len(fet)
     return success_rate
 
-
-add_question_to_qdb("Pineapple", "pine url", 1, 2, 3, 4, 4)
-add_question_to_qdb("tomato", "tomato url", 1, 2, 3, 4, 4)
+print(get_question_for_game(1))

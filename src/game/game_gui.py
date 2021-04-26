@@ -122,7 +122,7 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     game_level = QtWidgets.QMainWindow()
     ui = Ui_game_level()
-    #game_data = gameDB.get_question_for_game(1)
+    #game_data = gameDB.get_question_for_game(2)
     ui.setupUi(game_level)
     game_level.show()
     sys.exit(app.exec_())

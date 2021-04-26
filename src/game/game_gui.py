@@ -8,6 +8,7 @@ class Ui_game_level(object):
     pushed = False
     qid = -99999
     kidName = "test"
+    correct_ans = 0
     def setupUi(self, game_level):
         game_level.setObjectName("game_level")
         game_level.resize(949, 691)
@@ -135,19 +136,29 @@ class Ui_game_level(object):
         self.ans4_button.setText(QtCore.QCoreApplication.translate("game_level", str(ans)))
     def click_ans1(self):
         print(gameDB.check_answer(self.qid,1))
+        if gameDB.check_answer(self.qid,1):
+            self.inc_correct_ans()
         self.pushed = True
     def click_ans2(self):
         print(gameDB.check_answer(self.qid,2))
+        if gameDB.check_answer(self.qid,2):
+            self.inc_correct_ans()
         self.pushed = True
     def click_ans3(self):
         print(gameDB.check_answer(self.qid,3))
+        if gameDB.check_answer(self.qid,3):
+            self.inc_correct_ans()
         self.pushed = True
     def click_ans4(self):
         print(gameDB.check_answer(self.qid,4))
+        if gameDB.check_answer(self.qid,4):
+            self.inc_correct_ans()
         self.pushed = True
     def wait_until_clicked(self):
         while self.pushed==False:
             QtCore.QCoreApplication.processEvents()
+    def inc_correct_ans(self):
+        self.correct_ans+=1
 
 
 if __name__ == "__main__":
@@ -156,9 +167,10 @@ if __name__ == "__main__":
     game_level = QtWidgets.QMainWindow()
     ui = Ui_game_level()
     ui.setupUi(game_level)
-    game_data = gameDB.get_question_for_game(2)
+    game_data = gameDB.get_question_for_game(3)
     for data in game_data:
         ui.set_new_game(data)
         game_level.show()
         ui.wait_until_clicked()
+    print("correct ans:",ui.correct_ans)
     sys.exit(app.exec_())

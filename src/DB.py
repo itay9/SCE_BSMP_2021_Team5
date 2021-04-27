@@ -8,7 +8,7 @@ sassionFlag = False
 
 
 # DB init table
-def db_init():
+def db_user_init():
     cursor.execute("""CREATE TABLE users
                 (userName text,
                 pass text,

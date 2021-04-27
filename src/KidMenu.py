@@ -47,7 +47,7 @@ class Ui_kidMenu(object):
         self.logoutButton.clicked.connect(DB.logOut)
         self.logoutButton.clicked.connect(self.mainMenu_UI)
         self.logoutButton.clicked.connect(kidMenu.close)
-        self.StartNewGameButton.clicked.connect(self.newGame) #TODO fix game crush
+        self.StartNewGameButton.clicked.connect(self.newGame)
 
         self.retranslateUi(kidMenu)
         QtCore.QMetaObject.connectSlotsByName(kidMenu)

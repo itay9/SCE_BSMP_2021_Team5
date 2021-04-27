@@ -6,7 +6,7 @@ import os.path
 
 class TestDb(unittest.TestCase):
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    db_path = os.path.join(BASE_DIR, "usersDB.db")
+    db_path = os.path.join(BASE_DIR, "gameDB.db")
     with sqlite3.connect(db_path) as conn:
         # with sqlite3.connect("usersDB.db") as conn:
         cursor = conn.cursor()

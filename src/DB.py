@@ -292,7 +292,7 @@ def allowPlay(kid):
     else:
         cursor.execute("UPDATE users SET canPlay = 0 WHERE userName= ? ", (kid,))
     conn.commit()
-
+#test
 
 # test
 """

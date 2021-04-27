@@ -3,7 +3,6 @@ import pyttsx3
 import DB
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import gameDB
 NUM_OF_LEVELS = 2
 
 class Ui_game_level(object):
@@ -176,22 +175,22 @@ class Ui_game_level(object):
 
     def click_ans1(self):
         self.recored_gameLog(self.qid,1)
-        if gameDB.check_answer(self.qid,1):
+        if DB.check_answer(self.qid,1):
             self.inc_correct_ans()
         self.pushed = True
     def click_ans2(self):
         self.recored_gameLog(self.qid,2)
-        if gameDB.check_answer(self.qid,2):
+        if DB.check_answer(self.qid,2):
             self.inc_correct_ans()
         self.pushed = True
     def click_ans3(self):
         self.recored_gameLog(self.qid,3)
-        if gameDB.check_answer(self.qid,3):
+        if DB.check_answer(self.qid,3):
             self.inc_correct_ans()
         self.pushed = True
     def click_ans4(self):
         self.recored_gameLog(self.qid,4)
-        if gameDB.check_answer(self.qid,4):
+        if DB.check_answer(self.qid,4):
             self.inc_correct_ans()
         self.pushed = True
 
@@ -233,7 +232,7 @@ class Ui_game_level(object):
         engine.runAndWait()
 
     def recored_gameLog(self,qid,ans):
-        gameDB.add_result_to_gameLog(self.kidName,self.current_game,qid,ans)
+        DB.add_result_to_gameLog(self.kidName,self.current_game,qid,ans)
 
 
 
@@ -243,11 +242,11 @@ if __name__ == "__main__":
     game_level = QtWidgets.QMainWindow()
     ui = Ui_game_level()
     ui.setupUi(game_level)
-    """game_data = gameDB.get_question_for_game(NUM_OF_LEVELS)
+    """game_data = DB.get_question_for_game(NUM_OF_LEVELS)
     ui.set_number_of_games(len(game_data))
     player = DB.currentUser
     ui.set_kid_name(player)
-    current_game = gameDB.get_game_number(player)
+    current_game = DB.get_game_number(player)
     ui.set_current_game(current_game)
     for data in game_data:
         ui.set_new_game(data)

@@ -213,7 +213,6 @@ def build_db():
         init_QDB()
         init_kidDB()
         init_game_log_DB()
-        DB.db_init()
     except:
         pass
 
@@ -238,4 +237,5 @@ def calc_game_success(kidName,gameNumber):
     success_rate =  correct_ans/len(fet)
     return success_rate
 
+#build_db()
 

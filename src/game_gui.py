@@ -113,6 +113,8 @@ class Ui_game_level(object):
         Returns: update screen to new game
 
         '''
+        if type(new_game)==list:
+            new_game=new_game[0]
         self.qid = new_game[0]
         img_url = new_game[2]
         self.set_choice1(new_game[3])

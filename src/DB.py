@@ -322,10 +322,7 @@ register_kid("b","b","a")
 def build_db():
     try:
         db_init()
-        gameDB.init_QDB()
-        gameDB.init_kidDB()
-        gameDB.init_game_log_DB()
     except:
         pass
 
-# build_db()
+#build_db()

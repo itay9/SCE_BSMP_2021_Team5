@@ -1,6 +1,7 @@
 import sqlite3
 from datetime import datetime
 import random
+import DB
 
 conn = sqlite3.connect("GameDB.db")
 cursor = conn.cursor()
@@ -17,22 +18,21 @@ def init_QDB():
                 choice4 text,
                 answer INTEGER)""")
     conn.commit()
-    add_question_to_qdb("banana", "https://www.google.com/imgres?imgurl=https%3A%2F%2Fcdn.mos.cms.futurecdn.net%2F42E9as7NaTaAi4A6JcuFwG-1200-80.jpg&imgrefurl=https%3A%2F%2Fwww.livescience.com%2F45005-banana-nutrition-facts.html&tbnid=l-xjqYxEGNZh1M&vet=12ahUKEwiAmIbzs5nwAhXTWOUKHWciAXYQMygAegUIARCTAg..i&docid=aCmLYEGvNNOXNM&w=700&h=467&q=banana&ved=2ahUKEwiAmIbzs5nwAhXTWOUKHWciAXYQMygAegUIARCTAg", 1, 2, 3, 4, 1)
-    add_question_to_qdb("apple", "aurl", 1, 2, 3, 4, 2)
+    add_question_to_qdb("banana", "pic/banana.jpg", "banana", "apple", "pizza", "car", 1)
+    add_question_to_qdb("apple", "pic/apple.jpg", "dad", "apple", "table", "dog", 2)
+    add_question_to_qdb("Pineapple", "pic/pineapple.jpg", "watermelon", "hair", "cat", "pineapple", 4)
+    add_question_to_qdb("tomato", "pic/tomato.jpg", "cat", "dog", "window", "tomato", 4)
 
 def init_kidDB():
     cursor.execute("""CREATE TABLE results
                 (KidName text,
                 Date timestamp,
                 GameNumber INTEGER,
-                GameLog Blob,
                 GameSuccess Real)""")
-    # gamalog = [(Qnumber,answer,correct)]*
+    # gamalog = [(Qnumber,answer,correct)] TODO remove this attribute
     # GameSuccess = (number of correct / total Q) * 100 %
     # db insert rows
     conn.commit()
-    add_result_to_Kidsdb("chen", datetime.now(), 1, 23)
-    add_result_to_Kidsdb("chen", datetime.now(), 0, 95)
 
 def init_game_log_DB():
     '''
@@ -67,9 +67,12 @@ def add_result_to_gameLog(KidName,GameNumber,qid,playerAns):
     conn.commit()
     print("result add to DB")
 
-def add_result_to_Kidsdb(kidName, date, gameLog, gameSuccess):
-    cursor.execute("INSERT into results VALUES (?,?,?,?,?)",
-                   (kidName, date, get_game_number(kidName) + 1, gameLog, gameSuccess))
+def add_result_to_Kidsdb(kidName):
+    time = get_norm_time_now()
+    game_number = get_game_number(kidName)+1
+    suc_rate = calc_game_success(kidName,game_number)
+    data = (kidName,time,game_number,suc_rate)
+    cursor.execute("INSERT into results VALUES (?,?,?,?)",data)
     conn.commit()
     print("result add to DB")
 
@@ -96,6 +99,14 @@ def stampToTime(timestamp):
 
 def timeToStamp(time):
     return int(datetime.timestamp(time))
+
+def get_norm_time_now():
+    '''
+
+    Returns: time and date of now after normalize
+
+    '''
+    return stampToTime(timeToStamp(datetime.now()))
 
 def get_kid_results(kidName):
     cursor.execute("SELECT * FROM results WHERE kidName =?", (kidName,))
@@ -127,7 +138,12 @@ def get_qestion_id():
     '''
     cursor.execute("SELECT max(qid) FROM ques")
     fet = cursor.fetchone()[0]
-    return fet + 1
+    #print(fet)
+    if fet !=None:
+        return fet + 1
+    else:
+        #init the first question
+        return 1
 
 def get_question_for_game(number_of_question):
     '''
@@ -139,7 +155,7 @@ def get_question_for_game(number_of_question):
 
     '''
     if number_of_question == 0: return None
-    print("get_question_for_game:")
+    #print("get_question_for_game:")
     if number_of_question > get_qestion_id() - 1:
         # תיקון מספר השאלות
         print("number of question modify to max ques in DB")
@@ -147,10 +163,10 @@ def get_question_for_game(number_of_question):
     # set the questions to list
     cursor.execute("SELECT * FROM ques")
     ques_list = cursor.fetchall()
-    print("ques_list: ",len(ques_list))
+    #print("ques_list: ",len(ques_list))
     qList = []
     num_list = generate_rand_number_list(number_of_question)
-    print("num_list", num_list)
+    #print("num_list", num_list)
     for i in num_list:
         qList.append(ques_list[i-1])
     return qList
@@ -221,4 +237,5 @@ def calc_game_success(kidName,gameNumber):
     success_rate =  correct_ans/len(fet)
     return success_rate
 
+#build_db()
 

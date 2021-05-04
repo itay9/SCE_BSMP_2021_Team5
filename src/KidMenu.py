@@ -2,7 +2,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import DB
 import MainMenu
 import game_gui
-import gameDB
 NUM_OF_GAME = 2
 
 class Ui_kidMenu(object):
@@ -59,9 +58,9 @@ class Ui_kidMenu(object):
         self.window.show()
 
     def newGame(self):
-        game_data = gameDB.get_question_for_game(2) #TODO The problem starts from here.
+        game_data = DB.get_question_for_game(2) #TODO The problem starts from here.
         player = DB.currentUser
-        current_game = gameDB.get_game_number(player)
+        current_game = DB.get_game_number(player)
         self.window = QtWidgets.QMainWindow()
         self.ui = game_gui.Ui_game_level()
         self.ui.setupUi(self.window)

@@ -1,6 +1,6 @@
 import sqlite3
 import unittest
-import gameDB
+import DB
 import os.path
 from datetime import datetime
 
@@ -19,7 +19,7 @@ class GameTest(unittest.TestCase):
         cls.conn.commit()
 
         date = datetime.now()
-        cls.cursor.execute("INSERT into results VALUES ('chenA', ?, 1, 2, 80)", (date,))
+        cls.cursor.execute("INSERT into results VALUES ('chenA', ?, 1, 80)", (date,))
         cls.conn.commit()
 
         print("setUp complete")
@@ -43,16 +43,16 @@ class GameTest(unittest.TestCase):
         fet = self.cursor.fetchone()[0]  # first arg from fet(return tuple)
         self.assertEqual(fet, 999)
 
-        res = gameDB.get_question_from_id(999)
+        res = DB.get_question_from_id(999)
         self.assertIsNotNone(res)
         print("question is:", res)
 
-        res = gameDB.get_question_from_id(99999)
+        res = DB.get_question_from_id(99999)
         self.assertIsNone(res)
 
     def test_add_ques(self):
         qst = ('testQ', 'url', 'a', 'b', 'c', 'd', 1)
-        gameDB.add_question_to_qdb(*qst)
+        DB.add_question_to_qdb(*qst)
 
         self.cursor.execute("SELECT qid FROM ques WHERE quesion = 'testQ'")
         fet = self.cursor.fetchone()
@@ -62,23 +62,18 @@ class GameTest(unittest.TestCase):
         self.conn.commit()
 
     def test_get_id(self):
-
-        res=gameDB.get_qestion_id()
-        self.assertEqual(res,1000)
-
-
-
-
+        res = DB.get_qestion_id()
+        self.assertEqual(res, 10000)
 
     def test_get_ans(self):
         self.cursor.execute("SELECT answer FROM ques WHERE qid = 999")
         fet = self.cursor.fetchone()[0]
         self.assertEqual(fet, 1)
 
-        res = gameDB.get_ans(999)
+        res = DB.get_ans(999)
         self.assertEqual(res, 1)
 
-        res = gameDB.get_ans(99999)
+        res = DB.get_ans(99999)
         self.assertIsNone(res)
 
     def test_kidsDB(self):
@@ -92,7 +87,7 @@ class GameTest(unittest.TestCase):
 
     def test_add_result(self):
         date = datetime.now()
-        self.cursor.execute("INSERT into results VALUES ('chenB', ?, 1, 2, 80)", (date,))
+        self.cursor.execute("INSERT into results VALUES ('chenB', ?, 1, 80)", (date,))
         self.conn.commit()
 
         self.cursor.execute("SELECT * FROM results WHERE KidName = 'chenB'")
@@ -103,7 +98,7 @@ class GameTest(unittest.TestCase):
         self.conn.commit()
 
         tup = ('chenB', datetime.now(), 1, 100)
-        gameDB.add_result_to_Kidsdb(*tup)
+        DB.add_result_to_Kidsdb(*tup)
 
         self.cursor.execute("SELECT * FROM results WHERE KidName = 'chenB'")
         fet = self.cursor.fetchone()
@@ -117,13 +112,13 @@ class GameTest(unittest.TestCase):
         fet = self.cursor.fetchall()
         self.assertIsNotNone(fet)
 
-        res = gameDB.get_kid_results('chenA')
+        res = DB.get_kid_results('chenA')
         self.assertIsNotNone(fet)
 
-        res = gameDB.get_kid_results('chenABCD')
+        res = DB.get_kid_results('chenABCD')
         self.assertIsNone(res)
 
-        res = gameDB.get_kid_results('')
+        res = DB.get_kid_results('')
         self.assertIsNone(res)
 
     def test_get_game_number(self):
@@ -136,18 +131,15 @@ class GameTest(unittest.TestCase):
         self.assertIsNone(fet)
 
     def test_get_list_of_qeus(self):
-        ques_list=[]
-        ques_list=gameDB.get_question_for_game(2)
-        self.assertEqual(len(ques_list),2)
+        ques_list = []
+        ques_list = DB.get_question_for_game(2)
+        self.assertEqual(len(ques_list), 2)
 
-        ques_list = gameDB.get_question_for_game(1)
+        ques_list = DB.get_question_for_game(1)
         self.assertEqual(len(ques_list), 1)
 
-        ques_list = gameDB.get_question_for_game(0)
+        ques_list = DB.get_question_for_game(0)
         self.assertIsNone(ques_list)
-
-
-
 
 
 if __name__ == '__main__':

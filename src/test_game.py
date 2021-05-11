@@ -50,6 +50,18 @@ class GameTest(unittest.TestCase):
         res = DB.get_question_from_id(99999)
         self.assertIsNone(res)
 
+        qst = ('testQ', 'url', 'a', 'b', 'c', 'd', 1)
+        DB.add_question_to_qdb(*qst)
+
+        id = DB.get_qestion_id() - 1
+        res = DB.get_question_from_id(id)
+        self.assertIsNotNone(res)
+
+        self.assertEqual(res[1], 'testQ')
+
+        qst = ('testQ', 'url', 'a', 'b', 'c', 'd', 1)
+        DB.add_question_to_qdb(*qst)
+
     def test_add_ques(self):
         qst = ('testQ', 'url', 'a', 'b', 'c', 'd', 1)
         DB.add_question_to_qdb(*qst)

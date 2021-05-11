@@ -53,7 +53,7 @@ class GameTest(unittest.TestCase):
         qst = ('testQ', 'url', 'a', 'b', 'c', 'd', 1)
         DB.add_question_to_qdb(*qst)
 
-        id = DB.get_qestion_id() - 1
+        id = DB.get_next_qestion_id() - 1
         res = DB.get_question_from_id(id)
         self.assertIsNotNone(res)
 
@@ -74,7 +74,7 @@ class GameTest(unittest.TestCase):
         self.conn.commit()
 
     def test_get_id(self):
-        res = DB.get_qestion_id()
+        res = DB.get_next_qestion_id()
         self.assertEqual(res, 10000)
 
     def test_get_ans(self):

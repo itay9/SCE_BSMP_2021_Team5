@@ -488,10 +488,10 @@ def get_question_for_game(number_of_question):
     '''
     if number_of_question == 0: return None
     # print("get_question_for_game:")
-    if number_of_question > get_qestion_id() - 1:
+    if number_of_question > get_next_qestion_id() - 1:
         # תיקון מספר השאלות
         print("number of question modify to max ques in DB")
-        number_of_question = get_qestion_id() - 1
+        number_of_question = get_next_qestion_id() - 1
     # set the questions to list
     cursor.execute("SELECT * FROM ques")
     ques_list = cursor.fetchall()

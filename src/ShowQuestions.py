@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+import DB
 
 class Ui_QuestionTable(object):
     def setupUi(self, QuestionTable):
@@ -76,6 +76,7 @@ class Ui_QuestionTable(object):
         self.add_new_question_button.setFont(font)
         self.add_new_question_button.setObjectName("add_new_question_button")
         QuestionTable.setCentralWidget(self.centralwidget)
+        self.load_data() # load data
         #bttn
         self.backButton.clicked.connect(QuestionTable.close)
 
@@ -83,15 +84,33 @@ class Ui_QuestionTable(object):
         self.retranslateUi(QuestionTable)
         QtCore.QMetaObject.connectSlotsByName(QuestionTable)
 
+    def load_data(self):
+        '''
+
+        Returns: load data to table
+
+        '''
+        results = DB.get_all_questions()
+        self.questionTable.setRowCount(len(results)) #updats table rows
+        for i in range(len(results)):
+            data = results[i]
+            self.questionTable.setItem(i,0,QtWidgets.QTableWidgetItem(str(data[0])))
+            self.questionTable.setItem(i,1,QtWidgets.QTableWidgetItem(data[1]))
+            self.questionTable.setItem(i,2,QtWidgets.QTableWidgetItem(str(data[7])))
+            self.questionTable.setItem(i,3,QtWidgets.QTableWidgetItem(data[3]))
+            self.questionTable.setItem(i, 4, QtWidgets.QTableWidgetItem(data[4]))
+            self.questionTable.setItem(i, 5, QtWidgets.QTableWidgetItem(data[5]))
+            self.questionTable.setItem(i, 6, QtWidgets.QTableWidgetItem(data[6]))
+
     def retranslateUi(self, QuestionTable):
         _translate = QtCore.QCoreApplication.translate
         QuestionTable.setWindowTitle(_translate("QuestionTable", "MainWindow"))
         item = self.questionTable.horizontalHeaderItem(0)
         item.setText(_translate("QuestionTable", "Qid"))
         item = self.questionTable.horizontalHeaderItem(1)
-        item.setText(_translate("QuestionTable", "answer"))
+        item.setText(_translate("QuestionTable", "word"))
         item = self.questionTable.horizontalHeaderItem(2)
-        item.setText(_translate("QuestionTable", "img URL"))
+        item.setText(_translate("QuestionTable", "answer"))
         item = self.questionTable.horizontalHeaderItem(3)
         item.setText(_translate("QuestionTable", "choice 1"))
         item = self.questionTable.horizontalHeaderItem(4)

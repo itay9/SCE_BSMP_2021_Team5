@@ -45,11 +45,11 @@ class TestDb(unittest.TestCase):
         # self.assertIsNotNone(fet)  # Test
         #
         # self.cursor.execute("SELECT * FROM users WHERE userName = ''")
-        # fet = self.cursor.fetchone()
-        # self.assertIsNone(fet)  # Test
+        fet = self.cursor.fetchone()
+        self.assertIsNone(fet)  # Test
         #
-        self.cursor.execute("DELETE FROM users WHERE userName= 'userTest'")
-        self.conn.commit()
+        # self.cursor.execute("DELETE FROM users WHERE userName= 'userTest'")
+        # self.conn.commit()
 
         # self.cursor.execute("SELECT * FROM users WHERE userName = 'tempUser'")
         # fet = self.cursor.fetchone()

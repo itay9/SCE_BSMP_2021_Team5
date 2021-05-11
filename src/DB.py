@@ -374,7 +374,7 @@ def add_result_to_gameLog(KidName, GameNumber, qid, playerAns):
     data = (KidName, GameNumber, qid, playerAns)
     cursor.execute("INSERT INTO gameLog VALUES (?,?,?,?)", data)
     conn.commit()
-    print("result add to DB")
+    print("result add to Gamelog DB")
 
 
 def add_result_to_Kidsdb(kidName):
@@ -384,7 +384,7 @@ def add_result_to_Kidsdb(kidName):
     data = (kidName, time, game_number, suc_rate)
     cursor.execute("INSERT into results VALUES (?,?,?,?)", data)
     conn.commit()
-    print("result added to DB")
+    print("result added to kids result DB")
 
 
 def add_question_to_qdb(question, picUrl, ch1, ch2, ch3, ch4, ans):

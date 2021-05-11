@@ -13,17 +13,17 @@ class TestDb(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.cursor.execute("INSERT INTO users VALUES ('adminTest','123','admin','',1,1)")
-        cls.cursor.execute("INSERT INTO users VALUES ('parentTest','123','parent','',1,1)")
-        cls.cursor.execute("INSERT INTO users VALUES ('kidTest','123','kid','parentTest',0,1)")
+        # cls.cursor.execute("INSERT INTO users VALUES ('adminTest','123','admin','',1,1)")
+        # cls.cursor.execute("INSERT INTO users VALUES ('parentTest','123','parent','',1,1)")
+        # cls.cursor.execute("INSERT INTO users VALUES ('kidTest','123','kid','parentTest',0,1)")
         cls.conn.commit()
         print("setUp complete")
 
     @classmethod
     def tearDownClass(cls):
-        cls.cursor.execute("DELETE FROM users WHERE userName= 'adminTest'")
-        cls.cursor.execute("DELETE FROM users WHERE userName= 'parentTest'")
-        cls.cursor.execute("DELETE FROM users WHERE userName= 'kidTest'")
+        # cls.cursor.execute("DELETE FROM users WHERE userName= 'adminTest'")
+        # cls.cursor.execute("DELETE FROM users WHERE userName= 'parentTest'")
+        # cls.cursor.execute("DELETE FROM users WHERE userName= 'kidTest'")
         cls.conn.commit()
         print("tearDown complete")
 

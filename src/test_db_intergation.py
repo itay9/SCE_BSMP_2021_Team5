@@ -74,7 +74,7 @@ class TestDb(unittest.TestCase):
         # res=DB.register_parent('parentTest2','123')
         # self.assertEqual(res,True)#Test
 
-        self.cursor.execute("DELETE FROM users WHERE userName= 'parentTest2'")
+        # self.cursor.execute("DELETE FROM users WHERE userName= 'parentTest2'")
         self.conn.commit()
 
         # self.cursor.execute("SELECT * FROM users WHERE userName = 'parentTest2'")

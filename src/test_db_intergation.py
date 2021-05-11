@@ -146,8 +146,8 @@ class TestDb(unittest.TestCase):
         # fet = self.cursor.fetchone()
         # self.assertIsNone(fet)#Test
 
-        self.cursor.execute("INSERT INTO users VALUES ('parentTest','123','parent','',1,1)")
-        self.cursor.execute("INSERT INTO users VALUES ('kidTest','123','kid','parentTest',0,1)")
+        # self.cursor.execute("INSERT INTO users VALUES ('parentTest','123','parent','',1,1)")
+        # self.cursor.execute("INSERT INTO users VALUES ('kidTest','123','kid','parentTest',0,1)")
         self.conn.commit()
 
 

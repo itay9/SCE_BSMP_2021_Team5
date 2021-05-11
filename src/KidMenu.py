@@ -73,6 +73,7 @@ class Ui_kidMenu(object):
 
 
 
+
     def retranslateUi(self, kidMenu):
         _translate = QtCore.QCoreApplication.translate
         kidMenu.setWindowTitle(_translate("kidMenu", "MainWindow"))

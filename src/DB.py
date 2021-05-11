@@ -389,9 +389,8 @@ def add_result_to_Kidsdb(kidName):
 
 def add_question_to_qdb(question, picUrl, ch1, ch2, ch3, ch4, ans):
     # check if question already exist (by 'question')
-
-    cursor.execute("INSERT INTO ques VALUES (?,?,?,?,?,?,?,?)",
-                   (get_qestion_id(), question, picUrl, ch1, ch2, ch3, ch4, ans))
+    data = (get_next_qestion_id(), question, picUrl, ch1, ch2, ch3, ch4, ans)
+    cursor.execute("INSERT INTO ques VALUES (?,?,?,?,?,?,?,?)",data)
     conn.commit()
     print("question added")
 
@@ -406,6 +405,15 @@ def get_question_from_id(questionID):
         print("can't find question")
         return
 
+def get_all_questions():
+    '''
+
+    Returns: all questions from db
+
+    '''
+    cursor.execute("SELECT * FROM ques")
+    fet = cursor.fetchall()
+    return fet
 
 def stampToTime(timestamp):
     return datetime.fromtimestamp(timestamp)
@@ -453,7 +461,7 @@ def get_next_game_number(kidName):
     return get_game_number(kidName) + 1
 
 
-def get_qestion_id():
+def get_next_qestion_id():
     '''
 
     Returns: id for next questions
@@ -461,7 +469,7 @@ def get_qestion_id():
     '''
     cursor.execute("SELECT max(qid) FROM ques")
     fet = cursor.fetchone()[0]
-    # print(fet)
+    #print(fet)
     if fet != None:
         return fet + 1
     else:
@@ -555,6 +563,3 @@ def calc_game_success(kidName, gameNumber):
             correct_ans += 1
     success_rate = correct_ans / len(fet)
     return success_rate
-
-
-build_db()

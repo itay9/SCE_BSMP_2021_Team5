@@ -448,8 +448,9 @@ def get_game_number(kidName):
     fet = cursor.fetchone()[0]
     return fet
 
+
 def get_next_game_number(kidName):
-    return get_game_number(kidName)+1
+    return get_game_number(kidName) + 1
 
 
 def get_qestion_id():

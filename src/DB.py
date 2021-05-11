@@ -379,12 +379,12 @@ def add_result_to_gameLog(KidName, GameNumber, qid, playerAns):
 
 def add_result_to_Kidsdb(kidName):
     time = get_norm_time_now()
-    game_number = get_game_number(kidName) + 1
+    game_number = get_next_game_number(kidName)
     suc_rate = calc_game_success(kidName, game_number)
     data = (kidName, time, game_number, suc_rate)
     cursor.execute("INSERT into results VALUES (?,?,?,?)", data)
     conn.commit()
-    print("result add to DB")
+    print("result added to DB")
 
 
 def add_question_to_qdb(question, picUrl, ch1, ch2, ch3, ch4, ans):
@@ -444,9 +444,12 @@ def get_ans(qid):
 
 
 def get_game_number(kidName):
-    cursor.execute("SELECT * FROM results WHERE kidName=?", (kidName,))
-    fet = cursor.fetchall()
-    return len(fet)
+    cursor.execute("SELECT MAX(GameNumber) FROM results WHERE kidName=?", (kidName,))
+    fet = cursor.fetchone()[0]
+    return fet
+
+def get_next_game_number(kidName):
+    return get_game_number(kidName)+1
 
 
 def get_qestion_id():

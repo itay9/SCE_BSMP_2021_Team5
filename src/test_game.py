@@ -141,6 +141,9 @@ class GameTest(unittest.TestCase):
         ques_list = DB.get_question_for_game(0)
         self.assertIsNone(ques_list)
 
+    # def test_calc_game_func(self):
+
+
 
 if __name__ == '__main__':
     unittest.main()

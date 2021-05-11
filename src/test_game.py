@@ -97,16 +97,6 @@ class GameTest(unittest.TestCase):
         self.cursor.execute("DELETE FROM results WHERE KidName= 'chenB'")
         self.conn.commit()
 
-        tup = ('chenB', datetime.now(), 1, 100)
-        DB.add_result_to_Kidsdb(*tup)
-
-        self.cursor.execute("SELECT * FROM results WHERE KidName = 'chenB'")
-        fet = self.cursor.fetchone()
-        self.assertIsNotNone(fet)
-
-        self.cursor.execute("DELETE FROM results WHERE KidName= 'chenB'")
-        self.conn.commit()
-
     def test_get_kid_res(self):
         self.cursor.execute("SELECT * FROM results WHERE kidName =?", ('chenA',))
         fet = self.cursor.fetchall()
@@ -142,7 +132,6 @@ class GameTest(unittest.TestCase):
         self.assertIsNone(ques_list)
 
     # def test_calc_game_func(self):
-
 
 
 if __name__ == '__main__':

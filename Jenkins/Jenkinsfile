@@ -10,7 +10,7 @@ pipeline {
 				withEnv(["HOME=${env.WORKSPACE}"]) {
 					sh 'python --version'
 					sh 'python -m py_compile src/*.py'
-					sh 'python src/login/GUI/DB.py'
+					sh 'python src/DB.py'
 				}
             }
         }

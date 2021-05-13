@@ -390,7 +390,7 @@ def add_result_to_Kidsdb(kidName):
 def add_question_to_qdb(question, picUrl, ch1, ch2, ch3, ch4, ans):
     # check if question already exist (by 'question')
     data = (get_next_qestion_id(), question, picUrl, ch1, ch2, ch3, ch4, ans)
-    cursor.execute("INSERT INTO ques VALUES (?,?,?,?,?,?,?,?)",data)
+    cursor.execute("INSERT INTO ques VALUES (?,?,?,?,?,?,?,?)", data)
     conn.commit()
     print("question added")
 
@@ -405,6 +405,7 @@ def get_question_from_id(questionID):
         print("can't find question")
         return
 
+
 def get_all_questions():
     '''
 
@@ -414,6 +415,7 @@ def get_all_questions():
     cursor.execute("SELECT * FROM ques")
     fet = cursor.fetchall()
     return fet
+
 
 def stampToTime(timestamp):
     return datetime.fromtimestamp(timestamp)
@@ -469,8 +471,8 @@ def get_next_qestion_id():
     '''
     cursor.execute("SELECT max(qid) FROM ques")
     fet = cursor.fetchone()[0]
-    #print(fet)
-    if fet != None:
+    # print(fet)
+    if fet is not None:
         return fet + 1
     else:
         # init the first question
@@ -535,12 +537,9 @@ def check_answer(qid, ans):
     '''
     cursor.execute("SELECT * FROM ques WHERE qid=?", (qid,))
     fet = cursor.fetchone()
-    if fet != None:
-        true_ans = fet[7]
-        if true_ans == ans:
-            return True
-        else:
-            return False
+    if fet is not None:
+        true_ans = fet[7]  # return integer
+        return true_ans == ans
 
 
 def calc_game_success(kidName, gameNumber):
@@ -558,8 +557,11 @@ def calc_game_success(kidName, gameNumber):
     cursor.execute("SELECT * FROM gameLog WHERE kidName=? AND gameNumber = ?", param)
     fet = cursor.fetchall()
     for data in fet:
-        if check_answer(data[2], data[3]):
+        if check_answer(data[2], data[3]):  # (qid,ans_to_check)
             print(data[2], data[3])
             correct_ans += 1
     success_rate = correct_ans / len(fet)
     return success_rate
+
+
+build_db()

@@ -88,6 +88,16 @@ class GameTest(unittest.TestCase):
         res = DB.get_ans(99999)
         self.assertIsNone(res)
 
+        qst = ('testQ', 'url', 'a', 'b', 'c', 'd', 1)
+        DB.add_question_to_qdb(*qst)
+        qid=DB.get_next_qestion_id()-1
+
+        res = DB.get_ans(qid)
+        self.assertEqual(res, 1)
+
+        self.cursor.execute("DELETE FROM ques WHERE quesion = 'testQ'")
+        self.conn.commit()
+
     def test_kidsDB(self):
         self.cursor.execute("SELECT * FROM results")
         fet = self.cursor.fetchall()
@@ -122,6 +132,18 @@ class GameTest(unittest.TestCase):
 
         res = DB.get_kid_results('')
         self.assertIsNone(res)
+
+        date = datetime.now()
+        self.cursor.execute("INSERT into results VALUES ('chenB', ?, 1, 80)", (date,))
+        self.conn.commit()
+
+        res = DB.get_kid_results('chenA')
+        self.assertIsNotNone(fet)
+
+        self.cursor.execute("DELETE FROM results WHERE KidName= 'chenB'")
+        self.conn.commit()
+
+
 
     def test_get_game_number(self):
         self.cursor.execute("SELECT * FROM results WHERE kidName =?", ('chenA',))

@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+import sqlite3
 import ParentMenu
-
+import DB
 
 class Ui_ChildTableDelete(object):
 
@@ -70,8 +71,24 @@ class Ui_ChildTableDelete(object):
         self.child_NAME_LABEL.setObjectName("child_NAME_LABEL")
         ChildTableDelete.setCentralWidget(self.centralwidget)
 
+        #get data
+        self.load_data()
+        self.DeleteButton.clicked.connect(self.delete_child)
         self.retranslateUi(ChildTableDelete)
         QtCore.QMetaObject.connectSlotsByName(ChildTableDelete)
+
+    def load_data(self):
+        result = DB.get_data_kid_by_parent(DB.currentUser)
+        self.childTable.setRowCount(len(result))
+        for row_num in  range(len(result)):
+            row = result[row_num]
+            self.childTable.setItem(row_num,0,QtWidgets.QTableWidgetItem(row[0]))
+            self.childTable.setItem(row_num, 1, QtWidgets.QTableWidgetItem(row[1]))
+
+    def delete_child(self):
+        name_to_delete = self.inputChildName.text()
+        DB.remove_user(name_to_delete)
+        self.load_data()
 
     def retranslateUi(self, ChildTableDelete):
         _translate = QtCore.QCoreApplication.translate
@@ -89,7 +106,6 @@ class Ui_ChildTableDelete(object):
 
 if __name__ == "__main__":
     import sys
-
     app = QtWidgets.QApplication(sys.argv)
     ChildTableDelete = QtWidgets.QMainWindow()
     ui = Ui_ChildTableDelete()

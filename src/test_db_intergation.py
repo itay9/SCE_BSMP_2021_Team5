@@ -3,29 +3,27 @@ import unittest
 import DB
 import os.path
 
+
 class TestDb(unittest.TestCase):
-
-
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    db_path = os.path.join(BASE_DIR, "usersDB.db")
+    db_path = os.path.join(BASE_DIR, "gameDB.db")
     with sqlite3.connect(db_path) as conn:
-
-    # with sqlite3.connect("usersDB.db") as conn:
+        # with sqlite3.connect("usersDB.db") as conn:
         cursor = conn.cursor()
 
     @classmethod
     def setUpClass(cls):
-        cls.cursor.execute("INSERT INTO users VALUES ('adminTest','123','admin','',1)")
-        cls.cursor.execute("INSERT INTO users VALUES ('parentTest','123','parent','',1)")
-        cls.cursor.execute("INSERT INTO users VALUES ('kidTest','123','kid','parentTest',0)")
+        # cls.cursor.execute("INSERT INTO users VALUES ('adminTest','123','admin','',1,1)")
+        # cls.cursor.execute("INSERT INTO users VALUES ('parentTest','123','parent','',1,1)")
+        # cls.cursor.execute("INSERT INTO users VALUES ('kidTest','123','kid','parentTest',0,1)")
         cls.conn.commit()
         print("setUp complete")
 
     @classmethod
     def tearDownClass(cls):
-        cls.cursor.execute("DELETE FROM users WHERE userName= 'adminTest'")
-        cls.cursor.execute("DELETE FROM users WHERE userName= 'parentTest'")
-        cls.cursor.execute("DELETE FROM users WHERE userName= 'kidTest'")
+        # cls.cursor.execute("DELETE FROM users WHERE userName= 'adminTest'")
+        # cls.cursor.execute("DELETE FROM users WHERE userName= 'parentTest'")
+        # cls.cursor.execute("DELETE FROM users WHERE userName= 'kidTest'")
         cls.conn.commit()
         print("tearDown complete")
 
@@ -34,30 +32,31 @@ class TestDb(unittest.TestCase):
 
     # def tearDown(self):
     #     print('tearDown\n')
+
     def test_check(self):
-        self.assertEqual(True,True)
+        self.assertEqual(True, True)
 
     def test_add_remove_user(self):
-        self.cursor.execute("INSERT INTO users VALUES ('userTest',123,'kid','parentTest',0)")
-        self.conn.commit()
-
-        self.cursor.execute("SELECT * FROM users WHERE userName = 'userTest'")
-        fet = self.cursor.fetchone()
-        self.assertIsNotNone(fet)  # Test
-
-        self.cursor.execute("SELECT * FROM users WHERE userName = ''")
+        # self.cursor.execute("INSERT INTO users VALUES ('userTest',123,'kid','parentTest',0,1)")
+        # self.conn.commit()
+        #
+        # self.cursor.execute("SELECT * FROM users WHERE userName = 'userTest'")
+        # fet = self.cursor.fetchone()
+        # self.assertIsNotNone(fet)  # Test
+        #
+        # self.cursor.execute("SELECT * FROM users WHERE userName = ''")
         fet = self.cursor.fetchone()
         self.assertIsNone(fet)  # Test
-
-        self.cursor.execute("DELETE FROM users WHERE userName= 'userTest'")
-        self.conn.commit()
+        #
+        # self.cursor.execute("DELETE FROM users WHERE userName= 'userTest'")
+        # self.conn.commit()
 
         # self.cursor.execute("SELECT * FROM users WHERE userName = 'tempUser'")
         # fet = self.cursor.fetchone()
         # self.assertIsNone(fet)  # Test
 
     def test_login_func(self):
-        # cls.cursor.execute("INSERT INTO users VALUES ('adminTest','123','admin','')")#,1)")
+        # cls.cursor.execute("INSERT INTO users VALUES ('adminTest','123','admin','',0,1)")#,1)")
         res = DB.login('adminTest', '123')
         self.assertEqual(res.lower(), "adminTest".lower())  # Test
 
@@ -68,14 +67,14 @@ class TestDb(unittest.TestCase):
         self.assertNotEqual(res.lower(), "adminTest".lower())  # Test
 
     def test_register_parent_func(self):
-        # cls.cursor.execute("INSERT INTO users VALUES ('parentTest','123','parent','')")  # ,1)")
+        # cls.cursor.execute("INSERT INTO users VALUES ('parentTest','123','parent','',0,1)")  # ,1)")
         res = DB.register_parent('parentTest', '123')
         self.assertNotEqual(res, True)  # Test
 
         # res=DB.register_parent('parentTest2','123')
         # self.assertEqual(res,True)#Test
 
-        self.cursor.execute("DELETE FROM users WHERE userName= 'parentTest2'")
+        # self.cursor.execute("DELETE FROM users WHERE userName= 'parentTest2'")
         self.conn.commit()
 
         # self.cursor.execute("SELECT * FROM users WHERE userName = 'parentTest2'")
@@ -83,7 +82,7 @@ class TestDb(unittest.TestCase):
         # self.assertIsNone(fet)  # Test
 
     def test_register_kid_func(self):
-        self.assertEqual(True,True)
+        self.assertEqual(True, True)
         # cls.cursor.execute("INSERT INTO users VALUES ('parentTest','123','parent','')")  # ,1)")
         # res = DB.register_kid('kidTest', '123', '')
         # self.assertNotEqual(res, True)  # Test
@@ -128,7 +127,7 @@ class TestDb(unittest.TestCase):
 
     def test_remove_user_func(self):
         res = DB.remove_user('')
-        self.assertNotEqual(res, True)#Test
+        self.assertNotEqual(res, True)  # Test
 
         # res = DB.remove_user('kidTest')
         # self.assertEqual(res, True)#Test
@@ -147,11 +146,9 @@ class TestDb(unittest.TestCase):
         # fet = self.cursor.fetchone()
         # self.assertIsNone(fet)#Test
 
-        self.cursor.execute("INSERT INTO users VALUES ('parentTest','123','parent','',1)")
-        self.cursor.execute("INSERT INTO users VALUES ('kidTest','123','kid','parentTest',0)")
+        # self.cursor.execute("INSERT INTO users VALUES ('parentTest','123','parent','',1,1)")
+        # self.cursor.execute("INSERT INTO users VALUES ('kidTest','123','kid','parentTest',0,1)")
         self.conn.commit()
-
-
 
 
 if __name__ == '__main__':

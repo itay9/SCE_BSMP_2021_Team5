@@ -6,13 +6,10 @@ import DB
 class Ui_parentMenu(object):
 
     def deleteThisUser(self):
-        #TODO fix bug, prog crush after click DELETE THIS USER
         DB.remove_user(DB.currentUser)
         DB.logOut()
         self.mainMenu_UI()
-        parentMenu.close()
-        #need to fix BUG !
-        ##
+
     def openChildDelete(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = deleteChild.Ui_ChildTableDelete()
@@ -58,6 +55,7 @@ class Ui_parentMenu(object):
         self.DeleteChild.setFont(font)
         self.DeleteChild.setObjectName("DeleteChild")
         self.DeleteParentUser = QtWidgets.QPushButton(self.centralwidget)
+        self.DeleteParentUser.clicked.connect(parentMenu.close)
         self.DeleteParentUser.setGeometry(QtCore.QRect(510, 380, 201, 71))
         font = QtGui.QFont()
         font.setFamily("Arial Black")

@@ -6,11 +6,11 @@ import DB
 
 class Ui_parentRegister(object):
 
-    def Success_UI(self):
-        self.window = QtWidgets.QWidget()
-        self.ui = Success_POP.Ui_Parent_Registered()
-        self.ui.setupUi(self.window)
-        self.window.show()
+    # def Success_UI(self):
+    #     self.window = QtWidgets.QWidget()
+    #     self.ui = Success_POP.Ui_Parent_Registered()
+    #     self.ui.setupUi(self.window)
+    #     self.window.show()
 
     def return_mainMenu(self):
         self.window = QtWidgets.QMainWindow()
@@ -90,7 +90,7 @@ class Ui_parentRegister(object):
         # bttn connect
         self.exitButton.clicked.connect(self.return_mainMenu)
         self.exitButton.clicked.connect(parentRegister.close)
-        self.registerButton.clicked.connect(self.Success_UI)
+        # self.registerButton.clicked.connect(self.Success_UI)
         self.registerButton.clicked.connect(self.register_parent)
         self.registerButton.clicked.connect(parentRegister.close)
         self.registerButton.clicked.connect(self.return_mainMenu)

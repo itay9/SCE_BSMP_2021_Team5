@@ -38,7 +38,6 @@ class Ui_mainMenu(object):
         self.ui.setupUi(self.window)
         self.window.show()
 
-
     def setupUi(self, mainMenu):
         mainMenu.setObjectName("mainMenu")
         mainMenu.resize(684, 463)
@@ -106,13 +105,13 @@ class Ui_mainMenu(object):
         self.statusbar = QtWidgets.QStatusBar(mainMenu)
         self.statusbar.setObjectName("statusbar")
         mainMenu.setStatusBar(self.statusbar)
-        #bttn func
+        # bttn func
         self.loginButton.clicked.connect(self.onClick)
         self.retranslateUi(mainMenu)
         QtCore.QMetaObject.connectSlotsByName(mainMenu)
 
     def onClick(self):
-        DB.login(self.userNameInput.text(),self.pwInput.text())
+        DB.login(self.userNameInput.text(), self.pwInput.text())
         if DB.sassionFlag:
             nextWindow = DB.get_type(DB.currentUser)
             if nextWindow == "admin":
@@ -121,7 +120,6 @@ class Ui_mainMenu(object):
                 self.openParentMenu()
             elif nextWindow == "kid":
                 self.openKidMenu()
-
 
     def retranslateUi(self, mainMenu):
         _translate = QtCore.QCoreApplication.translate
@@ -133,9 +131,9 @@ class Ui_mainMenu(object):
         self.passLabel.setText(_translate("mainMenu", "Password:"))
 
 
-
 if __name__ == "__main__":
     import sys
+    DB.build_db()
     app = QtWidgets.QApplication(sys.argv)
     mainMenu = QtWidgets.QMainWindow()
     ui = Ui_mainMenu()

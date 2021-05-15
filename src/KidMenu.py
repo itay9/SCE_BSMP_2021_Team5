@@ -1,6 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import DB
 import MainMenu
+import game_gui
+NUM_OF_GAME = 2
 
 class Ui_kidMenu(object):
     def setupUi(self, kidMenu):
@@ -56,7 +58,21 @@ class Ui_kidMenu(object):
         self.window.show()
 
     def newGame(self):
-        print("start game ok")
+        game_data = DB.get_question_for_game(2) #TODO The problem starts from here.
+        player = DB.currentUser
+        self.window = QtWidgets.QMainWindow()
+        self.ui = game_gui.Ui_game_level()
+        self.ui.setupUi(self.window)
+        self.window.show()
+        for data in game_data:
+            self.ui.set_new_game(data)
+            self.window.show()
+            self.ui.wait_until_clicked()
+        DB.add_result_to_Kidsdb(player)
+
+
+
+
 
     def retranslateUi(self, kidMenu):
         _translate = QtCore.QCoreApplication.translate

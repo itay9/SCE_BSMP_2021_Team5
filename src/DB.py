@@ -390,13 +390,9 @@ def add_result_to_gameLog(KidName, GameNumber, qid, playerAns):
 
 
 def add_result_to_Kidsdb(kidName):
-    print("1")
     time = get_norm_time_now()
-    print("1.5")
     game_number = get_next_game_number(kidName)
-    print("2")
     suc_rate = calc_game_success(kidName, game_number)
-    print("3")
     data = (kidName, timeToStamp(time), game_number, suc_rate)
     print(data)
     cursor.execute("INSERT into results VALUES (?,?,?,?)", data)
@@ -447,7 +443,7 @@ def get_norm_time_now():
 
     '''
     now_time = datetime.datetime.now()
-    print(now_time)
+    #print(now_time)
     return stampToTime(timeToStamp(now_time))
 
 def get_kid_results(kidName):
@@ -472,7 +468,7 @@ def get_game_number(kidName):
     fet = cursor.fetchone()[0]
     if fet is None:
         return 0
-    print(fet)
+    #print("number" ,fet)
     return fet
 
 def get_next_game_number(kidName):
@@ -574,7 +570,7 @@ def calc_game_success(kidName, gameNumber):
     fet = cursor.fetchall()
     for data in fet:
         if check_answer(data[2], data[3]):  # (qid,ans_to_check)
-            print(data[2], data[3])
+            #print(data[2], data[3])
             correct_ans += 1
     success_rate = correct_ans / len(fet)
     return success_rate

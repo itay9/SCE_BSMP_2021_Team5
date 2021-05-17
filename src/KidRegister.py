@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from src.login.GUI import DB
+import DB
 
 class Ui_kidRegister(object):
     def setupUi(self, kidRegister):

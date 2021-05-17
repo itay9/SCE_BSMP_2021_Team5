@@ -79,7 +79,7 @@ class Ui_QuestionTable(object):
         self.load_data() # load data
         #bttn
         self.backButton.clicked.connect(QuestionTable.close)
-
+        self.deleteButton.clicked.connect(self.delete_question)
 
         self.retranslateUi(QuestionTable)
         QtCore.QMetaObject.connectSlotsByName(QuestionTable)
@@ -101,6 +101,18 @@ class Ui_QuestionTable(object):
             self.questionTable.setItem(i, 4, QtWidgets.QTableWidgetItem(data[4]))
             self.questionTable.setItem(i, 5, QtWidgets.QTableWidgetItem(data[5]))
             self.questionTable.setItem(i, 6, QtWidgets.QTableWidgetItem(data[6]))
+
+    def delete_question(self):
+        '''
+
+
+        Returns: delete question from DB
+
+        '''
+        qid = self.input_qid.text()
+        DB.remove_question(qid)
+        self.load_data()
+
 
     def retranslateUi(self, QuestionTable):
         _translate = QtCore.QCoreApplication.translate

@@ -41,7 +41,7 @@ def init_QDB():
     conn.commit()
     add_question_to_qdb("banana", "pic/banana.jpg", "banana", "apple", "pizza", "car", 1)
     add_question_to_qdb("apple", "pic/apple.jpg", "dad", "apple", "table", "dog", 2)
-    add_question_to_qdb("Pineapple", "pic/pineapple.jpg", "watermelon", "hair", "cat", "pineapple", 4)
+    add_question_to_qdb("pineapple", "pic/pineapple.jpg", "watermelon", "hair", "cat", "pineapple", 4)
     add_question_to_qdb("tomato", "pic/tomato.jpg", "cat", "dog", "window", "tomato", 4)
 
 
@@ -239,6 +239,18 @@ def remove_user(user):
     print(user, "removed")
     return True
 
+def remove_question(qid):
+    qid_tuple =(qid,)
+    #print(type(qid_tuple))
+    cursor.execute("SELECT * FROM ques WHERE qid =?",qid_tuple)
+    fet = cursor.fetchone()
+    if fet is None:
+        print("question no exist")
+        return False
+    cursor.execute("DELETE FROM ques WHERE qid= ?",qid_tuple)
+    conn.commit()
+    print("question #",qid, " removed from QuesDB")
+
 
 def get_type(user):
     """
@@ -420,10 +432,8 @@ def get_all_questions():
 def stampToTime(timestamp):
     return datetime.fromtimestamp(timestamp)
 
-
 def timeToStamp(time):
     return int(datetime.timestamp(time))
-
 
 def get_norm_time_now():
     '''
@@ -432,7 +442,6 @@ def get_norm_time_now():
 
     '''
     return stampToTime(timeToStamp(datetime.now()))
-
 
 def get_kid_results(kidName):
     cursor.execute("SELECT * FROM results WHERE kidName =?", (kidName,))
@@ -443,7 +452,6 @@ def get_kid_results(kidName):
         print("no result")
         return
 
-
 def get_ans(qid):
     cursor.execute("SELECT answer FROM ques WHERE qid=?", (qid,))
     fet = cursor.fetchone()
@@ -452,12 +460,10 @@ def get_ans(qid):
     else:
         return
 
-
 def get_game_number(kidName):
     cursor.execute("SELECT MAX(GameNumber) FROM results WHERE kidName=?", (kidName,))
     fet = cursor.fetchone()[0]
     return fet
-
 
 def get_next_game_number(kidName):
     return get_game_number(kidName) + 1
@@ -563,5 +569,3 @@ def calc_game_success(kidName, gameNumber):
     success_rate = correct_ans / len(fet)
     return success_rate
 
-
-build_db()

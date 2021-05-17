@@ -133,6 +133,7 @@ class Ui_game_level(object):
         self.inc_current_level()
         self.set_qid_label()
         self.set_score_label()
+        self.set_kid_name(DB.currentUser)
         self.set_current_game()
 
     def set_img(self, url):
@@ -175,8 +176,8 @@ class Ui_game_level(object):
         self.kidName = name
 
     def set_current_game(self):
-        current_game = DB.get_next_game_number(self.kidName)
-        self.current_game = current_game
+        current_game_ = DB.get_next_game_number(self.kidName)
+        self.current_game = current_game_
 
     def set_number_of_games(self, num):
         self.number_of_games = num

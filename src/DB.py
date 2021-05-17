@@ -463,6 +463,9 @@ def get_ans(qid):
 def get_game_number(kidName):
     cursor.execute("SELECT MAX(GameNumber) FROM results WHERE kidName=?", (kidName,))
     fet = cursor.fetchone()[0]
+    if fet is None:
+        return 0
+    print(fet)
     return fet
 
 def get_next_game_number(kidName):
@@ -569,3 +572,4 @@ def calc_game_success(kidName, gameNumber):
     success_rate = correct_ans / len(fet)
     return success_rate
 
+print(get_next_game_number("chen"))

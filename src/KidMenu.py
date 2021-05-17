@@ -68,6 +68,7 @@ class Ui_kidMenu(object):
             self.ui.set_new_game(data)
             self.window.show()
             self.ui.wait_until_clicked()
+        print("game finish")
         DB.add_result_to_Kidsdb(player)
 
 

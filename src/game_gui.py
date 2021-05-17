@@ -9,6 +9,7 @@ NUM_OF_LEVELS = 2
 
 class Ui_game_level(object):
     pushed = False
+    end_game = False
     qid = -99999
     kidName = "test"
     correct_ans = 0
@@ -235,9 +236,12 @@ class Ui_game_level(object):
         self.current_level += 1
 
     def check_if_finish(self):
-        if self.current_level == self.number_of_games:
+        if self.end_game == True:
             print("end game")
             game_level.close()  # TODO maybe bug
+
+    def close_game(self):
+        game_level.close()
 
     def play_hint(self, str_to_play):
         '''
@@ -274,5 +278,5 @@ if __name__ == "__main__":
         game_level.show()
         ui.wait_until_clicked()"""
     game_level.show()
-    print("correct ans:", ui.correct_ans)
+    #print("correct ans:", ui.correct_ans)
     sys.exit(app.exec_())

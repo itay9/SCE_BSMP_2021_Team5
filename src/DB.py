@@ -390,10 +390,15 @@ def add_result_to_gameLog(KidName, GameNumber, qid, playerAns):
 
 
 def add_result_to_Kidsdb(kidName):
+    print("1")
     time = get_norm_time_now()
+    print("1.5")
     game_number = get_next_game_number(kidName)
+    print("2")
     suc_rate = calc_game_success(kidName, game_number)
-    data = (kidName, time, game_number, suc_rate)
+    print("3")
+    data = (kidName, timeToStamp(time), game_number, suc_rate)
+    print(data)
     cursor.execute("INSERT into results VALUES (?,?,?,?)", data)
     conn.commit()
     print("result added to kids result DB")
@@ -430,10 +435,10 @@ def get_all_questions():
 
 
 def stampToTime(timestamp):
-    return datetime.fromtimestamp(timestamp)
+    return datetime.datetime.fromtimestamp(timestamp)
 
 def timeToStamp(time):
-    return int(datetime.timestamp(time))
+    return int(datetime.datetime.timestamp(time))
 
 def get_norm_time_now():
     '''
@@ -441,7 +446,9 @@ def get_norm_time_now():
     Returns: time and date of now after normalize
 
     '''
-    return stampToTime(timeToStamp(datetime.now()))
+    now_time = datetime.datetime.now()
+    print(now_time)
+    return stampToTime(timeToStamp(now_time))
 
 def get_kid_results(kidName):
     cursor.execute("SELECT * FROM results WHERE kidName =?", (kidName,))
@@ -571,5 +578,3 @@ def calc_game_success(kidName, gameNumber):
             correct_ans += 1
     success_rate = correct_ans / len(fet)
     return success_rate
-
-print(get_next_game_number("chen"))

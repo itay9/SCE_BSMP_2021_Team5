@@ -563,9 +563,16 @@ def calc_game_success(kidName, gameNumber):
     return success_rate
 
 def export_table_to_csv(table_name):
+    '''
+
+    Args:
+        table_name: str of table name
+
+    Returns: export table to csv
+
+    '''
     db_df = pd.read_sql_query("SELECT * FROM "+table_name, conn)
     file_name = table_name+".csv"
     db_df.to_csv(file_name, index=False)
     print("table",table_name,"has been exported")
 
-export_table_to_csv("users")

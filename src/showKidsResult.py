@@ -79,8 +79,8 @@ class Ui_KidsResultTable(object):
         self.exportButton.setText(_translate("KidsResultTable", "Export"))
 
     def load_data(self):
-        parent = DB.currentUser
-        #parent = "yaron"
+        #parent = DB.currentUser
+        parent = "yaron"
         if DB.get_type(parent) == "parent":
             kids_data = DB.get_result_by_parent(parent)
             self.resultTable.setRowCount(len(kids_data))  # updats table rows

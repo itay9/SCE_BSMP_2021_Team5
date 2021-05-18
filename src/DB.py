@@ -452,6 +452,10 @@ def stampToTime(timestamp):
 def timeToStamp(time):
     return int(datetime.datetime.timestamp(time))
 
+def stampToStr(timestamp):
+    time = stampToTime(timestamp)
+    result = time.strftime("%d/%m/%y %H:%M")
+    return result
 
 def get_norm_time_now():
     '''
@@ -610,3 +614,4 @@ def export_table_to_csv(table_name):
     file_name = table_name + ".csv"
     db_df.to_csv(file_name, index=False)
     print("table", table_name, "has been exported")
+

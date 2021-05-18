@@ -460,7 +460,7 @@ def stampToStr(timestamp):
 def get_norm_time_now():
     '''
 
-    Returns: time and date of now after normalize
+    Returns: time and date of now after normalize in STR format
 
     '''
     now_time = datetime.datetime.now().strftime("%d/%m/%y %H:%M")

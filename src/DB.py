@@ -615,3 +615,19 @@ def export_table_to_csv(table_name):
     db_df.to_csv(file_name, index=False)
     print("table", table_name, "has been exported")
 
+def export_result_by_parent(parent):
+    '''
+
+    Args:
+        parent: str of parent
+
+    Returns: export parents kid result to csv
+
+    '''
+    cursor.execute("SELECT * from results")
+    names = list(map(lambda x: x[0], cursor.description))
+    cursor.execute("SELECT results.* from results,users WHERE results.KidName = users.userName AND users.parent =?",(parent,))
+    fet = cursor.fetchall()
+    df = pd.DataFrame(fet,columns=names)
+    path = parent+"_results.csv"
+    df.to_csv(path)

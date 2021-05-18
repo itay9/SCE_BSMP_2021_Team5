@@ -2,8 +2,14 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import MainMenu
 import deleteChild
 import DB
+import showKidsResult
 
 class Ui_parentMenu(object):
+    def openResults(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = showKidsResult.Ui_KidsResultTable()
+        self.ui.setupUi(self.window)
+        self.window.show()
 
     def deleteThisUser(self):
         DB.remove_user(DB.currentUser)
@@ -91,7 +97,7 @@ class Ui_parentMenu(object):
         self.DeleteChild.clicked.connect(self.openChildDelete)
         self.DeleteChild.clicked.connect(parentMenu.close)
         self.DeleteParentUser.clicked.connect(self.deleteThisUser)
-
+        self.ViewChildData.clicked.connect(self.openResults)
         self.retranslateUi(parentMenu)
         QtCore.QMetaObject.connectSlotsByName(parentMenu)
 

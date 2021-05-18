@@ -60,8 +60,11 @@ class Ui_KidsResultTable(object):
         self.exportButton.setObjectName("exportButton")
         KidsResultTable.setCentralWidget(self.centralwidget)
         self.load_data()
+        self.exportButton.clicked.connect(self.export_bttn)
+        self.backButton.clicked.connect(KidsResultTable.close)
         self.retranslateUi(KidsResultTable)
         QtCore.QMetaObject.connectSlotsByName(KidsResultTable)
+
 
     def retranslateUi(self, KidsResultTable):
         _translate = QtCore.QCoreApplication.translate

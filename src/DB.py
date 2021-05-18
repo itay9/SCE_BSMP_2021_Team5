@@ -49,7 +49,7 @@ def init_QDB():
 def init_kidDB():
     cursor.execute("""CREATE TABLE results
                 (KidName text,
-                Date timestamp,
+                Date text,
                 GameNumber INTEGER,
                 GameSuccess Real)""")
     # gamalog = [(Qnumber,answer,correct)] TODO remove this attribute
@@ -395,7 +395,7 @@ def add_result_to_Kidsdb(kidName):
     time = get_norm_time_now()
     game_number = get_next_game_number(kidName)
     suc_rate = calc_game_success(kidName, game_number)
-    data = (kidName, timeToStamp(time), game_number, suc_rate)
+    data = (kidName, time, game_number, suc_rate)
     # print(data)
     cursor.execute("INSERT into results VALUES (?,?,?,?)", data)
     conn.commit()
@@ -450,7 +450,7 @@ def stampToTime(timestamp):
 
 
 def timeToStamp(time):
-    return int(datetime.datetime.timestamp(time))
+    return datetime.datetime.timestamp(time)
 
 def stampToStr(timestamp):
     time = stampToTime(timestamp)
@@ -463,9 +463,9 @@ def get_norm_time_now():
     Returns: time and date of now after normalize
 
     '''
-    now_time = datetime.datetime.now()
-    # print(now_time)
-    return stampToTime(timeToStamp(now_time))
+    now_time = datetime.datetime.now().strftime("%d/%m/%y %H:%M")
+    #print(now_time)
+    return now_time
 
 
 def get_kid_results(kidName):
@@ -628,7 +628,12 @@ def export_result_by_parent(parent):
     names = list(map(lambda x: x[0], cursor.description))
     cursor.execute("SELECT results.* from results,users WHERE results.KidName = users.userName AND users.parent =?",(parent,))
     fet = cursor.fetchall()
-    df = pd.DataFrame(fet,columns=names)
+    df = pd.DataFrame(fet, columns=names)
+    print(df)
     path = parent+"_results.csv"
     df.to_csv(path)
     print("result for kids of",parent,"exported to file")
+
+
+#export_result_by_parent("yaron")
+#print(get_norm_time_now())

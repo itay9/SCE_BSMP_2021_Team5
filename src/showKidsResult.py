@@ -82,21 +82,21 @@ class Ui_KidsResultTable(object):
         self.exportButton.setText(_translate("KidsResultTable", "Export"))
 
     def load_data(self):
-        #parent = DB.currentUser
-        parent = "yaron"
+        parent = DB.currentUser
+        #parent = "yaron"
         if DB.get_type(parent) == "parent":
             kids_data = DB.get_result_by_parent(parent)
             self.resultTable.setRowCount(len(kids_data))  # updats table rows
             for i in range(len(kids_data)):
                 data = kids_data[i]
                 self.resultTable.setItem(i,0,QtWidgets.QTableWidgetItem(str(data[0])))
-                self.resultTable.setItem(i, 1, QtWidgets.QTableWidgetItem(DB.stampToStr(data[1])))
+                self.resultTable.setItem(i, 1, QtWidgets.QTableWidgetItem(str(data[1])))
                 self.resultTable.setItem(i, 2, QtWidgets.QTableWidgetItem(str(data[2])))
                 self.resultTable.setItem(i, 3, QtWidgets.QTableWidgetItem(str(int(data[3]*100))+"%"))
 
     def export_bttn(self):
-        # parent = DB.currentUser
-        parent = "yaron"
+        parent = DB.currentUser
+        #parent = "yaron"
         DB.export_result_by_parent(parent)
 
 if __name__ == "__main__":

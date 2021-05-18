@@ -45,7 +45,7 @@ class GameTest(unittest.TestCase):
 
         res = DB.get_question_from_id(999)
         self.assertIsNotNone(res)
-        print("question is:", res)
+        self.assertEqual(res[1],'firstQ')
 
         res = DB.get_question_from_id(99999)
         self.assertIsNone(res)
@@ -55,12 +55,12 @@ class GameTest(unittest.TestCase):
 
         id = DB.get_next_qestion_id() - 1
         res = DB.get_question_from_id(id)
-        self.assertIsNotNone(res)
 
+        self.assertIsNotNone(res)
         self.assertEqual(res[1], 'testQ')
 
-        qst = ('testQ', 'url', 'a', 'b', 'c', 'd', 1)
-        DB.add_question_to_qdb(*qst)
+        self.cursor.execute("DELETE FROM ques WHERE quesion = 'testQ'")
+        self.conn.commit()
 
     def test_add_ques(self):
         qst = ('testQ', 'url', 'a', 'b', 'c', 'd', 1)
@@ -74,8 +74,13 @@ class GameTest(unittest.TestCase):
         self.conn.commit()
 
     def test_get_id(self):
+        qst = ('testQ2', 'url', 'a', 'b', 'c', 'd', 1)
+        DB.add_question_to_qdb(*qst)
         res = DB.get_next_qestion_id()
         self.assertEqual(res, 10000)
+
+        self.cursor.execute("DELETE FROM ques WHERE quesion = 'testQ2'")
+        self.conn.commit()
 
     def test_get_ans(self):
         self.cursor.execute("SELECT answer FROM ques WHERE qid = 999")
@@ -90,7 +95,7 @@ class GameTest(unittest.TestCase):
 
         qst = ('testQ', 'url', 'a', 'b', 'c', 'd', 1)
         DB.add_question_to_qdb(*qst)
-        qid=DB.get_next_qestion_id()-1
+        qid = DB.get_next_qestion_id() - 1
 
         res = DB.get_ans(qid)
         self.assertEqual(res, 1)
@@ -108,15 +113,20 @@ class GameTest(unittest.TestCase):
         self.assertIsNotNone(fet)
 
     def test_add_result(self):
-        date = datetime.now()
-        self.cursor.execute("INSERT into results VALUES ('chenB', ?, 1, 80)", (date,))
-        self.conn.commit()
+        kid_name = 'chenB'
+
+        DB.add_result_to_gameLog(kid_name, 1, 999, 1)
+
+        DB.add_result_to_Kidsdb(kid_name)
 
         self.cursor.execute("SELECT * FROM results WHERE KidName = 'chenB'")
         fet = self.cursor.fetchone()
         self.assertIsNotNone(fet)
+        self.assertEqual(fet[0], kid_name)
 
         self.cursor.execute("DELETE FROM results WHERE KidName= 'chenB'")
+        self.cursor.execute("DELETE FROM gameLog WHERE KidName= 'chenB'")
+
         self.conn.commit()
 
     def test_get_kid_res(self):
@@ -142,8 +152,6 @@ class GameTest(unittest.TestCase):
 
         self.cursor.execute("DELETE FROM results WHERE KidName= 'chenB'")
         self.conn.commit()
-
-
 
     def test_get_game_number(self):
         self.cursor.execute("SELECT * FROM results WHERE kidName =?", ('chenA',))

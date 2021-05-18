@@ -631,3 +631,4 @@ def export_result_by_parent(parent):
     df = pd.DataFrame(fet,columns=names)
     path = parent+"_results.csv"
     df.to_csv(path)
+    print("result for kids of",parent,"exported to file")

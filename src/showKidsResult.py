@@ -91,6 +91,10 @@ class Ui_KidsResultTable(object):
                 self.resultTable.setItem(i, 2, QtWidgets.QTableWidgetItem(str(data[2])))
                 self.resultTable.setItem(i, 3, QtWidgets.QTableWidgetItem(str(int(data[3]*100))+"%"))
 
+    def export_bttn(self):
+        # parent = DB.currentUser
+        parent = "yaron"
+        DB.export_result_by_parent(parent)
 
 if __name__ == "__main__":
     import sys

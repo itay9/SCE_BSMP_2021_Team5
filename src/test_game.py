@@ -45,7 +45,7 @@ class GameTest(unittest.TestCase):
 
         res = DB.get_question_from_id(999)
         self.assertIsNotNone(res)
-        self.assertEqual(res[1],'firstQ')
+        self.assertEqual(res[1], 'firstQ')
 
         res = DB.get_question_from_id(99999)
         self.assertIsNone(res)
@@ -76,8 +76,13 @@ class GameTest(unittest.TestCase):
     def test_get_id(self):
         qst = ('testQ2', 'url', 'a', 'b', 'c', 'd', 1)
         DB.add_question_to_qdb(*qst)
-        res = DB.get_next_qestion_id()
-        self.assertEqual(res, 10000)
+
+        self.cursor.execute("SELECT qid FROM ques WHERE quesion = 'testQ2'")
+        res = self.cursor.fetchone()[0]
+
+        current_id = DB.get_next_qestion_id() - 1
+
+        self.assertEqual(res, current_id)
 
         self.cursor.execute("DELETE FROM ques WHERE quesion = 'testQ2'")
         self.conn.commit()

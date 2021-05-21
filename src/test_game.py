@@ -159,9 +159,16 @@ class GameTest(unittest.TestCase):
         self.conn.commit()
 
     def test_get_game_number(self):
-        self.cursor.execute("SELECT * FROM results WHERE kidName =?", ('chenA',))
+        kid_name = 'chenA'
+        self.cursor.execute("SELECT * FROM results WHERE kidName =?", (kid_name,))
         fet = self.cursor.fetchall()
         self.assertEqual(len(fet), 1)
+
+        res = DB.get_game_number(kid_name)
+        self.assertEqual(res, 1)
+
+        next_game = DB.get_next_game_number(kid_name)
+        self.assertEqual(next_game, res + 1)
 
         self.cursor.execute("SELECT * FROM results WHERE kidName =?", ('chenABCD',))
         fet = self.cursor.fetchone()

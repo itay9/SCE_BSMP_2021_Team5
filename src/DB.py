@@ -590,6 +590,7 @@ def calc_game_success(kidName, gameNumber):
 
     '''
     correct_ans = 0
+    print('gameNumber: ',gameNumber)
     param = (kidName, gameNumber)
     cursor.execute("SELECT * FROM gameLog WHERE kidName=? AND gameNumber = ?", param)
     fet = cursor.fetchall()

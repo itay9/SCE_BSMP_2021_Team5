@@ -31,6 +31,7 @@ class GameTest(unittest.TestCase):
         cls.conn.commit()
 
         cls.cursor.execute("DELETE FROM results WHERE KidName= 'chenA'")
+
         cls.conn.commit()
         print("tearDown complete")
         cls.conn.close()
@@ -131,7 +132,6 @@ class GameTest(unittest.TestCase):
 
         self.cursor.execute("DELETE FROM results WHERE KidName= 'chenB'")
         self.cursor.execute("DELETE FROM gameLog WHERE KidName= 'chenB'")
-
         self.conn.commit()
 
     def test_get_kid_res(self):
@@ -140,7 +140,7 @@ class GameTest(unittest.TestCase):
         self.assertIsNotNone(fet)
 
         res = DB.get_kid_results('chenA')
-        self.assertIsNotNone(fet)
+        self.assertIsNotNone(res)
 
         res = DB.get_kid_results('chenABCD')
         self.assertIsNone(res)
@@ -148,14 +148,18 @@ class GameTest(unittest.TestCase):
         res = DB.get_kid_results('')
         self.assertIsNone(res)
 
-        date = datetime.now()
-        self.cursor.execute("INSERT into results VALUES ('chenB', ?, 1, 80)", (date,))
-        self.conn.commit()
+        kid_name = 'chenB'
 
-        res = DB.get_kid_results('chenA')
-        self.assertIsNotNone(fet)
+        DB.add_result_to_gameLog(kid_name, 1, 999, 1)
+
+        DB.add_result_to_Kidsdb(kid_name)
+
+        res = DB.get_kid_results(kid_name)
+        self.assertIsNotNone(res)
 
         self.cursor.execute("DELETE FROM results WHERE KidName= 'chenB'")
+        self.cursor.execute("DELETE FROM gameLog WHERE KidName= 'chenB'")
+
         self.conn.commit()
 
     def test_get_game_number(self):

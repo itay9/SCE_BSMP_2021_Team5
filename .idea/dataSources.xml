@@ -15,5 +15,12 @@
       <jdbc-url>jdbc:sqlite:C:\Users\ChenAzulai\PycharmProjects\SCE_BSMP_2021_Team5\src\game\GameDB.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="GameDB [2]" uuid="755900f2-de4f-4bd8-a670-54f1005d752d">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\ChenAzulai\PycharmProjects\SCE_BSMP_2021_Team5\src\GameDB.db</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

@@ -49,7 +49,7 @@ def init_QDB():
 def init_kidDB():
     cursor.execute("""CREATE TABLE results
                 (KidName text,
-                Date timestamp,
+                Date text,
                 GameNumber INTEGER,
                 GameSuccess Real)""")
     # gamalog = [(Qnumber,answer,correct)] TODO remove this attribute
@@ -240,17 +240,19 @@ def remove_user(user):
     print(user, "removed")
     return True
 
+
 def remove_question(qid):
-    qid_tuple =(qid,)
-    #print(type(qid_tuple))
-    cursor.execute("SELECT * FROM ques WHERE qid =?",qid_tuple)
+    qid_tuple = (qid,)
+    # print(type(qid_tuple))
+    cursor.execute("SELECT * FROM ques WHERE qid =?", qid_tuple)
     fet = cursor.fetchone()
     if fet is None:
         print("question no exist")
         return False
-    cursor.execute("DELETE FROM ques WHERE qid= ?",qid_tuple)
+    cursor.execute("DELETE FROM ques WHERE qid= ?", qid_tuple)
     conn.commit()
-    print("question #",qid, " removed from QuesDB")
+    print("question #", qid, " removed from QuesDB")
+
 
 def get_type(user):
     """
@@ -265,6 +267,7 @@ def get_type(user):
     fet = cursor.fetchone()
     return fet[2]
 
+
 def allowReg(parent):
     par_reg = getUser(parent)[4]
     if par_reg == 0:
@@ -272,6 +275,7 @@ def allowReg(parent):
     else:
         cursor.execute("UPDATE users SET canReg = 0 WHERE userName= ? ", (parent,))
     conn.commit()
+
 
 def canRegister(user):
     if get_type(user) == "parent":
@@ -282,10 +286,12 @@ def canRegister(user):
     else:
         return False
 
+
 def getUser(userName):
     cursor.execute("SELECT * FROM users WHERE userName = ?", (userName,))
     fet = cursor.fetchone()
     return fet
+
 
 def get_number_of_users():
     """
@@ -296,6 +302,7 @@ def get_number_of_users():
     cursor.execute("SELECT * FROM users")
     fet = cursor.fetchall()
     return len(fet)
+
 
 # get data funcs
 def get_data_all():
@@ -309,6 +316,7 @@ def get_data_all():
     fet = cursor.fetchall()
     return fet
 
+
 def get_data_all_users():
     '''
 
@@ -317,6 +325,7 @@ def get_data_all_users():
     cursor.execute("SELECT * FROM users WHERE type NOT IN ('admin')")
     fet = cursor.fetchall()
     return fet
+
 
 def get_data_kid_by_parent(parent):
     '''
@@ -332,15 +341,18 @@ def get_data_kid_by_parent(parent):
         fet = cursor.fetchall()
         return fet
 
+
 def get_data_parent():
     cursor.execute("SELECT * FROM users WHERE type='parent'")
     fet = cursor.fetchall()
     return fet
 
+
 def get_data_kid():
     cursor.execute("SELECT * FROM users WHERE type='kid'")
     fet = cursor.fetchall()
     return fet
+
 
 def allowPlay(kid):
     kid_allow = getUser(kid)[5]
@@ -350,6 +362,7 @@ def allowPlay(kid):
         cursor.execute("UPDATE users SET canPlay = 0 WHERE userName= ? ", (kid,))
     conn.commit()
 
+
 def build_db():
     try:
         init_userDB()
@@ -358,6 +371,7 @@ def build_db():
         init_game_log_DB()
     except:
         pass
+
 
 def add_result_to_gameLog(KidName, GameNumber, qid, playerAns):
     '''
@@ -376,15 +390,17 @@ def add_result_to_gameLog(KidName, GameNumber, qid, playerAns):
     conn.commit()
     print("result add to Gamelog DB")
 
+
 def add_result_to_Kidsdb(kidName):
     time = get_norm_time_now()
     game_number = get_next_game_number(kidName)
     suc_rate = calc_game_success(kidName, game_number)
-    data = (kidName, timeToStamp(time), game_number, suc_rate)
-    #print(data)
+    data = (kidName, time, game_number, suc_rate)
+    # print(data)
     cursor.execute("INSERT into results VALUES (?,?,?,?)", data)
     conn.commit()
     print("result added to kids result DB")
+
 
 def add_question_to_qdb(question, picUrl, ch1, ch2, ch3, ch4, ans):
     # check if question already exist (by 'question')
@@ -392,6 +408,7 @@ def add_question_to_qdb(question, picUrl, ch1, ch2, ch3, ch4, ans):
     cursor.execute("INSERT INTO ques VALUES (?,?,?,?,?,?,?,?)", data)
     conn.commit()
     print("question added")
+
 
 def get_question_from_id(questionID):
     # check if input is legal
@@ -403,6 +420,7 @@ def get_question_from_id(questionID):
         print("can't find question")
         return
 
+
 def get_all_questions():
     '''
 
@@ -413,30 +431,42 @@ def get_all_questions():
     fet = cursor.fetchall()
     return fet
 
+
 def get_all_result():
     cursor.execute("SELECT * from results")
     fet = cursor.fetchall()
     return fet
 
+
 def get_result_by_parent(parent):
-    cursor.execute("SELECT results.* FROM results,users WHERE users.parent =? AND users.userName = results.kidName",(parent,))
+    cursor.execute("SELECT results.* FROM results,users WHERE users.parent =? AND users.userName = results.kidName",
+                   (parent,))
     fet = cursor.fetchall()
     return fet
+
+
 def stampToTime(timestamp):
     return datetime.datetime.fromtimestamp(timestamp)
 
+
 def timeToStamp(time):
-    return int(datetime.datetime.timestamp(time))
+    return datetime.datetime.timestamp(time)
+
+def stampToStr(timestamp):
+    time = stampToTime(timestamp)
+    result = time.strftime("%d/%m/%y %H:%M")
+    return result
 
 def get_norm_time_now():
     '''
 
-    Returns: time and date of now after normalize
+    Returns: time and date of now after normalize in STR format
 
     '''
-    now_time = datetime.datetime.now()
+    now_time = datetime.datetime.now().strftime("%d/%m/%y %H:%M")
     #print(now_time)
-    return stampToTime(timeToStamp(now_time))
+    return now_time
+
 
 def get_kid_results(kidName):
     cursor.execute("SELECT * FROM results WHERE kidName =?", (kidName,))
@@ -447,6 +477,7 @@ def get_kid_results(kidName):
         print("no result")
         return
 
+
 def get_ans(qid):
     cursor.execute("SELECT answer FROM ques WHERE qid=?", (qid,))
     fet = cursor.fetchone()
@@ -455,16 +486,19 @@ def get_ans(qid):
     else:
         return
 
+
 def get_game_number(kidName):
     cursor.execute("SELECT MAX(GameNumber) FROM results WHERE kidName=?", (kidName,))
     fet = cursor.fetchone()[0]
     if fet is None:
         return 0
-    #print("number" ,fet)
+    # print("number" ,fet)
     return fet
+
 
 def get_next_game_number(kidName):
     return get_game_number(kidName) + 1
+
 
 def get_next_qestion_id():
     '''
@@ -480,6 +514,7 @@ def get_next_qestion_id():
     else:
         # init the first question
         return 1
+
 
 def get_question_for_game(number_of_question):
     '''
@@ -507,6 +542,7 @@ def get_question_for_game(number_of_question):
         qList.append(ques_list[i - 1])
     return qList
 
+
 def generate_rand_number_list(size):
     '''
 
@@ -523,6 +559,7 @@ def generate_rand_number_list(size):
             number = random.randint(1, size + 1)
         num_list.append(number)
     return num_list
+
 
 def check_answer(qid, ans):
     '''
@@ -541,6 +578,7 @@ def check_answer(qid, ans):
         true_ans = fet[7]  # return integer
         return true_ans == ans
 
+
 def calc_game_success(kidName, gameNumber):
     '''
 
@@ -552,15 +590,17 @@ def calc_game_success(kidName, gameNumber):
 
     '''
     correct_ans = 0
+    print('gameNumber: ',gameNumber)
     param = (kidName, gameNumber)
     cursor.execute("SELECT * FROM gameLog WHERE kidName=? AND gameNumber = ?", param)
     fet = cursor.fetchall()
     for data in fet:
         if check_answer(data[2], data[3]):  # (qid,ans_to_check)
-            #print(data)
+            # print(data)
             correct_ans += 1
     success_rate = correct_ans / len(fet)
     return success_rate
+
 
 def export_table_to_csv(table_name):
     '''
@@ -571,8 +611,30 @@ def export_table_to_csv(table_name):
     Returns: export table to csv
 
     '''
-    db_df = pd.read_sql_query("SELECT * FROM "+table_name, conn)
-    file_name = table_name+".csv"
+    db_df = pd.read_sql_query("SELECT * FROM " + table_name, conn)
+    file_name = table_name + ".csv"
     db_df.to_csv(file_name, index=False)
-    print("table",table_name,"has been exported")
+    print("table", table_name, "has been exported")
 
+def export_result_by_parent(parent):
+    '''
+
+    Args:
+        parent: str of parent
+
+    Returns: export parents kid result to csv
+
+    '''
+    cursor.execute("SELECT * from results")
+    names = list(map(lambda x: x[0], cursor.description))
+    cursor.execute("SELECT results.* from results,users WHERE results.KidName = users.userName AND users.parent =?",(parent,))
+    fet = cursor.fetchall()
+    df = pd.DataFrame(fet, columns=names)
+    print(df)
+    path = parent+"_results.csv"
+    df.to_csv(path)
+    print("result for kids of",parent,"exported to file")
+
+
+#export_result_by_parent("yaron")
+#print(get_norm_time_now())

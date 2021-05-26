@@ -23,6 +23,7 @@ class Ui_parentMenu(object):
         self.window.show()
 
     def setupUi(self, parentMenu):
+        #creating gui
         parentMenu.setObjectName("parentMenu")
         parentMenu.resize(795, 577)
         self.centralwidget = QtWidgets.QWidget(parentMenu)
@@ -30,7 +31,10 @@ class Ui_parentMenu(object):
         self.ViewChildData = QtWidgets.QPushButton(self.centralwidget)
         self.ViewChildData.setGeometry(QtCore.QRect(510, 250, 201, 71))
         font = QtGui.QFont()
+        font.setBold(False)
         font.setFamily("Arial Black")
+        font.setPointSize(12)
+        font.setPointSize(14)
         font.setPointSize(12)
         font.setBold(True)
         font.setWeight(75)
@@ -73,6 +77,8 @@ class Ui_parentMenu(object):
         font.setWeight(75)
         self.LogOut.setFont(font)
         self.LogOut.setObjectName("LogOut")
+        #check Helvetica
+        font.setFamily("Helvetica")
         self.ParentMenu = QtWidgets.QLabel(self.centralwidget)
         self.ParentMenu.setGeometry(QtCore.QRect(120, 10, 581, 141))
         font = QtGui.QFont()

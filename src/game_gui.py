@@ -20,6 +20,7 @@ class Ui_game_level(object):
     choice3 = "3"
     choice4 = "4"
     current_game = -77777
+    global game_level
 
     def setupUi(self, game_level):
         game_level.setObjectName("game_level")
@@ -89,9 +90,12 @@ class Ui_game_level(object):
         self.voice2_button.clicked.connect(self.click_hint2)
         self.voice3_button.clicked.connect(self.click_hint3)
         self.voice4_button.clicked.connect(self.click_hint4)
-
         self.retranslateUi(game_level)
         QtCore.QMetaObject.connectSlotsByName(game_level)
+        game_level.close()
+        # @staticmethod
+        # def close_this_game(game_level):
+        #     game_level.close()
 
     def retranslateUi(self, game_level):
         _translate = QtCore.QCoreApplication.translate
@@ -116,6 +120,7 @@ class Ui_game_level(object):
         Returns: update screen to new game
 
         '''
+
         if type(new_game) == list:
             new_game = new_game[0]
         self.qid = new_game[0]
@@ -190,8 +195,9 @@ class Ui_game_level(object):
         self.qid_label.setText(QtCore.QCoreApplication.translate("game_level", "Question #" + str(self.qid)))
 
     def set_last_game(self):
-        self.last_game=True
+        self.last_game = True
         print("last game")
+
     def click_ans1(self):
         self.recored_gameLog(self.qid, 1)
         if DB.check_answer(self.qid, 1):
@@ -245,10 +251,7 @@ class Ui_game_level(object):
     def check_if_finish(self):
         if self.last_game == True:
             print("end game")
-            game_level.close()  # TODO maybe bug
-
-    def close_game(self):
-        game_level.close()
+            # TODO maybe bug
 
     def play_hint(self, str_to_play):
         '''
@@ -285,5 +288,5 @@ if __name__ == "__main__":
         game_level.show()
         ui.wait_until_clicked()"""
     game_level.show()
-    #print("correct ans:", ui.correct_ans)
+    # print("correct ans:", ui.correct_ans)
     sys.exit(app.exec_())

@@ -9,7 +9,7 @@ NUM_OF_LEVELS = 2
 
 class Ui_game_level(object):
     pushed = False
-    end_game = False
+    last_game = False
     qid = -99999
     kidName = "test"
     correct_ans = 0
@@ -189,29 +189,36 @@ class Ui_game_level(object):
     def set_qid_label(self):
         self.qid_label.setText(QtCore.QCoreApplication.translate("game_level", "Question #" + str(self.qid)))
 
+    def set_last_game(self):
+        self.last_game=True
+        print("last game")
     def click_ans1(self):
         self.recored_gameLog(self.qid, 1)
         if DB.check_answer(self.qid, 1):
             self.inc_correct_ans()
         self.pushed = True
+        self.check_if_finish()
 
     def click_ans2(self):
         self.recored_gameLog(self.qid, 2)
         if DB.check_answer(self.qid, 2):
             self.inc_correct_ans()
         self.pushed = True
+        self.check_if_finish()
 
     def click_ans3(self):
         self.recored_gameLog(self.qid, 3)
         if DB.check_answer(self.qid, 3):
             self.inc_correct_ans()
         self.pushed = True
+        self.check_if_finish()
 
     def click_ans4(self):
         self.recored_gameLog(self.qid, 4)
         if DB.check_answer(self.qid, 4):
             self.inc_correct_ans()
         self.pushed = True
+        self.check_if_finish()
 
     def click_hint1(self):
         self.play_hint(self.choice1)
@@ -236,7 +243,7 @@ class Ui_game_level(object):
         self.current_level += 1
 
     def check_if_finish(self):
-        if self.end_game == True:
+        if self.last_game == True:
             print("end game")
             game_level.close()  # TODO maybe bug
 

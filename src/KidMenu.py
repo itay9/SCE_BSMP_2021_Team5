@@ -64,11 +64,15 @@ class Ui_kidMenu(object):
         self.ui = game_gui.Ui_game_level()
         self.ui.setupUi(self.window)
         self.window.show()
-        for data in game_data:
+        for index in range(len(game_data)):
+            data = game_data[index]
             self.ui.set_new_game(data)
+            if index == len(game_data)-1:
+                self.ui.set_last_game()
             self.window.show()
             self.ui.wait_until_clicked()
-        self.ui.end_game=True
+
+
         print("game finish")
         DB.add_result_to_Kidsdb(player)
 

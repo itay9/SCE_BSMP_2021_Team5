@@ -191,6 +191,28 @@ class GameTest(unittest.TestCase):
 
     # def test_calc_game_func(self):
 
+    def test_allowReg(self):
+        self.cursor.execute("SELECT * FROM users WHERE type='parent'")
+        fet = self.cursor.fetchone()[0]
+
+        parent = DB.getUser(fet)[0]
+
+        res = DB.canRegister(parent)
+
+        if not res:
+            DB.allowReg(parent)
+            res = not res
+            flag = 1
+
+        self.assertEqual(res, True)
+
+        DB.allowReg(parent)
+        res = DB.canRegister(parent)
+        self.assertEqual(res, False)
+
+        if flag:
+            DB.allowReg(parent)
+
 
 if __name__ == '__main__':
     unittest.main()

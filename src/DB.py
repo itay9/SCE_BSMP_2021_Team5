@@ -281,6 +281,8 @@ def canRegister(user):
     if get_type(user) == "parent":
         if getUser(user)[4] == 1:
             return True
+        else:
+            return False
     elif get_type(user) == "admin":
         return True
     else:

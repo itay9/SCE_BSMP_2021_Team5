@@ -29,14 +29,18 @@ class Ui_parentMenu(object):
         self.window.show()
 
     def setupUi(self, parentMenu):
+        #creating gui
         parentMenu.setObjectName("parentMenu")
         parentMenu.resize(795, 577)
         self.centralwidget = QtWidgets.QWidget(parentMenu)
-        self.centralwidget.setObjectName("centralwidget")
         self.ViewChildData = QtWidgets.QPushButton(self.centralwidget)
+        self.centralwidget.setObjectName("centralwidget")
         self.ViewChildData.setGeometry(QtCore.QRect(510, 250, 201, 71))
         font = QtGui.QFont()
+        font.setBold(False)
         font.setFamily("Arial Black")
+        font.setPointSize(12)
+        font.setPointSize(14)
         font.setPointSize(12)
         font.setBold(True)
         font.setWeight(75)
@@ -77,8 +81,12 @@ class Ui_parentMenu(object):
         font.setPointSize(12)
         font.setBold(True)
         font.setWeight(75)
+        font.setBold(False)
         self.LogOut.setFont(font)
         self.LogOut.setObjectName("LogOut")
+        #check Helvetica
+        font.setFamily("Helvetica")
+        font.setBold(True)
         self.ParentMenu = QtWidgets.QLabel(self.centralwidget)
         self.ParentMenu.setGeometry(QtCore.QRect(120, 10, 581, 141))
         font = QtGui.QFont()
@@ -96,8 +104,8 @@ class Ui_parentMenu(object):
         self.LogOut.clicked.connect(DB.logOut)
         self.DeleteChild.clicked.connect(self.openChildDelete)
         self.DeleteChild.clicked.connect(parentMenu.close)
-        self.DeleteParentUser.clicked.connect(self.deleteThisUser)
         self.ViewChildData.clicked.connect(self.openResults)
+        self.DeleteParentUser.clicked.connect(self.deleteThisUser)
         self.retranslateUi(parentMenu)
         QtCore.QMetaObject.connectSlotsByName(parentMenu)
 

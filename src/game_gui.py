@@ -10,6 +10,7 @@ NUM_OF_LEVELS = 2
 class Ui_game_level(object):
     pushed = False
     last_game = False
+    finish = False
     qid = -99999
     kidName = "test"
     correct_ans = 0
@@ -60,6 +61,9 @@ class Ui_game_level(object):
         self.voice3_button = QtWidgets.QPushButton(self.centralwidget)
         self.voice3_button.setGeometry(QtCore.QRect(540, 580, 121, 51))
         self.voice3_button.setObjectName("voice3_button")
+        self.exit_button = QtWidgets.QPushButton(self.centralwidget)
+        self.exit_button.setGeometry(QtCore.QRect(410, 30, 121, 51))
+        self.exit_button.setObjectName("exit")
         self.qid_label = QtWidgets.QLabel(self.centralwidget)
         self.qid_label.setGeometry(QtCore.QRect(0, 0, 151, 101))
         font = QtGui.QFont()
@@ -110,6 +114,7 @@ class Ui_game_level(object):
         self.voice3_button.setText(_translate("game_level", "השמע"))
         self.qid_label.setText(_translate("game_level", "00"))
         self.score_label.setText(_translate("game_level", "score"))
+        self.exit_button.setText(_translate("game_level", "EXIT"))
 
     def set_new_game(self, new_game):
         '''
@@ -141,6 +146,25 @@ class Ui_game_level(object):
         self.set_score_label()
         self.set_kid_name(DB.currentUser)
         self.set_current_game()
+        if self.last_game:
+            self.exit_button.setVisible(True)
+        else:
+            self.exit_button.setVisible(False)
+
+    def set_finished(self):
+        self.exit_button.setVisible(True)
+        self.ans1_button.setVisible(False)
+        self.ans2_button.setVisible(False)
+        self.ans3_button.setVisible(False)
+        self.ans4_button.setVisible(False)
+        self.voice1_button.setVisible(False)
+        self.voice2_button.setVisible(False)
+        self.voice3_button.setVisible(False)
+        self.voice4_button.setVisible(False)
+        self.set_score_label()
+        byeUrl = "pic/goodbye.jpg"
+        self.set_img(byeUrl)
+
 
     def set_img(self, url):
         '''

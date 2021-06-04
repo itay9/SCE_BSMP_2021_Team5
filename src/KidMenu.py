@@ -66,11 +66,11 @@ class Ui_kidMenu(object):
         self.window.show()
         for index in range(len(game_data)):
             data = game_data[index]
-            if index == len(game_data)-1:
-                self.ui.set_last_game()
             self.ui.set_new_game(data)
             self.window.show()
             self.ui.wait_until_clicked()
+        self.ui.set_finished()
+        self.window.show()
 
 
         print("game finish")

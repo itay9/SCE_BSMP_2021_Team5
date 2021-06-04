@@ -94,6 +94,8 @@ class Ui_game_level(object):
         self.voice2_button.clicked.connect(self.click_hint2)
         self.voice3_button.clicked.connect(self.click_hint3)
         self.voice4_button.clicked.connect(self.click_hint4)
+        self.exit_button.clicked.connect(game_level.close)
+
         self.retranslateUi(game_level)
         QtCore.QMetaObject.connectSlotsByName(game_level)
         game_level.close()
@@ -161,6 +163,7 @@ class Ui_game_level(object):
         self.voice2_button.setVisible(False)
         self.voice3_button.setVisible(False)
         self.voice4_button.setVisible(False)
+        self.score_label.setVisible(False)
         self.set_score_label()
         byeUrl = "pic/goodbye.jpg"
         self.set_img(byeUrl)

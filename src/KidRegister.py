@@ -65,14 +65,14 @@ class Ui_kidRegister(object):
 
         #button func
         self.registerButton.clicked.connect(self.regClick)
-        self.exit_Bttn.clicked.connect()#TODO exit
+        self.exit_Bttn.clicked.connect(kidRegister.close)
         self.retranslateUi(kidRegister)
         QtCore.QMetaObject.connectSlotsByName(kidRegister)
 
     def regClick(self):
         if DB.sassionFlag == True:
             user = self.userName_input.text()
-            if DB.canRegister(user):
+            if DB.canRegister(DB.currentUser):
                 pw = self.PW_input.text()
                 parent = DB.currentUser
                 DB.register_kid(user,pw,parent)

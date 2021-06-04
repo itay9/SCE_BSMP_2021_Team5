@@ -3,8 +3,15 @@ import MainMenu
 import deleteChild
 import DB
 import showKidsResult
+import KidRegister
 
 class Ui_parentMenu(object):
+    def open_register_kid(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = KidRegister.Ui_kidRegister()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
     def openResults(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = showKidsResult.Ui_KidsResultTable()
@@ -106,6 +113,7 @@ class Ui_parentMenu(object):
         self.DeleteChild.clicked.connect(parentMenu.close)
         self.ViewChildData.clicked.connect(self.openResults)
         self.DeleteParentUser.clicked.connect(self.deleteThisUser)
+        self.registerChild.clicked.connect(self.open_register_kid)
         self.retranslateUi(parentMenu)
         QtCore.QMetaObject.connectSlotsByName(parentMenu)
 

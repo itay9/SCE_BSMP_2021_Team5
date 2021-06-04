@@ -6,6 +6,8 @@ import AllowKidPlay
 import MainMenu
 import DB
 import DeleteUser
+import showKidsResultAll
+
 class Ui_ManagerMenu(object):
 
     def setupUi(self, ManagerMenu):
@@ -88,6 +90,7 @@ class Ui_ManagerMenu(object):
         self.allowKidPlayButton.clicked.connect(self.open_AllowKidPlay_UI)
         self.allowParentRegButton.clicked.connect(self.open_AllowParenReg_UI)
         self.viewQuestionsButton.clicked.connect(self.open_ShowQuestions_UI)
+        self.viewChildResultButton.clicked.connect(self.open_kids_results)
         #
 
         self.retranslateUi(ManagerMenu)
@@ -103,6 +106,12 @@ class Ui_ManagerMenu(object):
         self.title.setText(_translate("ManagerMenu", "Maneger Menu"))
         self.deleteUserButton.setText(_translate("ManagerMenu", "Delete a User"))
         self.allowParentRegButton.setText(_translate("ManagerMenu", "Allow Parent Reg"))
+
+    def open_kids_results(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = showKidsResultAll.Ui_KidsResultTable()
+        self.ui.setupUi(self.window)
+        self.window.show()
 
     def mainMenu_UI(self):
         self.window = QtWidgets.QMainWindow()

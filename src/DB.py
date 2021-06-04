@@ -632,7 +632,7 @@ def export_result_by_parent(parent):
     cursor.execute("SELECT results.* from results,users WHERE results.KidName = users.userName AND users.parent =?",(parent,))
     fet = cursor.fetchall()
     df = pd.DataFrame(fet, columns=names)
-    print(df)
+    #print(df)
     path = parent+"_results.csv"
     df.to_csv(path)
     print("result for kids of",parent,"exported to file")

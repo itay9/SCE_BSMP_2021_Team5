@@ -82,7 +82,7 @@ class Ui_game_level(object):
         self.qid_label.setText(_translate("game_level", "00"))
         self.score_label.setText(_translate("game_level", "score"))
         self.voice4_button_2.setText(_translate("game_level", "EXIT"))
-import test_rc
+#import test_rc
 
 
 if __name__ == "__main__":

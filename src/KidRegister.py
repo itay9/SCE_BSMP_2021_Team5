@@ -68,6 +68,7 @@ class Ui_kidRegister(object):
         self.exit_Bttn.clicked.connect(kidRegister.close)
         self.retranslateUi(kidRegister)
         QtCore.QMetaObject.connectSlotsByName(kidRegister)
+        self.registerButton.clicked.connect(kidRegister.close)
 
     def regClick(self):
         if DB.sassionFlag == True:

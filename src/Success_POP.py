@@ -11,7 +11,7 @@ class Ui_Parent_Registered(object):
         self.window.show()
 
     def setupUi(self, Parent_Registered):
-        Parent_Registered.setObjectName("Parent_Registered")
+        Parent_Registered.setObjectName("Contect_Us")
         Parent_Registered.resize(301, 123)
         self.Success_Meesage = QtWidgets.QLabel(Parent_Registered)
         self.Success_Meesage.setGeometry(QtCore.QRect(20, -10, 271, 91))
@@ -34,9 +34,9 @@ class Ui_Parent_Registered(object):
 
     def retranslateUi(self, Parent_Registered):
         _translate = QtCore.QCoreApplication.translate
-        Parent_Registered.setWindowTitle(_translate("Parent_Registered", "Dialog"))
-        self.Success_Meesage.setText(_translate("Parent_Registered", "Registered Successfully"))
-        self.Close_bttn.setText(_translate("Parent_Registered", "Close"))
+        Parent_Registered.setWindowTitle(_translate("Contect_Us", "Dialog"))
+        self.Success_Meesage.setText(_translate("Contect_Us", "Registered Successfully"))
+        self.Close_bttn.setText(_translate("Contect_Us", "Close"))
 
 
 if __name__ == "__main__":

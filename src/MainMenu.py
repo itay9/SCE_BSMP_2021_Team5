@@ -97,6 +97,15 @@ class Ui_mainMenu(object):
         self.pwInput.setGeometry(QtCore.QRect(170, 260, 251, 31))
         self.pwInput.setEchoMode(QtWidgets.QLineEdit.Password)
         self.pwInput.setObjectName("pwInput")
+        self.contect_us_bttn = QtWidgets.QPushButton(self.centralwidget)
+        self.contect_us_bttn.setGeometry(QtCore.QRect(530, 40, 141, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial Black")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.contect_us_bttn.setFont(font)
+        self.contect_us_bttn.setObjectName("contect_us_bttn")
         mainMenu.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(mainMenu)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 684, 26))
@@ -129,6 +138,7 @@ class Ui_mainMenu(object):
         self.title.setText(_translate("mainMenu", "Welcome!"))
         self.userLabel.setText(_translate("mainMenu", "User Name:"))
         self.passLabel.setText(_translate("mainMenu", "Password:"))
+        self.contect_us_bttn.setText(_translate("mainMenu", "Contect Us"))
 
 
 if __name__ == "__main__":

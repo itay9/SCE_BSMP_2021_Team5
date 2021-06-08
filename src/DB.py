@@ -44,6 +44,10 @@ def init_QDB():
     add_question_to_qdb("apple", "pic/apple.jpg", "dad", "apple", "table", "dog", 2)
     add_question_to_qdb("pineapple", "pic/pineapple.jpg", "watermelon", "hair", "cat", "pineapple", 4)
     add_question_to_qdb("tomato", "pic/tomato.jpg", "cat", "dog", "window", "tomato", 4)
+    add_question_to_qdb("dog",get_pic_url("dog"),"boy","car","dog","bird",3)
+    add_question_to_qdb("airplane",get_pic_url("airplane"),"bird","airplane","superman","water",2)
+    add_question_to_qdb("house",get_pic_url("house"),"house","banana","road","food",1)
+
 
 
 def init_kidDB():
@@ -115,6 +119,8 @@ def login(user, password):
             print("wrong password!")
             return "Wrong password"
 
+def get_pic_url(Qname):
+    return "pic/"+Qname+".jpg"
 
 def register_parent(user, password):
     """

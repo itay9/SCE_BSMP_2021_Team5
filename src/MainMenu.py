@@ -4,9 +4,14 @@ import ParentMenu
 import DB
 import KidMenu
 import ManagerMenu
-
+import contect_us
 
 class Ui_mainMenu(object):
+    def open_contect_us(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = contect_us.Ui_Contect_Us()
+        self.ui.setupUi(self.window)
+        self.window.show()
 
     def openParentRegister(self):
         self.window = QtWidgets.QMainWindow()
@@ -61,8 +66,6 @@ class Ui_mainMenu(object):
         font.setWeight(75)
         self.parentRegisterButton.setFont(font)
         self.parentRegisterButton.setObjectName("parentRegisterButton")
-        self.parentRegisterButton.clicked.connect(self.openParentRegister)
-        self.parentRegisterButton.clicked.connect(mainMenu.close)
         self.title = QtWidgets.QLabel(self.centralwidget)
         self.title.setGeometry(QtCore.QRect(90, 20, 481, 121))
         font = QtGui.QFont()
@@ -116,6 +119,10 @@ class Ui_mainMenu(object):
         mainMenu.setStatusBar(self.statusbar)
         # bttn func
         self.loginButton.clicked.connect(self.onClick)
+        self.contect_us_bttn.clicked.connect(self.open_contect_us)
+        self.parentRegisterButton.clicked.connect(self.openParentRegister)
+        self.parentRegisterButton.clicked.connect(mainMenu.close)
+
         self.retranslateUi(mainMenu)
         QtCore.QMetaObject.connectSlotsByName(mainMenu)
 

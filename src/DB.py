@@ -396,7 +396,7 @@ def add_result_to_gameLog(KidName, GameNumber, qid, playerAns):
     data = (KidName, GameNumber, qid, playerAns)
     cursor.execute("INSERT INTO gameLog VALUES (?,?,?,?)", data)
     conn.commit()
-    print("result add to Gamelog DB")
+    #print("result add to Gamelog DB")
 
 
 def add_result_to_Kidsdb(kidName):
@@ -407,7 +407,7 @@ def add_result_to_Kidsdb(kidName):
     # print(data)
     cursor.execute("INSERT into results VALUES (?,?,?,?)", data)
     conn.commit()
-    print("result added to kids result DB")
+    print("results of:",kidName,"in game number:",game_number,"added to kids result DB")
 
 
 def add_question_to_qdb(question, picUrl, ch1, ch2, ch3, ch4, ans):
@@ -643,6 +643,10 @@ def export_result_by_parent(parent):
     df.to_csv(path)
     print("result for kids of",parent,"exported to file")
 
-
+def get_number_of_ques():
+    cursor.execute("SELECT * FROM ques")
+    fet = cursor.fetchall()
+    return len(fet)
 #export_result_by_parent("yaron")
 #print(get_norm_time_now())
+

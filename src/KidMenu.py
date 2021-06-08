@@ -58,7 +58,8 @@ class Ui_kidMenu(object):
         self.window.show()
 
     def newGame(self):
-        game_data = DB.get_question_for_game(2) #TODO The problem starts from here.
+
+        game_data = DB.get_question_for_game(5) #TODO The problem starts from here.
         player = DB.currentUser
         self.window = QtWidgets.QMainWindow()
         self.ui = game_gui.Ui_game_level()
@@ -71,9 +72,7 @@ class Ui_kidMenu(object):
             self.ui.wait_until_clicked()
         self.ui.set_finished()
         self.window.show()
-
-
-        print("game finish")
+        #print("game finish")
         DB.add_result_to_Kidsdb(player)
 
 

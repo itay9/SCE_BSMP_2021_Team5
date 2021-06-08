@@ -164,6 +164,7 @@ class Ui_game_level(object):
         self.voice3_button.setVisible(False)
         self.voice4_button.setVisible(False)
         self.score_label.setVisible(False)
+        self.qid_label.setVisible(False)
         self.set_score_label()
         byeUrl = "pic/goodbye.jpg"
         self.set_img(byeUrl)
